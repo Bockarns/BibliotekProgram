@@ -18,7 +18,8 @@ while (running)
                 Console.WriteLine("Välkommen, välj något av följande val:");
                 Console.WriteLine("1. Skapa nytt konto");
                 Console.WriteLine("2. Logga in");
-                Console.WriteLine("0. Återgå till huvudmenyn");
+                Console.WriteLine("3. Återgå till huvudmenyn");
+                Console.WriteLine("0. Avsluta");
                 int userMainMenuChoice = int.Parse(Console.ReadLine());
                 switch (userMainMenuChoice)
                 {
@@ -35,8 +36,16 @@ while (running)
                         Console.WriteLine("Fyll i ditt lösenord:");
                         string userPassword = Console.ReadLine();
                         break;
-                    case 0:
+                    case 3:
                         insidemenurunning = false;
+                        break;
+                    case 0:
+                        Console.WriteLine("Välkommen åter");
+                        insidemenurunning = false;
+                        running = false;
+                        break;
+                    default:
+                        Console.WriteLine("Felaktigt val, Försök igen.");
                         break;
                 }
             }
@@ -48,7 +57,8 @@ while (running)
                 Console.WriteLine("Välkommen, välj något av följande val:");
                 Console.WriteLine("1. Skapa nytt konto");
                 Console.WriteLine("2. Logga in");
-                Console.WriteLine("0. Återgå till huvudmenyn");
+                Console.WriteLine("3. Återgå till huvudmenyn");
+                Console.WriteLine("0. Avsluta");
                 int adminMainMenuChoice = int.Parse(Console.ReadLine());
                 switch (adminMainMenuChoice)
                 {
@@ -65,8 +75,16 @@ while (running)
                         Console.WriteLine("Fyll i ditt lösenord:");
                         string userPassword = Console.ReadLine();
                         break;
-                    case 0:
+                    case 3:
                         insidemenurunning = false;
+                        break;
+                    case 0:
+                        Console.WriteLine("Välkommen åter");
+                        insidemenurunning = false;
+                        running = false;
+                        break;
+                    default:
+                        Console.WriteLine("Felaktigt val, Försök igen.");
                         break;
                 }
             }
