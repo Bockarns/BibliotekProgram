@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "IndividuelltProjekt/1.0.0": {
+        "runtime": {
+          "IndividuelltProjekt.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "IndividuelltProjekt/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
