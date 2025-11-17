@@ -1,13 +1,11 @@
 ﻿
+using IndividuelltProjekt;
+
 bool running = true;
 
 while (running)
 {
-    Console.WriteLine("Välkommen till biblioteket!");
-    Console.WriteLine("Välj ett av följande alternativ:");
-    Console.WriteLine("1. Användare");
-    Console.WriteLine("2. Administratör");
-    Console.WriteLine("0. Avsluta");
+    Menus.MainMenu();
     int mainMenuChoice = int.Parse(Console.ReadLine());
     bool insidemenurunning = true;
     switch (mainMenuChoice)
@@ -15,11 +13,7 @@ while (running)
         case 1:
             while (insidemenurunning)
             {
-                Console.WriteLine("Välkommen, välj något av följande val:");
-                Console.WriteLine("1. Skapa nytt konto");
-                Console.WriteLine("2. Logga in");
-                Console.WriteLine("3. Återgå till huvudmenyn");
-                Console.WriteLine("0. Avsluta");
+                Menus.UserMainMenu();
                 int userMainMenuChoice = int.Parse(Console.ReadLine());
                 switch (userMainMenuChoice)
                 {
@@ -54,11 +48,7 @@ while (running)
         case 2:
             while (insidemenurunning)
             {
-                Console.WriteLine("Välkommen, välj något av följande val:");
-                Console.WriteLine("1. Skapa nytt konto");
-                Console.WriteLine("2. Logga in");
-                Console.WriteLine("3. Återgå till huvudmenyn");
-                Console.WriteLine("0. Avsluta");
+                Menus.AdminMainsMenu();
                 int adminMainMenuChoice = int.Parse(Console.ReadLine());
                 switch (adminMainMenuChoice)
                 {
