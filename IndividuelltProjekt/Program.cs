@@ -13,7 +13,7 @@ while (running)
         case 1:
             while (insidemenurunning)
             {
-                Menus.UserMainMenu();
+                Menus.SubMainMenu();
                 int userMainMenuChoice = int.Parse(Console.ReadLine());
                 switch (userMainMenuChoice)
                 {
@@ -48,7 +48,7 @@ while (running)
         case 2:
             while (insidemenurunning)
             {
-                Menus.AdminMainsMenu();
+                Menus.SubMainMenu();
                 int adminMainMenuChoice = int.Parse(Console.ReadLine());
                 switch (adminMainMenuChoice)
                 {

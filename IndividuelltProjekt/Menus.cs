@@ -17,7 +17,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("0. Avsluta");
         }
 
-        public static void UserMainMenu()
+        public static void SubMainMenu()
         {
             Console.WriteLine("Välkommen, välj något av följande val:");
             Console.WriteLine("1. Skapa nytt konto");
@@ -26,13 +26,26 @@ namespace IndividuelltProjekt
             Console.WriteLine("0. Avsluta");
         }
 
-        public static void AdminMainsMenu()
+        public static void AdminMeny()
         {
-            Console.WriteLine("Välkommen, välj något av följande val:");
-            Console.WriteLine("1. Skapa nytt konto");
-            Console.WriteLine("2. Logga in");
-            Console.WriteLine("3. Återgå till huvudmenyn");
-            Console.WriteLine("0. Avsluta");
+            Console.WriteLine("Välkommen (Admin namn från inloggning)");
+            Console.WriteLine("1.Lägg till ny bok");
+            Console.WriteLine("2.Redigera befintlig bok");
+            Console.WriteLine("3.Ta bort bok");
+            Console.WriteLine("4.Lista alla böcker");
+            Console.WriteLine("9.Logga ut och återgå till huvudmenyn");
+            Console.WriteLine("0.Avsluta");
+        }
+
+        public static void UserMenu()
+        {
+            Console.WriteLine("Välkommen (Användar namn från inloggning)");
+            Console.WriteLine("1.Sök bok");
+            Console.WriteLine("2.Låna bok");
+            Console.WriteLine("3.Lämna tillbaka bok");
+            Console.WriteLine("4.Lista alla dina lånade böcker");
+            Console.WriteLine("9.Logga ut och återgå till huvudmenyn");
+            Console.WriteLine("0.Avsluta");
         }
     }
 }
