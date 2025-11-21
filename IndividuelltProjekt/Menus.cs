@@ -26,7 +26,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("0. Avsluta");
         }
 
-        public static void AdminMeny()
+        public static void AdminMenu()
         {
             Console.WriteLine("Välkommen (Admin namn från inloggning)");
             Console.WriteLine("1.Lägg till ny bok");

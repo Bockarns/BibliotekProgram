@@ -126,32 +126,95 @@ while (running)
                 switch (adminMainMenuChoice)
                 {
                     case 1:
-                        Console.WriteLine("Fyll i önskat användarnamn:");
-                        string newAdminUserName = Console.ReadLine();
-                        Console.WriteLine("Fyll i önskat lösenord");
-                        string newAdminPassword = Console.ReadLine();
-                        Console.WriteLine("Nytt konto skapat");
+                        if (userCount >= adminUserName.Length)
+                        {
+                            Console.WriteLine("Max antal konton uppnått! Kan inte skapa fler.");
+                            Console.ReadKey();
+                            break;
+                        }
+                        while (createAccount)
+                        {
+                            Console.WriteLine("Fyll i önskat användarnamn:");
+                            string newAdminUserName = Console.ReadLine().ToUpper();
+
+                            userNameExists = false;
+                            for (int i = 0; i < userCount; i++)
+                            {
+                                if (userName[i] == newAdminUserName)
+                                {
+                                    userNameExists = true;
+                                    break;
+                                }
+                            }
+
+                            if (userNameExists)
+                            {
+                                Console.WriteLine("Användarnamnet är redan taget. Försök med ett annat.");
+                                Console.ReadKey();
+                                continue;
+                            }
+
+                            Console.WriteLine("Fyll i önskat lösenord");
+                            string newAdminPassword = Console.ReadLine();
+                            adminUserName[userCount] = newAdminUserName;
+                            adminPassword[userCount] = newAdminPassword;
+                            userCount++;
+
+                            Console.WriteLine($"Nytt konto skapat för användare: {newAdminUserName}.");
+                            Console.ReadKey();
+                            createAccount = false;
+                            Console.Clear();
+                        }
                         break;
+
                     case 2:
                         Console.WriteLine("Fyll i ditt användarnamn:");
-                        string existingAdminUserName = Console.ReadLine();
+                        string existingAdminUserName = Console.ReadLine().ToUpper();
                         Console.WriteLine("Fyll i ditt lösenord:");
                         string existingAdminPassword = Console.ReadLine();
+
+                        userNamefound = false;
+                        for (int i = 0; i < userCount; i++)
+                        {
+                            if (adminUserName[i] == existingAdminUserName && adminPassword[i] == existingAdminPassword)
+                            {
+                                Console.WriteLine($"Inloggning lyckades för användare: {adminUserName[i]}");
+                                userNamefound = true;
+                                break;
+                            }
+                        }
+                        if (!userNamefound)
+                        {
+                            Console.WriteLine("Felaktigt användarnamn eller lösenord. Försök igen.");
+                        }
+                        Console.Clear();
+                        Menus.AdminMenu();
+                        adminMainMenuChoice = int.Parse(Console.ReadLine());
+                        switch (adminMainMenuChoice)
+                        {
+                            case 1:
+                                Console.WriteLine("Hej Hej");
+                                Console.ReadKey();
+                                break;
+                        }
                         break;
+
                     case 3:
                         insidemenurunning = false;
                         break;
+
                     case 0:
                         Console.WriteLine("Välkommen åter");
                         insidemenurunning = false;
                         running = false;
                         break;
+
                     default:
                         Console.WriteLine("Felaktigt val, Försök igen.");
                         break;
                 }
             }
-        break;
+            break;
 
         case 0:
             Console.WriteLine("Välkommen åter");
