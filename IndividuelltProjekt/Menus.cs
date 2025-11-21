@@ -26,9 +26,9 @@ namespace IndividuelltProjekt
             Console.WriteLine("0. Avsluta");
         }
 
-        public static void AdminMenu()
+        public static void AdminMenu(string adminUserName)
         {
-            Console.WriteLine("Välkommen (Admin namn från inloggning)");
+            Console.WriteLine($"\nVälkommen {adminUserName}\n");
             Console.WriteLine("1.Lägg till ny bok");
             Console.WriteLine("2.Redigera befintlig bok");
             Console.WriteLine("3.Ta bort bok");
@@ -37,9 +37,9 @@ namespace IndividuelltProjekt
             Console.WriteLine("0.Avsluta");
         }
 
-        public static void UserMenu()
+        public static void UserMenu(string userName)
         {
-            Console.WriteLine("Välkommen (Användar namn från inloggning)");
+            Console.WriteLine($"\nVälkommen {userName}\n");
             Console.WriteLine("1.Sök bok");
             Console.WriteLine("2.Låna bok");
             Console.WriteLine("3.Lämna tillbaka bok");

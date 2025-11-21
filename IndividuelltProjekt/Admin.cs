@@ -8,5 +8,9 @@ namespace IndividuelltProjekt
 {
     internal class Admin
     {
+        public Admin()
+        {
+            
+        }
     }
 }

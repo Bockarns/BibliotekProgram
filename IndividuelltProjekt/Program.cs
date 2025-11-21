@@ -1,33 +1,35 @@
 ﻿
 using IndividuelltProjekt;
 
+//Programs main bool for running continuesly until user quits
 bool running = true;
+
+//start of program
+while (running)
+{
 bool insidemenurunning = true;
 bool createAccount = true;
-bool userNameExists = true;
-bool userNamefound = true;
+bool userNameExists = false;
+bool userNamefound = false;
 string[] adminUserName = new string[10];
 string[] adminPassword = new string[10];
-string[] userName = new string[10];
-string[] userPassword = new string[10];
+string[] userName = new string[1];
+string[] userPassword = new string[1];
 int userCount = 0;
 int adminUserCount = 0;
 
-
-while (running)
-{
     Menus.MainMenu();
-    int mainMenuChoice = int.Parse(Console.ReadLine());
+    var mainMenuChoice = Console.ReadLine();
     switch (mainMenuChoice)
     {
-        case 1:
+        case "1":
             while (insidemenurunning)
             {
                 Menus.SubMainMenu();
-                int userMainMenuChoice = int.Parse(Console.ReadLine());
+                var userMainMenuChoice = Console.ReadLine();
                 switch (userMainMenuChoice)
                 {
-                    case 1:
+                    case "1":
                         if (userCount >= userName.Length)
                         {
                             Console.WriteLine("Max antal konton uppnått! Kan inte skapa fler.");
@@ -69,7 +71,7 @@ while (running)
                         }
                         break;
                        
-                    case 2:
+                    case "2":
                         Console.WriteLine("Fyll i ditt användarnamn:");
                         string existingUserName = Console.ReadLine().ToUpper();
                         Console.WriteLine("Fyll i ditt lösenord:");
@@ -88,24 +90,25 @@ while (running)
                         if (!userNamefound)
                         {
                             Console.WriteLine("Felaktigt användarnamn eller lösenord. Försök igen.");
+                            continue;
                         }
                         Console.Clear();
-                        Menus.UserMenu();
-                        userMainMenuChoice = int.Parse(Console.ReadLine());
+                        Menus.UserMenu(existingUserName);
+                        userMainMenuChoice = Console.ReadLine();
                         switch (userMainMenuChoice)
                         {
-                            case 1:
+                            case "1":
                                 Console.WriteLine("Hej Hej");
                                 Console.ReadKey();
                             break;
                         }
                         break;
 
-                    case 3:
+                    case "3":
                         insidemenurunning = false;
                         break;
 
-                    case 0:
+                    case "4":
                         Console.WriteLine("Välkommen åter");
                         insidemenurunning = false;
                         running = false;
@@ -118,14 +121,14 @@ while (running)
             }
             break;
 
-        case 2:
+        case "2":
             while (insidemenurunning)
             {
                 Menus.SubMainMenu();
-                int adminMainMenuChoice = int.Parse(Console.ReadLine());
+                var adminMainMenuChoice = Console.ReadLine();
                 switch (adminMainMenuChoice)
                 {
-                    case 1:
+                    case "1":
                         if (userCount >= adminUserName.Length)
                         {
                             Console.WriteLine("Max antal konton uppnått! Kan inte skapa fler.");
@@ -167,7 +170,7 @@ while (running)
                         }
                         break;
 
-                    case 2:
+                    case "2":
                         Console.WriteLine("Fyll i ditt användarnamn:");
                         string existingAdminUserName = Console.ReadLine().ToUpper();
                         Console.WriteLine("Fyll i ditt lösenord:");
@@ -188,22 +191,22 @@ while (running)
                             Console.WriteLine("Felaktigt användarnamn eller lösenord. Försök igen.");
                         }
                         Console.Clear();
-                        Menus.AdminMenu();
-                        adminMainMenuChoice = int.Parse(Console.ReadLine());
+                        Menus.AdminMenu(existingAdminUserName);
+                        adminMainMenuChoice = Console.ReadLine();
                         switch (adminMainMenuChoice)
                         {
-                            case 1:
+                            case "1":
                                 Console.WriteLine("Hej Hej");
                                 Console.ReadKey();
                                 break;
                         }
                         break;
 
-                    case 3:
+                    case "3":
                         insidemenurunning = false;
                         break;
 
-                    case 0:
+                    case "0":
                         Console.WriteLine("Välkommen åter");
                         insidemenurunning = false;
                         running = false;
@@ -216,7 +219,7 @@ while (running)
             }
             break;
 
-        case 0:
+        case "0":
             Console.WriteLine("Välkommen åter");
             running = false;
             break;
