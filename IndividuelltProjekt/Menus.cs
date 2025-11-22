@@ -34,11 +34,11 @@ namespace IndividuelltProjekt
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\t*********************************************************************************");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
-            Console.Write($"\t*\t\t\t***");
+            Console.Write($"\t*\t\t***");
             Console.ResetColor();
             Console.Write(" Välkommen, välj något av följande val: ");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("***\t\t*\n");
+            Console.Write("***\t\t\t*\n");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
             Console.WriteLine("\t*********************************************************************************\n");
             Console.ResetColor();
