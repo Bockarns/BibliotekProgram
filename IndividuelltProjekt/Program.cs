@@ -9,10 +9,12 @@ string[] adminPassword = new string[10];
 string[] userName = new string[10];
 string[] userPassword = new string[10];
 int userCount = 1;
-int adminUserCount = 0;
+int adminUserCount = 1;
 
 userName[0] = "1";
 userPassword[0] = "1";
+adminUserName[0] = "2";
+adminPassword[0] = "2";
 
 //start of program
 while (running)
@@ -148,19 +150,19 @@ bool userNamefound = false;
                                                 Console.ReadKey();
                                                 break;
                                             case "9":
-                                                Console.WriteLine("\tÅter till föregående sida!");
+                                                Console.WriteLine("\t\tÅter till föregående sida!");
                                                 Console.ReadKey();
                                                 insidemenu2running = false;
                                                 break;
                                             case "0":
-                                                Console.WriteLine("\tVälkommen åter!");
+                                                Console.WriteLine("\t\tVälkommen åter!");
                                                 insidemenu2running = false;
                                                 insidemenurunning = false;
                                                 running = false;
                                                 Console.ReadKey();
                                                 break;
                                             default:
-                                                Console.WriteLine("\tFelaktigt val, Försök igen");
+                                                Console.WriteLine("\t\tFelaktigt val, Försök igen");
                                                 break;
 
                                         }
