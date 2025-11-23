@@ -49,7 +49,7 @@ namespace IndividuelltProjekt
             Console.Write("\t\tSkriv in ditt val här: ");
         }
         //Adminmenu printout
-        public static void AdminMenu(string adminUserName)
+        public static void AdminMainMenu(string adminUserName)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\t*********************************************************************************");
@@ -83,7 +83,7 @@ namespace IndividuelltProjekt
             Console.Write("\t\tSkriv in ditt val här: ");
         }
         //Usermenu printout
-        public static void UserMenu(string userName)
+        public static void UserMainMenu(string userName)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\t*********************************************************************************");
@@ -138,6 +138,31 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t4.Lista alla dina lånade böcker");
             Console.WriteLine("\t\t9.Logga ut och återgå till huvudmenyn");
             Console.WriteLine("\t\t0.Avsluta");
+            Console.Write("\t\tSkriv in ditt val här: ");
+        }
+        public static void UserSearchMenu()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\t*********************************************************************************");
+            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
+            Console.Write($"\t*\t***");
+            Console.ResetColor();
+            Console.Write(" För att söka efter en särskild bok eller författare");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(" ***\t\t*\n");
+            Console.Write("\t*\t");
+            Console.ResetColor();
+            Console.Write("\t\tvälj nedan vad du vill söka efter:");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\t\t\t*\n");
+            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
+            Console.WriteLine("\t*********************************************************************************\n");
+            Console.ResetColor();
+            Console.WriteLine("\t\t1. Sök via ISBN nummer:");
+            Console.WriteLine("\t\t2. Sök via titel på bok:");
+            Console.WriteLine("\t\t3. Sök via författare:");
+            Console.WriteLine("\t\t9. återgå till föregående sida");
+            Console.WriteLine("\t\t0. Logga ut och avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
         }
     }

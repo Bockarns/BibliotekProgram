@@ -8,16 +8,18 @@ string[] adminUserName = new string[10];
 string[] adminPassword = new string[10];
 string[] userName = new string[10];
 string[] userPassword = new string[10];
-int userCount = 0;
+int userCount = 1;
 int adminUserCount = 0;
 
-
+userName[0] = "1";
+userPassword[0] = "1";
 
 //start of program
 while (running)
 {
 //Bools for nested menus, and to check for existing usernames
 bool insidemenurunning = true;
+bool insidemenu2running = true;
 bool userNameExists = false;
 bool userNamefound = false;
 
@@ -113,14 +115,57 @@ bool userNamefound = false;
                         while(insidemenurunning)
                         {
                             Console.Clear();
-                            Menus.UserMenu(existingUserName);
+                            Menus.UserMainMenu(existingUserName);
                             userMainMenuChoice = Console.ReadLine();
                             switch (userMainMenuChoice)
                                 {
                                     case "1":
+                                    insidemenu2running = true;
+                                    while (insidemenu2running)
+                                    {
                                         Console.Clear();
-                                        Console.WriteLine("Hej Hej");
-                                        Console.ReadKey();
+                                        Menus.UserSearchMenu();
+                                        var userSearchMenuChoice = Console.ReadLine();
+                                        switch(userSearchMenuChoice)
+                                        {
+                                            case "1":
+                                                Console.WriteLine("\tSök på ISBN nummer:" );
+                                                Console.Write("\t13 siffror: ");
+                                                var inputISBN = int.Parse( Console.ReadLine() );
+                                                Console.ReadKey();
+                                                break;
+
+                                            case "2": 
+                                                Console.WriteLine("\tSök på titel på boken:");
+                                                Console.Write("\tTitel: ");
+                                                var inputTitle = Console.ReadLine().ToUpper();
+                                                Console.ReadKey();
+                                                break;
+                                            case "3":
+                                                Console.WriteLine("\tSök på författarens för- och efternamn:");
+                                                Console.Write("\tFörfattare: ");
+                                                var inputAuther = Console.ReadLine().ToUpper();
+                                                Console.ReadKey();
+                                                break;
+                                            case "9":
+                                                Console.WriteLine("\tÅter till föregående sida!");
+                                                Console.ReadKey();
+                                                insidemenu2running = false;
+                                                break;
+                                            case "0":
+                                                Console.WriteLine("\tVälkommen åter!");
+                                                insidemenu2running = false;
+                                                insidemenurunning = false;
+                                                running = false;
+                                                Console.ReadKey();
+                                                break;
+                                            default:
+                                                Console.WriteLine("\tFelaktigt val, Försök igen");
+                                                break;
+
+                                        }
+                                        
+                                    }
                                         break;
                                     case "9":
                                         Console.WriteLine("Utloggad");
@@ -235,7 +280,7 @@ bool userNamefound = false;
                             continue;
                         }
                         Console.Clear();
-                        Menus.AdminMenu(existingAdminUserName);
+                        Menus.AdminMainMenu(existingAdminUserName);
                         adminMainMenuChoice = Console.ReadLine();
                         switch (adminMainMenuChoice)
                         {
