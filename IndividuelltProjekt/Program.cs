@@ -167,6 +167,16 @@ bool userNamefound = false;
                                         
                                     }
                                         break;
+                                    case "2":
+                                    Console.WriteLine("\t Låna en bok");
+                                    break;
+                                    case "3":
+                                    Console.WriteLine("\tLämna tillbaka en bok");
+                                    break;
+                                    case "4":
+                                    Console.WriteLine("\tLista alla dina lånade böcker");
+                                    break;
+
                                     case "9":
                                         Console.WriteLine("Utloggad");
                                         createAccount = false;
