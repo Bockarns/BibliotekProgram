@@ -1,6 +1,8 @@
 ﻿
 using IndividuelltProjekt;
 
+Console.Title = "JGB Bibliotek";
+
 //Programs main bool for running continuesly until user quits
 bool running = true;
 //using arrays for usernames and password temperary, so i can continue with the menus
