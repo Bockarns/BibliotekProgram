@@ -11,6 +11,7 @@ namespace IndividuelltProjekt.Models
         public int ISBN { get; set; }
         public string Auther { get; set; }
         public string Title { get; set; }
+        public bool Avaliable { get; set; }
         public Book()
         {
             if (Auther != null)
