@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace IndividuelltProjekt.Models
 {
-    internal class User
+    public class User
     {
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
         public User()
         {
-            
+            if (Username != null)
+                Username = "";
+            if (Password != null)
+                Password = "";
         }
     }
+    
 }

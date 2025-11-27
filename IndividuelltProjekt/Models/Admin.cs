@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 
 namespace IndividuelltProjekt.Models
 {
-    internal class Admin
+    public class Admin
     {
+        public int Id { get; set; }
+        public string Adminusername { get; set; }
+        public string Adminpassword { get; set; }
         public Admin()
         {
-            
+            if (Adminusername != null)
+                Adminusername = "";
+            if (Adminpassword != null)
+                Adminpassword = "";
         }
     }
 }

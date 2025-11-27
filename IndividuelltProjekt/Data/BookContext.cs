@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace IndividuelltProjekt.Data
 {
-    public class UserContext : DbContext
+    public class BookContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<Book> Books { get; set; }
 
-        public UserContext()
+        public BookContext()
         {
         }
 
-        public UserContext(DbContextOptions<UserContext> options) : base(options)
+        public BookContext(DbContextOptions<AdminContext> options) : base(options)
         {
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -34,7 +34,7 @@ namespace IndividuelltProjekt.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Ensure EF maps the entity to the existing table named "User"
-            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<Book>().ToTable("Book");
         }
     }
 }
