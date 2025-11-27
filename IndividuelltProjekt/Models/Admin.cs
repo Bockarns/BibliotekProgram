@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IndividuelltProjekt
+namespace IndividuelltProjekt.Models
 {
-    internal class User
+    internal class Admin
     {
-        public User()
+        public Admin()
         {
             
         }
