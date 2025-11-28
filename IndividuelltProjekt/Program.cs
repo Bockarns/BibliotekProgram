@@ -249,7 +249,7 @@ bool insidemenu2running = true;
                             switch (adminMainMenuChoice)
                             {
                                 case "1":
-                                    Console.WriteLine("Skriv in ISBN (13 siffror): ");
+                                    Console.WriteLine("\nSkriv in ISBN (13 siffror): ");
                                     long newIsbn = long.Parse(Console.ReadLine()!);
                                     if (newIsbn.ToString().Length != 13)
                                     {
@@ -263,7 +263,7 @@ bool insidemenu2running = true;
                                         Console.WriteLine("Skriv in titel på boken: ");
                                         var newTitle = Console.ReadLine();
                                         bool isAvaliable = true;
-                                        Book.AddBook(newIsbn, newAuther, newTitle, isAvaliable);
+                                        Book.AddBook(newIsbn, newAuther!, newTitle!, isAvaliable);
                                         Console.WriteLine("Ny bok tillagd i biblioteket");
                                         var book = Book.GetBookByISBN(newIsbn);
                                         if (book != null)
