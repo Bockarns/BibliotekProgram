@@ -8,17 +8,6 @@ Console.Title = "JGB Bibliotek";
 //Programs main bool for running continuesly until user quits
 bool running = true;
 //using arrays for usernames and password temperary, so i can continue with the menus
-string[] adminUserName = new string[10];
-string[] adminPassword = new string[10];
-string[] userName = new string[10];
-string[] userPassword = new string[10];
-int userCount = 1;
-int adminUserCount = 1;
-
-userName[0] = "1";
-userPassword[0] = "1";
-adminUserName[0] = "2";
-adminPassword[0] = "2";
 
 //start of program
 while (running)
@@ -26,8 +15,6 @@ while (running)
 //Bools for nested menus, and to check for existing usernames
 bool insidemenurunning = true;
 bool insidemenu2running = true;
-bool userNameExists = false;
-bool userNamefound = false;
 
 //Call for main menu printout
     Menus.MainMenu();
@@ -40,60 +27,39 @@ bool userNamefound = false;
             while (insidemenurunning)
             {
                 Console.Clear();
-                bool createAccount = true;
                 Menus.SubMainMenu();
                 var userMainMenuChoice = Console.ReadLine();
                 switch (userMainMenuChoice)
                 {
                     case "1":
-                        Console.Clear();
-                        //Check array is not full (Will not stay after sql implementation)
-                        if (userCount >= userName.Length)
+                        try
                         {
-                            Console.WriteLine("Max antal konton uppnått! Kan inte skapa fler.");
-                            Console.ReadKey();
-                            break;
-                        }
-                        //Create account with loop
-                        while (createAccount)
-                        {
+                            Console.Clear();
+                            //Create account with loop
                             Console.WriteLine("\nSkapa konto för ny användare.\n");
                             Console.WriteLine("Fyll i önskat användarnamn:");
-                            var newUserName = Console.ReadLine();
-                            newUserName.ToUpper();
-
-                            if (newUserName !=null)
-                            {
-                                 //Check if username is avalible
-                                userNameExists = false;
-                                for (int i = 0; i < userCount; i++)
-                                {
-                                    if (userName[i] == newUserName)
-                                    {
-                                        userNameExists = true;
-                                        break;
-                                    }
-                                }   
-                            }
-                            
-                            //If username is occupied this will force the user to pick a new username
-                            if (userNameExists)
-                            {
-                                Console.WriteLine("Användarnamnet är redan taget. Försök med ett annat.");
-                                Console.ReadKey();
-                                continue;
-                            }
-                            //Continue after check
+                            var newUsername = Console.ReadLine();
                             Console.WriteLine("Fyll i önskat lösenord");
-                            var newUserPassword = Console.ReadLine();
-                            //Put the username and password into the arrays
-                            userName[userCount] = newUserName;
-                            userPassword[userCount] = newUserPassword;
-                            userCount++;
-                            Console.WriteLine($"Nytt konto skapat för användare: {newUserName}.");
-                            Console.ReadKey();
-                            createAccount = false;
-                            Console.Clear();
+                            var newPassword = Console.ReadLine();
+                            bool checker = User.CheckUser(newUsername!);
+                            if (checker == false)
+                            {
+                                User.AddUser(newUsername!, newPassword!);
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine($"Konto skapat för användare: {newUsername}");
+                                Console.ResetColor();
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                Console.WriteLine("Tryck på valfri tangent för att återgå till menyn...");
+                                Console.ResetColor();
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                            else
+                                Console.WriteLine($"Användarnamnet {newUsername} används redan");
+                        }
+                        catch (Exception MyExcep)
+                        {
+                            Console.WriteLine(MyExcep.ToString());
                         }
                         break;
                     case "2":
@@ -101,33 +67,25 @@ bool userNamefound = false;
                         Console.Clear();
                         Console.WriteLine("\nLogga in användare\n");
                         Console.WriteLine("Fyll i ditt användarnamn:");
-                        var existingUserName = Console.ReadLine();
-                        existingUserName.ToUpper();
+                        var existingUsername = Console.ReadLine();
                         Console.WriteLine("Fyll i ditt lösenord:");
-                        var existingUserPassword = Console.ReadLine();
-
-                        //Look in arrays to find if username and password exists in them allso in the same element
-                        userNamefound = false;
-                        for(int i = 0; i < userCount; i++)
+                        var existingPassword = Console.ReadLine();
+                        var user = User.GetUser(existingUsername!);
+                        if (user != null && user.Password == existingPassword)
                         {
-                            if (userName[i] == existingUserName && userPassword[i] == existingUserPassword)
-                            {
-                                Console.WriteLine($"Inloggning lyckades för användare: {userName[i]}");
-                                userNamefound = true;
-                                Console.Clear();
-                                break;
-                            }
-                        }
-                        if (!userNamefound)
-                        {
-                            Console.WriteLine("Felaktigt användarnamn eller lösenord. Försök igen.");
+                            Console.WriteLine($"Inloggning lyckades för användare {existingUsername}");
                             Console.ReadKey();
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Inloggning misslyckades");
                             continue;
                         }
-                        while(insidemenurunning)
+                        while (insidemenurunning)
                         {
                             Console.Clear();
-                            Menus.UserMainMenu(existingUserName);
+                            Menus.UserMainMenu(existingUsername!);
                             userMainMenuChoice = Console.ReadLine();
                             switch (userMainMenuChoice)
                                 {
@@ -143,7 +101,7 @@ bool userNamefound = false;
                                             case "1":
                                                 Console.WriteLine("\tSök på ISBN nummer:" );
                                                 Console.Write("\t13 siffror: ");
-                                                var inputISBN = int.Parse( Console.ReadLine() );
+                                                var inputISBN = int.Parse(Console.ReadLine()!);
                                                 Console.ReadKey();
                                                 break;
 
@@ -151,14 +109,12 @@ bool userNamefound = false;
                                                 Console.WriteLine("\tSök på titel på boken:");
                                                 Console.Write("\tTitel: ");
                                                 var inputTitle = Console.ReadLine();
-                                                inputTitle.ToUpper();
                                                 Console.ReadKey();
                                                 break;
                                             case "3":
                                                 Console.WriteLine("\tSök på författarens för- och efternamn:");
                                                 Console.Write("\tFörfattare: ");
                                                 var inputAuther = Console.ReadLine();
-                                                inputAuther.ToUpper();
                                                 Console.ReadKey();
                                                 break;
                                             case "9":
@@ -176,9 +132,7 @@ bool userNamefound = false;
                                             default:
                                                 Console.WriteLine("\t\tFelaktigt val, Försök igen");
                                                 break;
-
                                         }
-                                        
                                     }
                                         break;
                                     case "2":
@@ -193,16 +147,15 @@ bool userNamefound = false;
 
                                     case "9":
                                         Console.WriteLine("Utloggad");
-                                        createAccount = false;
                                         insidemenurunning = false;
                                         Console.ReadKey();
                                         Console.Clear();
                                         break;
                                     case "0":
                                         Console.WriteLine("Välkommen åter");
-                                        createAccount = false;
                                         insidemenurunning = false;
                                         running = false;
+                                        Console.ReadKey();
                                         Console.Clear();
                                         break;
                                 }
@@ -211,11 +164,13 @@ bool userNamefound = false;
                     case "3":
                         Console.Clear();
                         insidemenurunning = false;
+                        Console.ReadKey();
                         break;
                     case "0":
                         Console.WriteLine("Välkommen åter");
                         insidemenurunning = false;
                         running = false;
+                        Console.ReadKey();
                         Console.Clear();
                         break;
                     default:
@@ -228,114 +183,115 @@ bool userNamefound = false;
             while (insidemenurunning)
             {
                 Console.Clear();
-                bool createAccount = true;
                 Menus.SubMainMenu();
                 var adminMainMenuChoice = Console.ReadLine();
                 switch (adminMainMenuChoice)
                 {
                     case "1":
-                        //Check array is not full (Will not stay after sql implementation)
-                        Console.Clear();
-                        if (adminUserCount >= adminUserName.Length)
+                        try
                         {
-                            Console.WriteLine("Max antal konton uppnått! Kan inte skapa fler.");
-                            Console.ReadKey();
-                            break;
-                        }
-                        //Create account with loop
-                        while (createAccount)
-                        {   
-                            Console.WriteLine("\nSkapa konto för ny Admin.\n");
+                            Console.Clear();
+                            //Create account with loop
+                            Console.WriteLine("\nSkapa konto för ny användare.\n");
                             Console.WriteLine("Fyll i önskat användarnamn:");
-                            var newAdminUserName = Console.ReadLine();
-                            newAdminUserName.ToUpper();
-                            if(newAdminUserName!=null)
+                            var newUsername = Console.ReadLine();
+                            Console.WriteLine("Fyll i önskat lösenord");
+                            var newPassword = Console.ReadLine();
+                            bool checker = Admin.CheckUser(newUsername!);
+                            if (checker == false)
                             {
-                                //Check if username is avalible
-                                userNameExists = false;
-                                for (int i = 0; i < adminUserCount; i++)
-                                {
-                                    if (adminUserName[i] == newAdminUserName)
-                                    {
-                                        userNameExists = true;
-                                        break;
-                                    }
-                                }
-                                //If username is occupied this will force the user to pick a new username
-                                if (userNameExists)
-                                {
-                                    Console.WriteLine("Användarnamnet är redan taget. Försök med ett annat.");
-                                    Console.ReadKey();
-                                    continue;
-                                }
-                                Console.WriteLine("Fyll i önskat lösenord");
-                                var newAdminPassword = Console.ReadLine();
-                                //Put the username and password into the arrays
-                                adminUserName[adminUserCount] = newAdminUserName;
-                                adminPassword[adminUserCount] = newAdminPassword;
-                                adminUserCount++;
-                                Console.WriteLine($"Nytt konto skapat för användare: {newAdminUserName}.");
+                                Admin.AddUser(newUsername!, newPassword!);
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine($"Konto skapat för användare: {newUsername}");
+                                Console.ResetColor();
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                Console.WriteLine("Tryck på valfri tangent för att återgå till menyn...");
+                                Console.ResetColor();
                                 Console.ReadKey();
-                                createAccount = false;
                                 Console.Clear();
                             }
-                           
-                            
+                            else
+                                Console.WriteLine($"Användarnamnet {newUsername} används redan");
+                        }
+                        catch (Exception MyExcep)
+                        {
+                            Console.WriteLine(MyExcep.ToString());
                         }
                         break;
                     case "2":
-                        //Log in
                         Console.Clear();
-                        Console.WriteLine("\nLogga in Admin\n");
+                        Console.WriteLine("\nLogga in användare\n");
                         Console.WriteLine("Fyll i ditt användarnamn:");
-                        var existingAdminUserName = Console.ReadLine();
-                        existingAdminUserName.ToUpper();
+                        var existingUsername = Console.ReadLine();
                         Console.WriteLine("Fyll i ditt lösenord:");
-                        var existingAdminPassword = Console.ReadLine();
-                        //Look in arrays to find if username and password exists in them allso in the same element
-                        userNamefound = false;
-                        for (int i = 0; i < adminUserCount; i++)
+                        var existingPassword = Console.ReadLine();
+                        var user = User.GetUser(existingUsername!);
+                        if (user != null && user.Password == existingPassword)
                         {
-                            if (adminUserName[i] == existingAdminUserName && adminPassword[i] == existingAdminPassword)
-                            {
-                                Console.WriteLine($"Inloggning lyckades för användare: {adminUserName[i]}");
-                                userNamefound = true;
-                                Console.Clear();
-                                break;
-                            }
+                            Console.WriteLine($"Inloggning lyckades för användare {existingUsername}");
+                            Console.ReadKey();
+                            Console.Clear();
                         }
-                        if (!userNamefound)
+                        else
                         {
-                            Console.WriteLine("Felaktigt användarnamn eller lösenord. Försök igen.");
+                            Console.WriteLine("Inloggning misslyckades");
                             Console.ReadKey();
                             continue;
                         }
                         Console.Clear();
-                        Menus.AdminMainMenu(existingAdminUserName);
-                        adminMainMenuChoice = Console.ReadLine();
-                        switch (adminMainMenuChoice)
+                        
+                        insidemenu2running = true;
+                        while (insidemenu2running)
                         {
-                            case "1":
-                                Console.WriteLine("Hej Hej");
-                                Console.ReadKey();
-                                break;
-                            case "9":
-                                Console.WriteLine("Utloggad");
-                                createAccount = false;
-                                insidemenurunning = false;
-                                Console.ReadKey();
-                                Console.Clear();
-                                break;
-                            case "0":
-                                Console.WriteLine("Välkommen åter");
-                                createAccount = false;
-                                insidemenurunning = false;
-                                running = false;
-                                Console.Clear();
-                                break;
+                            Menus.AdminMainMenu(existingUsername!);
+                            adminMainMenuChoice = Console.ReadLine();
+
+                            switch (adminMainMenuChoice)
+                            {
+                                case "1":
+                                    Console.WriteLine("Skriv in ISBN (13 siffror): ");
+                                    long newIsbn = long.Parse(Console.ReadLine()!);
+                                    if (newIsbn.ToString().Length != 13)
+                                    {
+                                        Console.WriteLine("ISBN Måste bestå av 13 siffror!");
+                                        Console.ReadKey();
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Skriv in Författare (Separera för- och efternamn med mellanrum): ");
+                                        var newAuther = Console.ReadLine();
+                                        Console.WriteLine("Skriv in titel på boken: ");
+                                        var newTitle = Console.ReadLine();
+                                        bool isAvaliable = true;
+                                        Book.AddBook(newIsbn, newAuther, newTitle, isAvaliable);
+                                        Console.WriteLine("Ny bok tillagd i biblioteket");
+                                        var book = Book.GetBookByISBN(newIsbn);
+                                        if (book != null)
+                                            Console.Write($"{book.Title}, {book.Auther}, {book.ISBN} ");
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                    }
+                                    break;
+                                case "9":
+                                    Console.WriteLine("Utloggad");
+                                    insidemenu2running = false;
+                                    insidemenurunning = false;
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                    break;
+                                case "0":
+                                    Console.WriteLine("Välkommen åter");
+                                    insidemenu2running = false;
+                                    insidemenurunning = false;
+                                    running = false;
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                    break;
+                            }
                         }
                         break;
                     case "3":
+                        Console.ReadKey();
                         Console.Clear();
                         insidemenurunning = false;
                         break;
@@ -343,6 +299,7 @@ bool userNamefound = false;
                         Console.WriteLine("Välkommen åter");
                         insidemenurunning = false;
                         running = false;
+                        Console.ReadKey();
                         Console.Clear();
                         break;
                     default:
@@ -354,10 +311,12 @@ bool userNamefound = false;
         case "0":
             Console.WriteLine("Välkommen åter");
             running = false;
+            Console.ReadKey();
             Console.Clear();
             break;
         default:
             Console.WriteLine("Felaktigt val, Försök igen.");
+            Console.ReadKey();
             break;
     }   
 }
