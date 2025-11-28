@@ -88,6 +88,23 @@ namespace IndividuelltProjekt.Models
                 return book;
             }
         }
+        //public static Book UpdateAvaliable(long isbn, bool checkout)
+        //{
+        //    using (var context = new BookContext())
+        //    {
+        //        var book = context.Books.FirstOrDefault(b => b.ISBN == isbn);
+        //        //var isAvaliable = context.Books.FirstOrDefault(b => b.Avaliable == checkout);
+        //        if (book.Avaliable == true)
+        //        {
+        //            book.Avaliable = false;
+        //        }
+        //        else
+        //            book.Avaliable = true;
+        //        context.SaveChanges();
+        //        return book;
+
+        //    }
+        //}
         public static void DeleteBook(long isbn)
         {
             using (var context = new BookContext())
