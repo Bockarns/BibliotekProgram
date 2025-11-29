@@ -12,6 +12,7 @@ namespace IndividuelltProjekt.Models
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public bool Admin { get; set; }
         public User()
         {
             if (Username != null)
@@ -19,11 +20,11 @@ namespace IndividuelltProjekt.Models
             if (Password != null)
                 Password = "";
         }
-        public static void AddUser(string username, string password)
+        public static void AddUser(string username, string password, bool admin)
         {
             using (var context = new UserContext())
             {
-                var user = new User { Username = username, Password = password };
+                var user = new User { Username = username, Password = password, Admin = admin };
                 context.Users.Add(user);
                 context.SaveChanges();
             }
@@ -33,6 +34,13 @@ namespace IndividuelltProjekt.Models
             using (var context = new UserContext())
             {
                 return context.Users.Any(u => u.Username == username);
+            }
+        }
+        public static bool CheckUserAdmin(string username)
+        {
+            using (var context = new UserContext())
+            {
+                return context.Users.Where(u => u.Username == username).Select(u => u.Admin).FirstOrDefault();
             }
         }
         public static User GetUser(string username)

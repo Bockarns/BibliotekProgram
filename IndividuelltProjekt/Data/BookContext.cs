@@ -17,7 +17,7 @@ namespace IndividuelltProjekt.Data
         {
         }
 
-        public BookContext(DbContextOptions<AdminContext> options) : base(options)
+        public BookContext(DbContextOptions<BookContext> options) : base(options)
         {
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

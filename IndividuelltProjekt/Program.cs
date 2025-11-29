@@ -3,17 +3,19 @@ using IndividuelltProjekt;
 using IndividuelltProjekt.Data;
 using IndividuelltProjekt.Models;
 using System;
+using System.Drawing;
+
+//Jag har valt att lägga menyerna i en egen klass som void, för annars blev koden så plottrig med alla extra rader.
 
 Console.Title = "JGB Bibliotek";
 
-//Programs main bool for running continuesly until user quits
+//Mainloops bool för att programmet ska vara igång tills användaren stänger av.
 bool running = true;
-//using arrays for usernames and password temperary, so i can continue with the menus
 
-//start of program
+//Programstart
 while (running)
 {
-//Bools for nested menus, and to check for existing usernames
+//Bool för nestlade whilelooper
 bool insidemenurunning = true;
 bool insidemenu2running = true;
 
@@ -31,15 +33,26 @@ bool insidemenu2running = true;
                 var newUsername = Console.ReadLine();
                 Console.WriteLine("Fyll i önskat lösenord");
                 var newPassword = Console.ReadLine();
+                Console.WriteLine("Upprepa lösenordet");
+                var newPassword2 = Console.ReadLine();
+                if (newPassword != newPassword2)
+                {
+                    Console.WriteLine("Lösenorden matchar inte...");
+                    break;
+                }
+                    
                 Console.WriteLine("Ska användaren vara Admin?");
                 Console.Write("Ja/Nej: ");
                 var admincheck = Console.ReadLine().ToUpper();
                 if (admincheck == "JA")
                 {
-                    bool checker = Admin.CheckUser(newUsername!);
+                    //Kontroll om användarnamnet redan finns
+                    bool checker = User.CheckUser(newUsername!);
+                    bool isAdmin = true;
                     if (checker == false)
                     {
-                        Admin.AddUser(newUsername!, newPassword!);
+                        //Lägg till användare som admin
+                        User.AddUser(newUsername!, newPassword!, isAdmin);
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"Konto skapat för användare: {newUsername}");
                         Console.ResetColor();
@@ -56,9 +69,11 @@ bool insidemenu2running = true;
                 {
                     //Kontrollera att användarnamnet inte finns redan registrerat
                     bool checker = User.CheckUser(newUsername!);
+                    bool isNotAdmin = false;
                     if (checker == false)
                     {
-                        User.AddUser(newUsername!, newPassword!);
+                        //Lägg till användare
+                        User.AddUser(newUsername!, newPassword!, isNotAdmin);
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"Konto skapat för användare: {newUsername}");
                         Console.ResetColor();
@@ -84,12 +99,21 @@ bool insidemenu2running = true;
             var existingUsername = Console.ReadLine();
             Console.WriteLine("Fyll i ditt lösenord:");
             var existingPassword = Console.ReadLine();
-            Console.WriteLine("Är du admin? ");
-            Console.Write("Ja/Nej: ");
-            var adminCheck = Console.ReadLine().ToUpper();
-            if (adminCheck == "JA")
+            var user = User.GetUser(existingUsername!);
+            if (user == null)
             {
-                var user = Admin.GetUser(existingUsername!);
+                Console.ForegroundColor = ConsoleColor. DarkYellow;
+                Console.WriteLine("\n\t\tAnvändaren finns ej, Skapa ny användare först!");
+                Console.ResetColor();
+                Console.ReadKey();
+                Console.Clear();
+                break;
+            }            
+            var adminCheck = User.CheckUserAdmin(existingUsername);
+            if (adminCheck == true)
+            {
+                //Om användaren är admin ska denna del starta för admin menyer
+                user = User.GetUser(existingUsername!);
                 if (user != null && user.Password == existingPassword)
                 {
                     Console.WriteLine($"Inloggning lyckades för användare {existingUsername}");
@@ -103,6 +127,7 @@ bool insidemenu2running = true;
                         switch (Choice)
                         {
                             case "1":
+                                //Lägg till bok
                                 Console.WriteLine("\nSkriv in ISBN (13 siffror): ");
                                 long newIsbn = long.Parse(Console.ReadLine()!);
                                 if (newIsbn.ToString().Length != 13)
@@ -163,6 +188,7 @@ bool insidemenu2running = true;
                                 Console.WriteLine("Lista böcker");
                                 break;
                             case "5":
+                                //Redigera profil
                                 Console.Clear();
                                 var editProfile = true;
                                 while (editProfile)
@@ -171,12 +197,15 @@ bool insidemenu2running = true;
                                     Choice = Console.ReadLine();
                                     if (Choice == "1")
                                     {
+                                        //Byta användarnamn
                                         Console.WriteLine("Skriv in nytt önskat användarnamn: ");
                                         var newUsername = Console.ReadLine();
-                                        bool checker = Admin.CheckUser(newUsername!);
+                                        //Kontroll om nya användarnamnet redan finns
+                                        bool checker = User.CheckUser(newUsername!);
                                         if (checker == false)
                                         {
-                                           user = Admin.UpdateUsername(existingUsername, newUsername);
+                                            //Byt namn om nya användarnamnet är ledigt.
+                                            user = User.UpdateUsername(existingUsername, newUsername);
                                             Console.WriteLine($"Nytt användarnamn {newUsername} registrerat för {existingUsername}");
                                             Console.ReadKey();
                                             Console.Clear(); 
@@ -188,13 +217,15 @@ bool insidemenu2running = true;
                                     }
                                     else if (Choice == "2")
                                     {
+                                        //Byt lösenord
                                         Console.WriteLine("Skriv in nya lösenordet:");
                                         var newPassword = Console.ReadLine();
                                         Console.WriteLine("Skriv in nya lösenordet igen:");
                                         var newPassword2 = Console.ReadLine();
+                                        //Ber användaren upprepa lösenord för att säkerställa att dom skriver rätt
                                         if (newPassword == newPassword2)
                                         {
-                                            user = Admin.UpdatePassword(existingUsername!, existingPassword, newPassword!);
+                                            user = User.UpdatePassword(existingUsername!, existingPassword, newPassword!);
                                             Console.WriteLine($"Nytt lösenord registrerat för {existingUsername}");
                                             break;
                                         }
@@ -212,7 +243,7 @@ bool insidemenu2running = true;
                                         var deletechoice = Console.ReadLine()!.ToUpper();
                                         if (deletechoice == "JA")
                                         {
-                                            Admin.DeleteUser(existingUsername!);
+                                            User.DeleteUser(existingUsername!);
                                             Console.WriteLine("Användaren är borttagen, Tråkigt att se dig lämna oss :´(");
                                             Console.WriteLine("Du blir automatiskt tagen till huvudmenyn.");
                                             Console.ReadKey();
@@ -279,16 +310,11 @@ bool insidemenu2running = true;
                     }
                     break;
                 }
-                else
-                {
-                    Console.WriteLine("Inloggning misslyckades");
-                    Console.ReadKey();
-                    continue;
-                }
+                
             }
-            else if (adminCheck == "NEJ")
+            else if (adminCheck == false)
             {
-                var user = User.GetUser(existingUsername!);
+                user = User.GetUser(existingUsername!);
 
                 //Kontrollera att användaren finns och att lösenordet stämmer
                 if (user != null && user.Password == existingPassword)
@@ -524,11 +550,6 @@ bool insidemenu2running = true;
                     }
                 }
             }
-                else
-                {
-                    Console.WriteLine("Inloggning misslyckades");
-                    continue;
-                }
             break;
         case "0":
             Console.WriteLine("\n\t\t\tVälkommen åter");
@@ -539,6 +560,7 @@ bool insidemenu2running = true;
         default:
             Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
             Console.ReadKey();
+            Console.Clear();
             break;
     }   
 }
