@@ -3,11 +3,13 @@ using IndividuelltProjekt;
 using IndividuelltProjekt.Data;
 using IndividuelltProjekt.Models;
 using System;
-using System.Drawing;
 
 //Jag har valt att lägga menyerna i en egen klass som void, för annars blev koden så plottrig med alla extra rader.
 
 Console.Title = "JGB Bibliotek";
+
+//Jag har kvitterar null varningar med ? eller ! för att lättare få överblick
+//när jag stöter på ett en varning som kan vara problimatisk.
 
 //Mainloops bool för att programmet ska vara igång tills användaren stänger av.
 bool running = true;
@@ -40,10 +42,9 @@ bool insidemenu2running = true;
                     Console.WriteLine("Lösenorden matchar inte...");
                     break;
                 }
-                    
                 Console.WriteLine("Ska användaren vara Admin?");
                 Console.Write("Ja/Nej: ");
-                var admincheck = Console.ReadLine().ToUpper();
+                var admincheck = Console.ReadLine()!.ToUpper();
                 if (admincheck == "JA")
                 {
                     //Kontroll om användarnamnet redan finns
@@ -93,6 +94,7 @@ bool insidemenu2running = true;
             }
             break;
         case "2":
+            //Logga in, denna kollar om användaren existerar i DB och om den är admin eller vanlig användare
             Console.Clear();
             Console.WriteLine("\nLogga in användare\n");
             Console.WriteLine("Fyll i ditt användarnamn:");
@@ -109,7 +111,7 @@ bool insidemenu2running = true;
                 Console.Clear();
                 break;
             }            
-            var adminCheck = User.CheckUserAdmin(existingUsername);
+            var adminCheck = User.CheckUserAdmin(existingUsername!);
             if (adminCheck == true)
             {
                 //Om användaren är admin ska denna del starta för admin menyer
@@ -138,15 +140,15 @@ bool insidemenu2running = true;
                                 else
                                 {
                                     Console.WriteLine("Skriv in Författare (Separera för- och efternamn med mellanrum): ");
-                                    var newAuther = Console.ReadLine();
+                                    var newAuthor = Console.ReadLine();
                                     Console.WriteLine("Skriv in titel på boken: ");
                                     var newTitle = Console.ReadLine();
                                     bool isAvaliable = true;
-                                    Book.AddBook(newIsbn, newAuther!, newTitle!, isAvaliable);
+                                    Book.AddBook(newIsbn, newAuthor!, newTitle!, isAvaliable);
                                     Console.WriteLine("Ny bok tillagd i biblioteket");
                                     var book = Book.GetBookByISBN(newIsbn);
                                     if (book != null)
-                                        Console.Write($"{book.Title}, {book.Auther}, {book.ISBN} ");
+                                        Console.Write($"{book.Title}, {book.Author}, {book.Id} ");
                                     Console.ReadKey();
                                     Console.Clear();
                                 }
@@ -186,6 +188,7 @@ bool insidemenu2running = true;
                                 break;
                             case "4":
                                 Console.WriteLine("Lista böcker");
+                                Loan.ListAllAvailableBooks();
                                 break;
                             case "5":
                                 //Redigera profil
@@ -205,14 +208,13 @@ bool insidemenu2running = true;
                                         if (checker == false)
                                         {
                                             //Byt namn om nya användarnamnet är ledigt.
-                                            user = User.UpdateUsername(existingUsername, newUsername);
+                                            user = User.UpdateUsername(existingUsername!, newUsername!);
                                             Console.WriteLine($"Nytt användarnamn {newUsername} registrerat för {existingUsername}");
                                             Console.ReadKey();
                                             Console.Clear(); 
                                         }
                                         else
                                             Console.WriteLine($"Användarnamnet {newUsername} används redan");
-                                        
                                         break;
                                     }
                                     else if (Choice == "2")
@@ -225,7 +227,7 @@ bool insidemenu2running = true;
                                         //Ber användaren upprepa lösenord för att säkerställa att dom skriver rätt
                                         if (newPassword == newPassword2)
                                         {
-                                            user = User.UpdatePassword(existingUsername!, existingPassword, newPassword!);
+                                            user = User.UpdatePassword(existingUsername!, existingPassword!, newPassword!);
                                             Console.WriteLine($"Nytt lösenord registrerat för {existingUsername}");
                                             break;
                                         }
@@ -234,8 +236,6 @@ bool insidemenu2running = true;
                                             Console.WriteLine("Lösenorden matchar inte! Försök igen.");
                                             continue;
                                         }
-
-                                        break;
                                     }
                                     else if (Choice == "3")
                                     {
@@ -258,7 +258,6 @@ bool insidemenu2running = true;
                                             Console.WriteLine("Vad glada vi blir att du valt att stanna hos oss <3");
                                             Console.ReadKey();
                                         }
-
                                         else
                                         {
                                             Console.WriteLine("Felaktigt val!");
@@ -310,12 +309,11 @@ bool insidemenu2running = true;
                     }
                     break;
                 }
-                
             }
             else if (adminCheck == false)
             {
                 user = User.GetUser(existingUsername!);
-
+                var userId = User.GetUserId(existingUsername!);
                 //Kontrollera att användaren finns och att lösenordet stämmer
                 if (user != null && user.Password == existingPassword)
                 {
@@ -346,27 +344,27 @@ bool insidemenu2running = true;
                                             Console.Write("\t\t13 siffror: ");
                                             var inputISBN = long.Parse(Console.ReadLine()!);
                                             var book = Book.GetBookByISBN(inputISBN);
-                                            var avaliable = false;
+                                            var available = false;
                                             //Kontroll om boken finns i databasen
                                             if (book != null)
                                             {
-                                                avaliable = book.Avaliable;
+                                                available = book.Available;
                                                 //Kontroll om boken finns tillgänglig för lån eller redan är utlånad.
-                                                if (avaliable == true)
+                                                if (available == true)
                                                 {
-                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Auther},\n***| ISBN: {book.ISBN},\n***| Finns tillgänglig för lån!");
+                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id},\n***| Finns tillgänglig för lån!");
                                                     Console.WriteLine("\nVill du låna denna?");
                                                     Console.Write("JA/NEJ: ");
-                                                    var checkingOutBook = Console.ReadLine().ToUpper();
+                                                    var checkingOutBook = Console.ReadLine()!.ToUpper();
                                                     if (checkingOutBook == "JA")
                                                     {
-                                                        Console.WriteLine("Här vill jag skapa en inner join som då kopplar användare med denna bok, sen ändrar avaliable till false");
+                                                        Loan.LoanBook(userId, book.Id);
                                                     }
                                                     else
                                                         break;
                                                 }
                                                 else
-                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Auther},\n***| ISBN: {book.ISBN},\n***| Finns EJ tillgänglig för lån!");
+                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id},\n***| Finns EJ tillgänglig för lån!");
                                             }
                                             Console.ReadKey();
                                             break;
@@ -375,34 +373,34 @@ bool insidemenu2running = true;
                                             Console.Write("\t\tTitel: ");
                                             var inputTitle = Console.ReadLine();
                                             book = Book.GetBookByTitle(inputTitle!);
-                                            avaliable = false;
+                                            available = false;
                                             if (book != null)
                                             {
-                                                avaliable = book.Avaliable;
-                                                if (avaliable == true)
+                                                available = book.Available;
+                                                if (available == true)
                                                 {
-                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Auther},\n***| ISBN: {book.ISBN},\n***| Finns tillgänglig för lån!");
+                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id},\n***| Finns tillgänglig för lån!");
                                                 }
                                                 else
-                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Auther},\n***| ISBN: {book.ISBN},\n***| Finns EJ tillgänglig för lån!");
+                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id},\n***| Finns EJ tillgänglig för lån!");
                                             }
                                             Console.ReadKey();
                                             break;
                                         case "3":
                                             Console.WriteLine("\t\tSök på författarens för- och efternamn:");
                                             Console.Write("\t\tFörfattare: ");
-                                            var inputAuther = Console.ReadLine();
-                                            book = Book.GetBookByAuther(inputAuther!);
-                                            avaliable = false;
+                                            var inputAuthor = Console.ReadLine();
+                                            book = Book.GetBookByAuthor(inputAuthor!);
+                                            available = false;
                                             if (book != null)
                                             {
-                                                avaliable = book.Avaliable;
-                                                if (avaliable == true)
+                                                available = book.Available;
+                                                if (available == true)
                                                 {
-                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Auther},\n***| ISBN: {book.ISBN},\n***| Finns tillgänglig för lån!");
+                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id},\n***| Finns tillgänglig för lån!");
                                                 }
                                                 else
-                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Auther},\n***| ISBN: {book.ISBN},\n***| Finns EJ tillgänglig för lån!");
+                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id},\n***| Finns EJ tillgänglig för lån!");
                                             }
                                             Console.ReadKey();
                                             break;
@@ -430,10 +428,22 @@ bool insidemenu2running = true;
                                 break;
                             case "3":
                                 Console.WriteLine("\t\tLämna tillbaka en bok");
+                                Console.WriteLine("\t\tSkriv in ISBN nummer på den bok du vill lämna tillbaka");
+                                Console.Write("\t\t13 siffror: ");
+                                long isbnReturn = long.Parse(Console.ReadLine()!);
+                                Loan.ReturnBook(isbnReturn);
                                 Console.ReadKey();
                                 break;
                             case "4":
-                                Console.WriteLine("\t\tLista alla dina lånade böcker");
+                                var bookLoanList = Loan.GetLoanList(userId);
+                                if (bookLoanList != null)
+                                {   
+                                    Console.WriteLine("\t\tLista alla dina lånade böcker");
+                                    foreach(var book in bookLoanList)
+                                        Console.WriteLine($"\n\tISBN: {book.Id}  -  {book.Title} av: {book.Author}.");
+                                }
+                                else
+                                    Console.WriteLine("\n\t\tDu har inga lånade böcker just nu!");
                                 Console.ReadKey();
                                 break;
                             case "5":
@@ -450,7 +460,7 @@ bool insidemenu2running = true;
                                         bool checker = User.CheckUser(newUsername!);
                                         if (checker == false)
                                         {
-                                            user = User.UpdateUsername(existingUsername, newUsername);
+                                            user = User.UpdateUsername(existingUsername!, newUsername!);
                                             Console.WriteLine($"Nytt användarnamn {newUsername} registrerat för {existingUsername}");
                                             Console.ReadKey();
                                             Console.Clear();
@@ -467,7 +477,7 @@ bool insidemenu2running = true;
                                         var newPassword2 = Console.ReadLine();
                                         if (newPassword == newPassword2)
                                         {
-                                            user = User.UpdatePassword(existingUsername!, existingPassword, newPassword!);
+                                            user = User.UpdatePassword(existingUsername!, existingPassword!, newPassword!);
                                             Console.WriteLine($"Nytt lösenord registrerat för {existingUsername}");
                                             break;
                                         }
@@ -476,8 +486,6 @@ bool insidemenu2running = true;
                                             Console.WriteLine("Lösenorden matchar inte! Försök igen.");
                                             continue;
                                         }
-
-                                            break;
                                     }
                                     else if (Choice == "3")
                                     {
@@ -500,7 +508,6 @@ bool insidemenu2running = true;
                                             Console.WriteLine("Vad glada vi blir att du valt att stanna hos oss <3");
                                             Console.ReadKey();
                                         }
-
                                         else
                                         {
                                             Console.WriteLine("Felaktigt val!");
@@ -532,7 +539,6 @@ bool insidemenu2running = true;
                                     }   
                                 }
                                 break;
-                                
                             case "9":
                                 Console.WriteLine("\n\t\t\tUtloggad");
                                 insidemenurunning = false;

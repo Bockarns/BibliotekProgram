@@ -4,44 +4,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace IndividuelltProjekt.Models
 {
     public class Book
     {
-        public int Id { get; set; }
-        public long ISBN { get; set; }
-        public string Auther { get; set; }
+        public long Id { get; set; }
+        public string Author { get; set; }
         public string Title { get; set; }
-        public bool Avaliable { get; set; }
+        public bool Available { get; set; }
+        public List<Loan> Loans { get; set; } = new();
         public Book()
         {
-            if (Auther != null)
-                Auther = "";
+            if (Author != null)
+                Author = "";
             if (Title != null)
                 Title = "";
         }
-        public static void AddBook(long isbn, string auther, string title, bool avaliable)
+        public static void AddBook(long isbn, string author, string title, bool available)
         {
             using (var context = new BookContext())
             {
-                var book = new Book {ISBN = isbn, Auther = auther, Title = title, Avaliable = avaliable };
+                var book = new Book {Id = isbn, Author = author, Title = title, Available = available };
                 context.Books.Add(book);
                 context.SaveChanges();
             }
         }
-        public static bool CheckBookAvaliable(bool avaliable)
+        public static bool CheckBookAvaliable(bool available)
         {
             using (var context = new BookContext())
             {
-                return context.Books.Any(b => b.Avaliable == avaliable);
+                return context.Books.Any(b => b.Available == available);
             }
         }
-        public static Book GetBookByAuther(string auther)
+        public static Book GetBookByAuthor(string author)
         {
             using (var context = new BookContext())
             {
-                return context.Books.FirstOrDefault(b => b.Auther == auther)!;
+                return context.Books.FirstOrDefault(b => b.Author == author)!;
             }
         }
         public static Book GetBookByTitle(string title)
@@ -55,18 +56,18 @@ namespace IndividuelltProjekt.Models
         {
             using (var context = new BookContext())
             {
-                return context.Books.FirstOrDefault(b => b.ISBN == isbn)!;
+                return context.Books.FirstOrDefault(b => b.Id == isbn)!;
             }
         }
-        public static Book UpdateAuther(string auther, string updateauther)
+        public static Book UpdateAuthor(string author, string updateAuthor)
         {
             using (var context = new BookContext())
             {
-                var book = context.Books.FirstOrDefault(b => b.Auther == auther);
+                var book = context.Books.FirstOrDefault(b => b.Author == author);
                 if (book == null)
                     return null!;
 
-                book.Auther = updateauther;
+                book.Author = updateAuthor;
 
                 context.SaveChanges();
 
@@ -109,7 +110,7 @@ namespace IndividuelltProjekt.Models
         {
             using (var context = new BookContext())
             {
-                var book = context.Books.FirstOrDefault(b => b.ISBN == isbn);
+                var book = context.Books.FirstOrDefault(b => b.Id == isbn);
                 context.Books.Remove(book!);
                 context.SaveChanges();
             }

@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace IndividuelltProjekt.Data
 {
-    public class BookContext : DbContext
+    public class LoanContext : DbContext
     {
-        public DbSet<Book> Books { get; set; }
-
-        public BookContext()
+        public DbSet<Loan> Loans { get; set; }
+        public DbSet<User> Users { get; set; } 
+        public DbSet<Book> Books { get; set; } 
+        public LoanContext()
         {
         }
-
-        public BookContext(DbContextOptions<BookContext> options) : base(options)
+        public LoanContext(DbContextOptions<LoanContext> options) : base(options)
         {
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,8 +33,22 @@ namespace IndividuelltProjekt.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Ensure EF maps the entity to the existing table named "Book"
+            // Mappa entiteter till tabeller
+            modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<Book>().ToTable("Book");
+            modelBuilder.Entity<Loan>().ToTable("Loan"); 
+
+            // Relation: Loan -> User
+            modelBuilder.Entity<Loan>()
+                .HasOne(l => l.User)       // navigation property på Loan
+                .WithMany(u => u.Loans)    // navigation på User
+                .HasForeignKey(l => l.User_Id);
+
+            // Relation: Loan -> Book
+            modelBuilder.Entity<Loan>()
+                .HasOne(l => l.Book)
+                .WithMany(b => b.Loans)
+                .HasForeignKey(l => l.Book_Id);
         }
     }
 }

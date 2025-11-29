@@ -170,8 +170,8 @@
 //                                            case "3":
 //                                                Console.WriteLine("\tSök på författarens för- och efternamn:");
 //                                                Console.Write("\tFörfattare: ");
-//                                                var inputAuther = Console.ReadLine();
-//                                                inputAuther.ToUpper();
+//                                                var inputAuthor = Console.ReadLine();
+//                                                inputAuthor.ToUpper();
 //                                                Console.ReadKey();
 //                                                break;
 //                                            case "9":

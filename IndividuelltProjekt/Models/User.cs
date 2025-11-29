@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace IndividuelltProjekt.Models
 {
@@ -13,6 +14,7 @@ namespace IndividuelltProjekt.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public bool Admin { get; set; }
+        public List<Loan> Loans { get; set; } = new();
         public User()
         {
             if (Username != null)
@@ -48,6 +50,14 @@ namespace IndividuelltProjekt.Models
             using (var context = new UserContext())
             {
                 return context.Users.FirstOrDefault(u => u.Username == username)!;
+            }
+        }
+        public static int GetUserId(string username)
+        {
+            using (var context = new UserContext())
+            {
+                var user = context.Users.FirstOrDefault(u => u.Username == username);
+                return user.Id;
             }
         }
         public static User UpdateUsername(string username, string updateusername)
