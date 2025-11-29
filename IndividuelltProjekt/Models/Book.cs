@@ -11,8 +11,8 @@ namespace IndividuelltProjekt.Models
     public class Book
     {
         public long Id { get; set; }
-        public string Author { get; set; }
-        public string Title { get; set; }
+        public string? Author { get; set; }
+        public string? Title { get; set; }
         public bool Available { get; set; }
         public List<Loan> Loans { get; set; } = new();
         public Book()
@@ -31,6 +31,33 @@ namespace IndividuelltProjekt.Models
                 context.SaveChanges();
             }
         }
+        //Lista alla tillgängliga böcker
+        public static void ListAllAvailableBooks()
+        {
+            using (var context = new BookContext())
+            {
+                //skapa en lista och lägg böckerna för att sedan läsa ut dom en efter en..
+                var availableBooks = context.Books.Where(b => b.Available).ToList();
+                foreach (var book in availableBooks)
+                    Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| Finns tillgänglig för lån! ");
+            }
+        }
+        public static void ListAllBooks()
+        {
+            using (var context = new BookContext())
+            {
+                //skapa en lista och lägg böckerna för att sedan läsa ut dom en efter en..
+                var allBooks = context.Books.ToList();
+                foreach (var book in allBooks)
+                {
+                    if(book.Available == true)
+                        Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| Finns tillgänglig för lån! ");
+                    else
+                        Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| För tillfället utlånad! ");
+                }
+                    
+            }
+        }
         public static bool CheckBookAvaliable(bool available)
         {
             using (var context = new BookContext())
@@ -38,6 +65,7 @@ namespace IndividuelltProjekt.Models
                 return context.Books.Any(b => b.Available == available);
             }
         }
+        //Ska bygga om dessa nedan så dom visar böckerna här ifrån som void metoder för att städa program.cs
         public static Book GetBookByAuthor(string author)
         {
             using (var context = new BookContext())

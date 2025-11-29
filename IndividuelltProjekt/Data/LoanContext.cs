@@ -40,8 +40,8 @@ namespace IndividuelltProjekt.Data
 
             // Relation: Loan -> User
             modelBuilder.Entity<Loan>()
-                .HasOne(l => l.User)       // navigation property på Loan
-                .WithMany(u => u.Loans)    // navigation på User
+                .HasOne(l => l.User)       
+                .WithMany(u => u.Loans)    
                 .HasForeignKey(l => l.User_Id);
 
             // Relation: Loan -> Book

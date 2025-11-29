@@ -187,8 +187,11 @@ bool insidemenu2running = true;
                                 Console.WriteLine("Radera bok");
                                 break;
                             case "4":
+                                //Listar alla böcker och visar om de är lånade eller ej
                                 Console.WriteLine("Lista böcker");
-                                Loan.ListAllAvailableBooks();
+                                Book.ListAllBooks();
+                                Console.ReadKey();
+                                Console.Clear();
                                 break;
                             case "5":
                                 //Redigera profil
@@ -404,6 +407,12 @@ bool insidemenu2running = true;
                                             }
                                             Console.ReadKey();
                                             break;
+                                        case "4":
+                                            //Listar alla tillgängliga böcker
+                                            Book.ListAllAvailableBooks();
+                                            Console.ReadKey();
+                                            Console.Clear();
+                                            break;
                                         case "9":
                                             Console.WriteLine("\n\t\tÅter till föregående sida!");
                                             Console.ReadKey();
@@ -433,6 +442,7 @@ bool insidemenu2running = true;
                                 long isbnReturn = long.Parse(Console.ReadLine()!);
                                 Loan.ReturnBook(isbnReturn);
                                 Console.ReadKey();
+                                Console.Clear();
                                 break;
                             case "4":
                                 var bookLoanList = Loan.GetLoanList(userId);
@@ -440,11 +450,12 @@ bool insidemenu2running = true;
                                 {   
                                     Console.WriteLine("\t\tLista alla dina lånade böcker");
                                     foreach(var book in bookLoanList)
-                                        Console.WriteLine($"\n\tISBN: {book.Id}  -  {book.Title} av: {book.Author}.");
+                                        Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}");
                                 }
                                 else
                                     Console.WriteLine("\n\t\tDu har inga lånade böcker just nu!");
                                 Console.ReadKey();
+                                Console.Clear();
                                 break;
                             case "5":
                                 Console.Clear();

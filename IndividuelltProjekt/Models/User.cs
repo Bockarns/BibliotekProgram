@@ -11,8 +11,8 @@ namespace IndividuelltProjekt.Models
     public class User
     {
         public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public string? Username { get; set; }
+        public string? Password { get; set; }
         public bool Admin { get; set; }
         public List<Loan> Loans { get; set; } = new();
         public User()
@@ -57,7 +57,7 @@ namespace IndividuelltProjekt.Models
             using (var context = new UserContext())
             {
                 var user = context.Users.FirstOrDefault(u => u.Username == username);
-                return user.Id;
+                return user!.Id;
             }
         }
         public static User UpdateUsername(string username, string updateusername)

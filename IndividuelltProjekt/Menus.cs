@@ -85,7 +85,7 @@ namespace IndividuelltProjekt
             else if (userName.Length < 15)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"\t*\t\t\t\t***");
+                Console.Write($"\t*\t\t\t***");
                 Console.ResetColor();
                 Console.Write($" Välkommen {userName }");
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -145,6 +145,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t1. Sök via ISBN nummer:");
             Console.WriteLine("\t\t2. Sök via titel på bok:");
             Console.WriteLine("\t\t3. Sök via författare:");
+            Console.WriteLine("\t\t4. Visa alla tillgängliga böcker: ");
             Console.WriteLine("\t\t9. återgå till föregående sida");
             Console.WriteLine("\t\t0. Logga ut och avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
