@@ -25,32 +25,12 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t*********************************************************************************\n");
             Console.ResetColor();
             Console.WriteLine("\t\tVälj ett av följande alternativ:");
-            Console.WriteLine("\t\t1. Användare");
-            Console.WriteLine("\t\t2. Administratör");
-            Console.WriteLine("\t\t0. Avsluta");
-            Console.Write("\t\tSkriv in ditt val här: ");
-        }
-        //Submenu printout
-        public static void SubMainMenu()
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\t*********************************************************************************");
-            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
-            Console.Write($"\t*\t\t***");
-            Console.ResetColor();
-            Console.Write(" Välkommen, välj något av följande val: ");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("***\t\t\t*\n");
-            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
-            Console.WriteLine("\t*********************************************************************************\n");
-            Console.ResetColor();
             Console.WriteLine("\t\t1. Skapa nytt konto");
             Console.WriteLine("\t\t2. Logga in");
             Console.WriteLine("\t\t3. Återgå till huvudmenyn");
             Console.WriteLine("\t\t0. Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
         }
-        //Adminmenu printout
         public static void AdminMainMenu(string adminUserName)
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -80,6 +60,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t2.Redigera befintlig bok");
             Console.WriteLine("\t\t3.Ta bort bok");
             Console.WriteLine("\t\t4.Lista alla böcker");
+            Console.WriteLine("\t\t5.Redigera profil");
             Console.WriteLine("\t\t9.Logga ut och återgå till huvudmenyn");
             Console.WriteLine("\t\t0.Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
@@ -138,6 +119,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t2.Låna bok");
             Console.WriteLine("\t\t3.Lämna tillbaka bok");
             Console.WriteLine("\t\t4.Lista alla dina lånade böcker");
+            Console.WriteLine("\t\t5.Redigera profil");
             Console.WriteLine("\t\t9.Logga ut och återgå till huvudmenyn");
             Console.WriteLine("\t\t0.Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
@@ -165,6 +147,27 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t3. Sök via författare:");
             Console.WriteLine("\t\t9. återgå till föregående sida");
             Console.WriteLine("\t\t0. Logga ut och avsluta");
+            Console.Write("\t\tSkriv in ditt val här: ");
+        }
+        public static void EditProfile()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\t*********************************************************************************");
+            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
+            Console.Write($"\t*\t\t\t***");
+            Console.ResetColor();
+            Console.Write(" Redigera din profil ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("***\t\t\t*\n");
+            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
+            Console.WriteLine("\t*********************************************************************************\n");
+            Console.ResetColor();
+            Console.WriteLine("\t\tVälj ett av följande alternativ:");
+            Console.WriteLine("\t\t1. Byt användarnamn");
+            Console.WriteLine("\t\t2. Byt lösenord");
+            Console.WriteLine("\t\t3. Radera konto");
+            Console.WriteLine("\t\t9. Gå tillbaka till föregående meny");
+            Console.WriteLine("\t\t0. Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
         }
     }
