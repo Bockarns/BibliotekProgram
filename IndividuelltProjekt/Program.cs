@@ -95,8 +95,8 @@ bool insidemenu2running = true;
                     Console.WriteLine($"Inloggning lyckades för användare {existingUsername}");
                     Console.ReadKey();
                     Console.Clear();
-                    insidemenu2running = true;
-                    while (insidemenu2running)
+                    insidemenurunning = true;
+                    while (insidemenurunning)
                     {
                         Menus.AdminMainMenu(existingUsername!);
                         Choice = Console.ReadLine();
@@ -162,6 +162,104 @@ bool insidemenu2running = true;
                             case "4":
                                 Console.WriteLine("Lista böcker");
                                 break;
+                            case "5":
+                                Console.Clear();
+                                var editProfile = true;
+                                while (editProfile)
+                                {
+                                    Menus.EditProfile();
+                                    Choice = Console.ReadLine();
+                                    if (Choice == "1")
+                                    {
+                                        Console.WriteLine("Skriv in nytt önskat användarnamn: ");
+                                        var newUsername = Console.ReadLine();
+                                        bool checker = Admin.CheckUser(newUsername!);
+                                        if (checker == false)
+                                        {
+                                           user = Admin.UpdateUsername(existingUsername, newUsername);
+                                            Console.WriteLine($"Nytt användarnamn {newUsername} registrerat för {existingUsername}");
+                                            Console.ReadKey();
+                                            Console.Clear(); 
+                                        }
+                                        else
+                                            Console.WriteLine($"Användarnamnet {newUsername} används redan");
+                                        
+                                        break;
+                                    }
+                                    else if (Choice == "2")
+                                    {
+                                        Console.WriteLine("Skriv in nya lösenordet:");
+                                        var newPassword = Console.ReadLine();
+                                        Console.WriteLine("Skriv in nya lösenordet igen:");
+                                        var newPassword2 = Console.ReadLine();
+                                        if (newPassword == newPassword2)
+                                        {
+                                            user = Admin.UpdatePassword(existingUsername!, existingPassword, newPassword!);
+                                            Console.WriteLine($"Nytt lösenord registrerat för {existingUsername}");
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Lösenorden matchar inte! Försök igen.");
+                                            continue;
+                                        }
+
+                                        break;
+                                    }
+                                    else if (Choice == "3")
+                                    {
+                                        Console.WriteLine("Är du säker på att du vill radera användaren? JA/NEJ");
+                                        var deletechoice = Console.ReadLine()!.ToUpper();
+                                        if (deletechoice == "JA")
+                                        {
+                                            Admin.DeleteUser(existingUsername!);
+                                            Console.WriteLine("Användaren är borttagen, Tråkigt att se dig lämna oss :´(");
+                                            Console.WriteLine("Du blir automatiskt tagen till huvudmenyn.");
+                                            Console.ReadKey();
+                                            Console.Clear();
+                                            editProfile = false;
+                                            insidemenu2running = false;
+                                            insidemenurunning = false;
+                                            break;
+                                        }
+                                        else if (deletechoice == "NEJ")
+                                        {
+                                            Console.WriteLine("Vad glada vi blir att du valt att stanna hos oss <3");
+                                            Console.ReadKey();
+                                        }
+
+                                        else
+                                        {
+                                            Console.WriteLine("Felaktigt val!");
+                                            Console.ReadKey();
+                                        }
+                                        break;
+                                    }
+                                    else if (Choice == "9")
+                                    {
+                                        editProfile = false;
+                                        insidemenu2running = false;
+                                        Console.Clear();
+                                        break;
+                                    }
+                                    else if (Choice == "0")
+                                    {
+                                        Console.WriteLine("Välkommen åter");
+                                        editProfile = false;
+                                        insidemenu2running = false;
+                                        insidemenurunning = false;
+                                        running = false;
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Felaktigt val, försök igen");
+                                        continue;
+                                    }
+                                }
+                                break;
                             case "9":
                                 Console.WriteLine("Utloggad");
                                 insidemenu2running = false;
@@ -198,7 +296,7 @@ bool insidemenu2running = true;
                     Console.WriteLine($"Inloggning lyckades för användare {existingUsername}");
                     Console.ReadKey();
                     Console.Clear();
-                    insidemenu2running = true;
+                    insidemenurunning = true;
                     while (insidemenurunning)
                     {
                         //Användarmenyn
@@ -218,7 +316,7 @@ bool insidemenu2running = true;
                                     switch (Choice)
                                     {
                                         case "1":
-                                            Console.WriteLine("\t\tSök på ISBN nummer:");
+                                            Console.WriteLine("\n\t\tSök på ISBN nummer:");
                                             Console.Write("\t\t13 siffror: ");
                                             var inputISBN = long.Parse(Console.ReadLine()!);
                                             var book = Book.GetBookByISBN(inputISBN);
@@ -231,7 +329,7 @@ bool insidemenu2running = true;
                                                 if (avaliable == true)
                                                 {
                                                     Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Auther},\n***| ISBN: {book.ISBN},\n***| Finns tillgänglig för lån!");
-                                                    Console.WriteLine("Vill du låna denna?");
+                                                    Console.WriteLine("\nVill du låna denna?");
                                                     Console.Write("JA/NEJ: ");
                                                     var checkingOutBook = Console.ReadLine().ToUpper();
                                                     if (checkingOutBook == "JA")
@@ -283,12 +381,12 @@ bool insidemenu2running = true;
                                             Console.ReadKey();
                                             break;
                                         case "9":
-                                            Console.WriteLine("\t\tÅter till föregående sida!");
+                                            Console.WriteLine("\n\t\tÅter till föregående sida!");
                                             Console.ReadKey();
                                             insidemenu2running = false;
                                             break;
                                         case "0":
-                                            Console.WriteLine("\t\tVälkommen åter!");
+                                            Console.WriteLine("\n\t\tVälkommen åter!");
                                             insidemenu2running = false;
                                             insidemenurunning = false;
                                             running = false;
@@ -312,15 +410,111 @@ bool insidemenu2running = true;
                                 Console.WriteLine("\t\tLista alla dina lånade böcker");
                                 Console.ReadKey();
                                 break;
+                            case "5":
+                                Console.Clear();
+                                var editProfile = true;
+                                while(editProfile)
+                                {
+                                    Menus.EditProfile();
+                                    Choice = Console.ReadLine();
+                                    if ( Choice == "1")
+                                    {
+                                        Console.WriteLine("Skriv in nytt önskat användarnamn: ");
+                                        var newUsername = Console.ReadLine();
+                                        bool checker = User.CheckUser(newUsername!);
+                                        if (checker == false)
+                                        {
+                                            user = User.UpdateUsername(existingUsername, newUsername);
+                                            Console.WriteLine($"Nytt användarnamn {newUsername} registrerat för {existingUsername}");
+                                            Console.ReadKey();
+                                            Console.Clear();
+                                        }
+                                        else
+                                            Console.WriteLine($"Användarnamnet {newUsername} används redan");
+                                        break;
+                                    }
+                                    else if (Choice == "2")
+                                    {
+                                        Console.WriteLine("Skriv in nya lösenordet:");
+                                        var newPassword = Console.ReadLine();
+                                        Console.WriteLine("Skriv in nya lösenordet igen:");
+                                        var newPassword2 = Console.ReadLine();
+                                        if (newPassword == newPassword2)
+                                        {
+                                            user = User.UpdatePassword(existingUsername!, existingPassword, newPassword!);
+                                            Console.WriteLine($"Nytt lösenord registrerat för {existingUsername}");
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Lösenorden matchar inte! Försök igen.");
+                                            continue;
+                                        }
 
+                                            break;
+                                    }
+                                    else if (Choice == "3")
+                                    {
+                                        Console.WriteLine("Är du säker på att du vill radera användaren? JA/NEJ");
+                                        var deletechoice = Console.ReadLine()!.ToUpper();
+                                        if (deletechoice == "JA")
+                                        {
+                                            User.DeleteUser(existingUsername!);
+                                            Console.WriteLine("Användaren är borttagen, Tråkigt att se dig lämna oss :´(");
+                                            Console.WriteLine("Du blir automatiskt tagen till huvudmenyn.");
+                                            Console.ReadKey();
+                                            Console.Clear();
+                                            editProfile = false;
+                                            insidemenu2running = false;
+                                            insidemenurunning = false;
+                                            break;
+                                        }
+                                        else if (deletechoice == "NEJ")
+                                        {
+                                            Console.WriteLine("Vad glada vi blir att du valt att stanna hos oss <3");
+                                            Console.ReadKey();
+                                        }
+
+                                        else
+                                        {
+                                            Console.WriteLine("Felaktigt val!");
+                                            Console.ReadKey();
+                                        }
+                                        break;
+                                    }
+                                    else if (Choice == "9")
+                                    {
+                                        editProfile = false;
+                                        Console.Clear();
+                                        break;
+                                    }
+                                    else if (Choice == "0")
+                                    {
+                                        Console.WriteLine("Välkommen åter");
+                                        editProfile = false;
+                                        insidemenu2running = false;
+                                        insidemenurunning = false;
+                                        running = false;
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Felaktigt val, försök igen");
+                                        continue;
+                                    }   
+                                }
+                                break;
+                                
                             case "9":
-                                Console.WriteLine("Utloggad");
+                                Console.WriteLine("\n\t\t\tUtloggad");
                                 insidemenurunning = false;
                                 Console.ReadKey();
                                 Console.Clear();
                                 break;
                             case "0":
-                                Console.WriteLine("Välkommen åter");
+                                Console.WriteLine("\n\t\t\tVälkommen åter");
                                 insidemenurunning = false;
                                 running = false;
                                 Console.ReadKey();
@@ -337,13 +531,13 @@ bool insidemenu2running = true;
                 }
             break;
         case "0":
-            Console.WriteLine("Välkommen åter");
+            Console.WriteLine("\n\t\t\tVälkommen åter");
             running = false;
             Console.ReadKey();
             Console.Clear();
             break;
         default:
-            Console.WriteLine("Felaktigt val, Försök igen.");
+            Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
             Console.ReadKey();
             break;
     }   

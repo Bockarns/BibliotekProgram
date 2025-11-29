@@ -154,7 +154,7 @@ namespace IndividuelltProjekt
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\t*********************************************************************************");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
-            Console.Write($"\t*\t\t\t***");
+            Console.Write($"\t*\t\t\t\t***");
             Console.ResetColor();
             Console.Write(" Redigera din profil ");
             Console.ForegroundColor = ConsoleColor.Green;
