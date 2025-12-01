@@ -748,18 +748,18 @@ bool insidemenu2running = true;
                                             Console.Write("\t\tNyckelord: ");
                                             var inputKeyword = Console.ReadLine();
                                             Book.SearchBooksByKeyword(inputKeyword!);
-                                            Console.WriteLine("Vill du sortera böckerna?");
+                                            Console.WriteLine("\nVill du sortera böckerna?");
                                             Console.Write("JA/NEJ: ");
                                             var sortChoice = Console.ReadLine()!.ToUpper();
                                             if (sortChoice == "JA")
                                             {
-                                                Console.WriteLine("Vill du sortera på författare eller titlar?");
+                                                Console.WriteLine("\nVill du sortera på författare eller titlar?");
                                                 Console.Write("1 = Författare eller 2 = Titel: ");
                                                 var sortType = Console.ReadLine();
                                                 if (sortType == "1")
                                                 {
                                                     Book.SearchBooksByKeywordSortedAuthor(inputKeyword!);
-                                                    Console.WriteLine("Vill du sortera dom på titlar?");
+                                                    Console.WriteLine("\nVill du sortera dom på titlar?");
                                                     Console.Write("JA/NEJ: ");
                                                     var sortTitleChoice = Console.ReadLine()!.ToUpper();
                                                     if (sortTitleChoice == "JA")
@@ -772,7 +772,7 @@ bool insidemenu2running = true;
                                                 else if (sortType == "2")
                                                 {
                                                     Book.SearchBooksByKeywordSortedTitle(inputKeyword!);
-                                                    Console.WriteLine("Vill du sortera dom på författare?");
+                                                    Console.WriteLine("\nVill du sortera dom på författare?");
                                                     Console.Write("JA/NEJ: ");
                                                     var sortAuthorChoice = Console.ReadLine()!.ToUpper();
                                                     if (sortAuthorChoice == "JA")
@@ -803,18 +803,18 @@ bool insidemenu2running = true;
                                             break;
                                         case "6":
                                             Book.ListAllBooks();
-                                            Console.WriteLine("Vill du sortera böckerna?");
+                                            Console.WriteLine("\nVill du sortera böckerna?");
                                             Console.Write("JA/NEJ: ");
                                             sortChoice = Console.ReadLine()!.ToUpper();
                                             if (sortChoice == "JA")
                                             {
-                                                Console.WriteLine("Vill du sortera på författare eller titlar?");
+                                                Console.WriteLine("\nVill du sortera på författare eller titlar?");
                                                 Console.Write("1 = Författare eller 2 = Titel: ");
                                                 var sortType = Console.ReadLine();
                                                 if (sortType == "1")
                                                 {
                                                     Book.ListAllBooksSortedAuthor();
-                                                    Console.WriteLine("Vill du sortera dom på titlar?");
+                                                    Console.WriteLine("\nVill du sortera dom på titlar?");
                                                     Console.Write("JA/NEJ: ");
                                                     var sortTitleChoice = Console.ReadLine()!.ToUpper();
                                                     if (sortTitleChoice == "JA")
@@ -827,7 +827,7 @@ bool insidemenu2running = true;
                                                 else if (sortType == "2")
                                                 {
                                                     Book.ListAllBooksSortedTitle();
-                                                    Console.WriteLine("Vill du sortera dom på författare?");
+                                                    Console.WriteLine("\nVill du sortera dom på författare?");
                                                     Console.Write("JA/NEJ: ");
                                                     var sortAuthorChoice = Console.ReadLine()!.ToUpper();
                                                     if (sortAuthorChoice == "JA")

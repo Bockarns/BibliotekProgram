@@ -38,21 +38,32 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t*********************************************************************************");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
             //check lenght of username to get the outline to match
-            if (adminUserName.Length > 15)
+            if (adminUserName.Length > 10)
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write($"\t*\t\t\t***");
                 Console.ResetColor();
                 Console.Write($" Välkommen {adminUserName} ");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write("***\t\t\t*\n");
             }
-            else if (adminUserName.Length < 15)
+            else if (adminUserName.Length < 10)
             {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"\t*\t\t\t***");
+                Console.ResetColor();
+                Console.Write($" Välkommen {adminUserName}");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("***\t\t\t\t*");
+            }
+            else if (adminUserName.Length < 6)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write($"\t*\t\t\t\t***");
                 Console.ResetColor();
-                Console.Write($" Välkommen {adminUserName} ");
+                Console.Write($" Välkommen {adminUserName}");
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("***\t\t\t*\n");
+                Console.Write("***\t\t\t\t*");
             }
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
             Console.WriteLine("\t*********************************************************************************\n");
@@ -74,7 +85,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
             Console.ResetColor();
             //check lenght of username to get the outline to match
-            if (userName.Length > 15)
+            if (userName.Length > 10)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write($"\t*\t\t\t***");
@@ -83,10 +94,19 @@ namespace IndividuelltProjekt
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write("***\t\t\t*\n");
             }
-            else if (userName.Length < 15)
+            else if (userName.Length < 10)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write($"\t*\t\t\t***");
+                Console.ResetColor();
+                Console.Write($" Välkommen {userName}");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("***\t\t\t\t*");
+            }
+            else if (userName.Length < 6)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"\t*\t\t\t\t***");
                 Console.ResetColor();
                 Console.Write($" Välkommen {userName}");
                 Console.ForegroundColor = ConsoleColor.Green;
