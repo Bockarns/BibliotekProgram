@@ -62,12 +62,47 @@ namespace IndividuelltProjekt.Models
                     {
                         Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
                     }
-
                 }
-
             }
         }
-
+        //Lista alla böcker sorterat på författare
+        public static void ListAllBooksSortedAuthor()
+        {
+            using (var context = new BookContext())
+            {
+                var allBooks = context.Books.OrderBy(b => b.Author).ToList();
+                foreach (var book in allBooks)
+                {
+                    if (book.Available == true)
+                    {
+                        Menus.DisplayAvailableBookInfo(book); 
+                    }
+                    else
+                    {
+                        Menus.DisplayUnavailableBookInfo(book); 
+                    }
+                }
+            }
+        }
+        //Lista alla böcker sorterat på titel
+        public static void ListAllBooksSortedTitle()
+        {
+            using (var context = new BookContext())
+            {
+                var allBooks = context.Books.OrderBy(b => b.Title).ToList();
+                foreach (var book in allBooks)
+                {
+                    if (book.Available == true)
+                    {
+                        Menus.DisplayAvailableBookInfo(book);
+                    }
+                    else
+                    {
+                        Menus.DisplayUnavailableBookInfo(book); 
+                    }
+                }
+            }
+        }
         //Kontrollera tillgänglighet på en bock
         public static bool CheckBookAvaliable(bool available)
         {
@@ -156,6 +191,46 @@ namespace IndividuelltProjekt.Models
                     else
                     {
                         Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
+                    }
+                }
+            }
+        }
+        public static void SearchBooksByKeywordSortedAuthor(string keyword)
+        {
+            using (var context = new BookContext())
+            {
+                var booksWithKeyword = context.Books
+                    .Where(b => b.Title!.Contains(keyword) || b.Author!.Contains(keyword))
+                    .OrderBy(b => b.Author).ToList();
+                foreach (var book in booksWithKeyword)
+                {
+                    if (book.Available == true)
+                    {
+                        Menus.DisplayAvailableBookInfo(book); 
+                    }
+                    else
+                    {
+                        Menus.DisplayUnavailableBookInfo(book); 
+                    }
+                }
+            }
+        }
+        public static void SearchBooksByKeywordSortedTitle(string keyword)
+        {
+            using (var context = new BookContext())
+            {
+                var booksWithKeyword = context.Books
+                    .Where(b => b.Title!.Contains(keyword) || b.Author!.Contains(keyword))
+                    .OrderBy(b => b.Title).ToList();
+                foreach (var book in booksWithKeyword)
+                {
+                    if (book.Available == true)
+                    {
+                        Menus.DisplayAvailableBookInfo(book);
+                    }
+                    else
+                    {
+                        Menus.DisplayUnavailableBookInfo(book);
                     }
                 }
             }

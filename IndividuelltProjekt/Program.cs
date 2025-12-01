@@ -748,6 +748,52 @@ bool insidemenu2running = true;
                                             Console.Write("\t\tNyckelord: ");
                                             var inputKeyword = Console.ReadLine();
                                             Book.SearchBooksByKeyword(inputKeyword!);
+                                            Console.WriteLine("Vill du sortera böckerna?");
+                                            Console.Write("JA/NEJ: ");
+                                            var sortChoice = Console.ReadLine()!.ToUpper();
+                                            if (sortChoice == "JA")
+                                            {
+                                                Console.WriteLine("Vill du sortera på författare eller titlar?");
+                                                Console.Write("1 = Författare eller 2 = Titel: ");
+                                                var sortType = Console.ReadLine();
+                                                if (sortType == "1")
+                                                {
+                                                    Book.SearchBooksByKeywordSortedAuthor(inputKeyword!);
+                                                    Console.WriteLine("Vill du sortera dom på titlar?");
+                                                    Console.Write("JA/NEJ: ");
+                                                    var sortTitleChoice = Console.ReadLine()!.ToUpper();
+                                                    if (sortTitleChoice == "JA")
+                                                    {
+                                                        Book.SearchBooksByKeywordSortedTitle(inputKeyword!);
+                                                    }
+                                                    else
+                                                        break;
+                                                }
+                                                else if (sortType == "2")
+                                                {
+                                                    Book.SearchBooksByKeywordSortedTitle(inputKeyword!);
+                                                    Console.WriteLine("Vill du sortera dom på författare?");
+                                                    Console.Write("JA/NEJ: ");
+                                                    var sortAuthorChoice = Console.ReadLine()!.ToUpper();
+                                                    if (sortAuthorChoice == "JA")
+                                                    {
+                                                        Book.SearchBooksByKeywordSortedAuthor(inputKeyword!);
+                                                    }
+                                                    else
+                                                        break;
+                                                }
+                                                else
+                                                {
+                                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                    Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
+                                                    Console.ResetColor();
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                    break;
+                                                }
+                                            }
+                                            else
+                                                break;
                                             Console.ReadKey();
                                             break;
                                         case "5":
@@ -757,7 +803,53 @@ bool insidemenu2running = true;
                                             break;
                                         case "6":
                                             Book.ListAllBooks();
-                                            Console.ReadKey();
+                                            Console.WriteLine("Vill du sortera böckerna?");
+                                            Console.Write("JA/NEJ: ");
+                                            sortChoice = Console.ReadLine()!.ToUpper();
+                                            if (sortChoice == "JA")
+                                            {
+                                                Console.WriteLine("Vill du sortera på författare eller titlar?");
+                                                Console.Write("1 = Författare eller 2 = Titel: ");
+                                                var sortType = Console.ReadLine();
+                                                if (sortType == "1")
+                                                {
+                                                    Book.ListAllBooksSortedAuthor();
+                                                    Console.WriteLine("Vill du sortera dom på titlar?");
+                                                    Console.Write("JA/NEJ: ");
+                                                    var sortTitleChoice = Console.ReadLine()!.ToUpper();
+                                                    if (sortTitleChoice == "JA")
+                                                    {
+                                                        Book.ListAllBooksSortedTitle();
+                                                    }
+                                                    else
+                                                        break;
+                                                }
+                                                else if (sortType == "2")
+                                                {
+                                                    Book.ListAllBooksSortedTitle();
+                                                    Console.WriteLine("Vill du sortera dom på författare?");
+                                                    Console.Write("JA/NEJ: ");
+                                                    var sortAuthorChoice = Console.ReadLine()!.ToUpper();
+                                                    if (sortAuthorChoice == "JA")
+                                                    {
+                                                        Book.ListAllBooksSortedAuthor();
+                                                    }
+                                                    else
+                                                        break;
+                                                }
+                                                else
+                                                {
+                                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                    Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
+                                                    Console.ResetColor();
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                    break;
+                                                }
+                                            }
+                                            else
+                                                break;
+                                                Console.ReadKey();
                                             break;
                                         case "9":
                                             Console.WriteLine("\n\t\tÅter till föregående sida!");
