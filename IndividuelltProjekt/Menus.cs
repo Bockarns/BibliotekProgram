@@ -171,5 +171,26 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t0. Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
         }
+        public static void EditBook()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\t*********************************************************************************");
+            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
+            Console.Write($"\t*\t\t\t\t***");
+            Console.ResetColor();
+            Console.Write(" Redigera böcker ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("***\t\t\t\t*\n");
+            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
+            Console.WriteLine("\t*********************************************************************************\n");
+            Console.ResetColor();
+            Console.WriteLine("\t\tVad vill du uppdatera?");
+            Console.WriteLine("\t\t1. Författare ");
+            Console.WriteLine("\t\t2. Titel ");
+            Console.WriteLine("\t\t3. Tillgänglighet ");
+            Console.WriteLine("\t\t9. Återgå till föregående meny ");
+            Console.WriteLine("\t\t0. Avsluta programmet "); ;
+            Console.Write("\t\tSkriv in ditt val här: ");
+        }
     }
 }

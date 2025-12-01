@@ -137,6 +137,7 @@ bool insidemenu2running = true;
                                 {
                                     Console.WriteLine("ISBN Måste bestå av 13 siffror!");
                                     Console.ReadKey();
+                                    Console.Clear();
                                 }
                                 else
                                 {
@@ -160,38 +161,46 @@ bool insidemenu2running = true;
                                 //Eller så kommer ett prompt att man ska skriva in ISBN för den boken man 
                                 //Vill göra ändringar för. sen när boken är hittat så ska man välja vad man
                                 //Vill uppdatera.
-                                Console.WriteLine("\n Vad vill du uppdatera?");
-                                Console.WriteLine("1. Författare ");
-                                Console.WriteLine("2. Titel ");
-                                Console.WriteLine("3. Tillgänglighet ");
-                                Console.WriteLine("9. Återgå till föregående meny ");
-                                Console.WriteLine("0. Avsluta programmet ");
+                                Console.Clear();
+                                Menus.EditBook();
                                 Choice = Console.ReadLine();
                                 switch (Choice)
                                 {
                                     case "1":
                                         Console.WriteLine("Vill du söka via ISBN eller via författare och titel?");
-                                        Console.Write("1 = ISBN eller 2 = Författare och titel ");
+                                        Console.Write("1 = ISBN eller 2 = Författare och titel: ");
                                         var searchChoice = Console.ReadLine();
                                         if (searchChoice == "1")
                                         {
                                             Console.WriteLine("Skriv in ISBN nummer (13 siffror):");
                                             var ISBN = long.Parse(Console.ReadLine()!);
-                                            var book = Book.GetBookByISBN(ISBN);
-                                            Console.WriteLine("Stämmer det att du vill ändra författare för denna bok?");
-                                            Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
-                                            Console.Write("JA/NEJ: ");
-                                            var confirm = Console.ReadLine()!.ToUpper();
-                                            if (confirm == "JA")
+                                            if (ISBN.ToString().Length != 13)
                                             {
-                                                Console.WriteLine("Skriv in ny författare:");
-                                                var newAuthor = Console.ReadLine();
-                                                Book.UpdateAuthor(book.Author, newAuthor);
-                                                book = Book.GetBookByISBN(ISBN);
-                                                Console.WriteLine($"Boken: {book.Title}, Skriven av: {book.Author} har uppdaterats.");
+                                                Console.WriteLine("ISBN Måste bestå av 13 siffror!");
+                                                Console.ReadKey();
+                                                Console.Clear();
                                             }
                                             else
-                                                break;
+                                            {
+                                                var book = Book.GetBookByISBN(ISBN);
+                                                Console.WriteLine("Stämmer det att du vill ändra författare för denna bok?");
+                                                Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
+                                                Console.Write("JA/NEJ: ");
+                                                var confirm = Console.ReadLine()!.ToUpper();
+                                                if (confirm == "JA")
+                                                {
+                                                    Console.WriteLine("Skriv in ny författare:");
+                                                    var newAuthor = Console.ReadLine();
+                                                    Book.UpdateAuthor(book.Author, newAuthor);
+                                                    book = Book.GetBookByISBN(ISBN);
+                                                    Console.WriteLine($"Boken: {book.Title}, Skriven av: {book.Author} har uppdaterats.");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                }
+                                                else
+                                                    break;
+                                            } 
+                                            break;
                                         }
                                         else if (searchChoice == "2")
                                         {
@@ -203,6 +212,8 @@ bool insidemenu2running = true;
                                             if (book == null)
                                             {
                                                 Console.WriteLine("Boken hittades inte, kontrollera stavning och försök igen.");
+                                                Console.ReadKey();
+                                                Console.Clear();
                                                 break;
                                             }
                                             else
@@ -218,6 +229,8 @@ bool insidemenu2running = true;
                                                     Book.UpdateAuthor(book.Author, newAuthor);
                                                     book = Book.GetBookByAuthorAndTitle(author!, title!);
                                                     Console.WriteLine($"Boken: {book.Title}, Skriven av: {book.Author} har uppdaterats.");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
                                                 }
                                                 else
                                                     break;
@@ -229,27 +242,39 @@ bool insidemenu2running = true;
                                         break;
                                     case "2":
                                         Console.WriteLine("Vill du söka via ISBN eller via författare och titel?");
-                                        Console.Write("1 = ISBN eller 2 = Författare och titel ");
+                                        Console.Write("1 = ISBN eller 2 = Författare och titel: ");
                                         searchChoice = Console.ReadLine();
                                         if (searchChoice == "1")
                                         {
                                             Console.WriteLine("Skriv in ISBN nummer (13 siffror):");
                                             var ISBN = long.Parse(Console.ReadLine()!);
-                                            var book = Book.GetBookByISBN(ISBN);
-                                            Console.WriteLine("Stämmer det att du vill ändra författare för denna bok?");
-                                            Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
-                                            Console.Write("JA/NEJ: ");
-                                            var confirm = Console.ReadLine()!.ToUpper();
-                                            if (confirm == "JA")
+                                            if (ISBN.ToString().Length != 13)
                                             {
-                                                Console.WriteLine("Skriv in ny titel:");
-                                                var newTitle = Console.ReadLine();
-                                                Book.UpdateTitle(book.Title, newTitle);
-                                                book = Book.GetBookByISBN(ISBN);
-                                                Console.WriteLine($"Boken: {book.Title}, Skriven av: {book.Author} har uppdaterats.");
+                                                Console.WriteLine("ISBN Måste bestå av 13 siffror!");
+                                                Console.ReadKey();
+                                                Console.Clear();
                                             }
                                             else
-                                                break;
+                                            {
+                                                var book = Book.GetBookByISBN(ISBN);
+                                                Console.WriteLine("Stämmer det att du vill ändra författare för denna bok?");
+                                                Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
+                                                Console.Write("JA/NEJ: ");
+                                                var confirm = Console.ReadLine()!.ToUpper();
+                                                if (confirm == "JA")
+                                                {
+                                                    Console.WriteLine("Skriv in ny titel:");
+                                                    var newTitle = Console.ReadLine();
+                                                    Book.UpdateTitle(book.Title, newTitle);
+                                                    book = Book.GetBookByISBN(ISBN);
+                                                    Console.WriteLine($"Boken: {book.Title}, Skriven av: {book.Author} har uppdaterats.");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                }
+                                                else
+                                                    break;
+                                            }
+                                            break;
                                         }
                                         else if (searchChoice == "2")
                                         {
@@ -261,6 +286,8 @@ bool insidemenu2running = true;
                                             if (book == null)
                                             {
                                                 Console.WriteLine("Boken hittades inte, kontrollera stavning och försök igen.");
+                                                Console.ReadKey();
+                                                Console.Clear();
                                                 break;
                                             }
                                             else
@@ -276,6 +303,8 @@ bool insidemenu2running = true;
                                                     Book.UpdateTitle(book.Title, newTitle);
                                                     book = Book.GetBookByAuthorAndTitle(author!, title!);
                                                     Console.WriteLine($"Boken: {book.Title}, Skriven av: {book.Author} har uppdaterats.");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
                                                 }
                                                 else
                                                     break;
@@ -286,24 +315,35 @@ bool insidemenu2running = true;
                                         break;
                                     case "3":
                                         Console.WriteLine("Vill du söka via ISBN eller via författare och titel?");
-                                        Console.Write("1 = ISBN eller 2 = Författare och titel ");
+                                        Console.Write("1 = ISBN eller 2 = Författare och titel: ");
                                         searchChoice = Console.ReadLine();
                                         if (searchChoice == "1")
                                         {
                                             Console.WriteLine("Skriv in ISBN nummer (13 siffror):");
                                             var ISBN = long.Parse(Console.ReadLine()!);
-                                            var book = Book.GetBookByISBN(ISBN);
-                                            Console.WriteLine("Stämmer det att du vill ändra författare för denna bok?");
-                                            Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}, \n***| Tillgänglighet: {book.Available}: ");
-                                            Console.Write("JA/NEJ: ");
-                                            var confirm = Console.ReadLine()!.ToUpper();
-                                            if (confirm == "JA")
+                                            if (ISBN.ToString().Length != 13)
                                             {
-                                                Book.UpdateAvailable(ISBN, book.Available);
-                                                book = Book.GetBookByISBN(ISBN);
-                                                Console.WriteLine($"Boken: {book.Title}, Tillgänglighet har uppdaterats till: {book.Available}");
+                                                Console.WriteLine("ISBN Måste bestå av 13 siffror!");
                                                 Console.ReadKey();
+                                                Console.Clear();
                                             }
+                                            else
+                                            {
+                                                var book = Book.GetBookByISBN(ISBN);
+                                                Console.WriteLine("Stämmer det att du vill ändra författare för denna bok?");
+                                                Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}, \n***| Tillgänglighet: {book.Available}: ");
+                                                Console.Write("JA/NEJ: ");
+                                                var confirm = Console.ReadLine()!.ToUpper();
+                                                if (confirm == "JA")
+                                                {
+                                                    Book.UpdateAvailable(ISBN, book.Available);
+                                                    book = Book.GetBookByISBN(ISBN);
+                                                    Console.WriteLine($"Boken: {book.Title}, Tillgänglighet har uppdaterats till: {book.Available}");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                }
+                                            }
+                                            break;
                                         }
                                         else if (searchChoice == "2")
                                         {
@@ -315,6 +355,8 @@ bool insidemenu2running = true;
                                             if (book == null)
                                             {
                                                 Console.WriteLine("Boken hittades inte, kontrollera stavning och försök igen.");
+                                                Console.ReadKey();
+                                                Console.Clear();
                                                 break;
                                             }
                                             else
@@ -329,6 +371,7 @@ bool insidemenu2running = true;
                                                     book = Book.GetBookByISBN(book.Id);
                                                     Console.WriteLine($"Boken: {book.Title}, Tillgänglighet har uppdaterats till: {book.Available}");
                                                     Console.ReadKey();
+                                                    Console.Clear();
                                                 }
                                                 else
                                                     break;
@@ -358,18 +401,30 @@ bool insidemenu2running = true;
                                 {
                                     Console.WriteLine("Skriv in ISBN nummer (13 siffror):");
                                     var ISBN = long.Parse(Console.ReadLine()!);
-                                    var book = Book.GetBookByISBN(ISBN);
-                                    Console.WriteLine("Stämmer det att du vill radera denna bok?");
-                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
-                                    Console.Write("JA/NEJ: ");
-                                    var confirm = Console.ReadLine()!.ToUpper();
-                                    if (confirm == "JA")
+                                    if (ISBN.ToString().Length != 13)
                                     {
-                                        Book.DeleteBook(ISBN);
-                                        Console.WriteLine("Boken är raderad från biblioteket.");
+                                        Console.WriteLine("ISBN Måste bestå av 13 siffror!");
+                                        Console.ReadKey();
+                                        Console.Clear();
                                     }
                                     else
-                                        break;
+                                    {
+                                        var book = Book.GetBookByISBN(ISBN);
+                                        Console.WriteLine("Stämmer det att du vill radera denna bok?");
+                                        Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
+                                        Console.Write("JA/NEJ: ");
+                                        var confirm = Console.ReadLine()!.ToUpper();
+                                        if (confirm == "JA")
+                                        {
+                                            Book.DeleteBook(ISBN);
+                                            Console.WriteLine("Boken är raderad från biblioteket.");
+                                            Console.ReadKey();
+                                            Console.Clear();
+                                        }
+                                        else
+                                            break;
+                                    }
+                                    break;
                                 }
                                 else if (deleteSearchChoice == "2")
                                 {
@@ -381,6 +436,8 @@ bool insidemenu2running = true;
                                     if (book == null)
                                     {
                                         Console.WriteLine("Boken hittades inte, kontrollera stavning och försök igen.");
+                                        Console.ReadKey();
+                                        Console.Clear();
                                         break;
                                     }
                                     else
@@ -393,6 +450,8 @@ bool insidemenu2running = true;
                                         {
                                             Book.DeleteBook(book.Id);
                                             Console.WriteLine("Boken är raderad från biblioteket.");
+                                            Console.ReadKey();
+                                            Console.Clear();
                                         }
                                         else
                                             break;
