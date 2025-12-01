@@ -39,7 +39,24 @@ namespace IndividuelltProjekt.Models
                 //skapa en lista och lägg böckerna för att sedan läsa ut dom en efter en..
                 var availableBooks = context.Books.Where(b => b.Available).ToList();
                 foreach (var book in availableBooks)
-                    Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| Finns tillgänglig för lån! ");
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"\n***|");
+                    Console.ResetColor();
+                    Console.WriteLine($" Titel: {book.Title}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"***|");
+                    Console.ResetColor();
+                    Console.WriteLine($" Författare: {book.Author}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"***|");
+                    Console.ResetColor(); 
+                    Console.WriteLine($" ISBN: {book.Id}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"***|");
+                    Console.ResetColor();
+                    Console.WriteLine($" Finns tillgänglig för lån! ");
+                }
             }
         }
         public static void ListAllBooks()
@@ -51,9 +68,44 @@ namespace IndividuelltProjekt.Models
                 foreach (var book in allBooks)
                 {
                     if(book.Available == true)
-                        Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| Finns tillgänglig för lån! ");
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"\n***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" Titel: {book.Title}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" Författare: {book.Author}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" ISBN: {book.Id}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" Finns tillgänglig för lån! ");
+                    }
                     else
-                        Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| För tillfället utlånad! ");
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"\n***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" Titel: {book.Title}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" Författare: {book.Author}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" ISBN: {book.Id}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" För tillfället utlånad! ");
+                    }
+                    
                 }
                     
             }
@@ -75,24 +127,8 @@ namespace IndividuelltProjekt.Models
                 return context.Books.FirstOrDefault(b => b.Author == author)!;
             }
         }
-        //Listar samtliga böcker från en författare
-        public static void SearchBookByAuthor(string author)
-        {
-            using (var context = new BookContext())
-            {
-                var allBooksByAuthor = context.Books.Where(b => b.Author == author).ToList();
-                foreach (var book in allBooksByAuthor)
-                {
-                    if (book.Available == false)
-                        Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| För tillfället utlånad! ");
-                    else
-                        Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| Finns tillgänglig för lån! ");
-                }
-                    
-            }
-        }
         //För att söka efter en bok med ett nyckelord/sträng i titel eller författare
-        public static void SearchBooksByKeyWord(string keyword)
+        public static void SearchBooksByKeyword(string keyword)
         {
             using (var context = new BookContext())
             {
@@ -101,10 +137,44 @@ namespace IndividuelltProjekt.Models
                     .ToList();
                 foreach (var book in booksWithKeyword)
                 {
-                    if (book.Available == false)
-                        Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| För tillfället utlånad! ");
+                    if (book.Available == true)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"\n***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" Titel: {book.Title}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" Författare: {book.Author}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" ISBN: {book.Id}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" Finns tillgänglig för lån! ");
+                    }
                     else
-                        Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| Finns tillgänglig för lån! ");
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"\n***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" Titel: {book.Title}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" Författare: {book.Author}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" ISBN: {book.Id}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" För tillfället utlånad! ");
+                    }
                 }
             }
         }
@@ -122,10 +192,44 @@ namespace IndividuelltProjekt.Models
             using (var context = new BookContext())
             {
                 var book = context.Books.FirstOrDefault(b => b.Title == title)!;
-                if (book.Available == false)
-                    Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| För tillfället utlånad! ");
+                if (book.Available == true)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"\n***|");
+                    Console.ResetColor();
+                    Console.WriteLine($" Titel: {book.Title}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"***|");
+                    Console.ResetColor();
+                    Console.WriteLine($" Författare: {book.Author}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"***|");
+                    Console.ResetColor();
+                    Console.WriteLine($" ISBN: {book.Id}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"***|");
+                    Console.ResetColor();
+                    Console.WriteLine($" Finns tillgänglig för lån! ");
+                }
                 else
-                    Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| Finns tillgänglig för lån! ");
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"\n***|");
+                    Console.ResetColor();
+                    Console.WriteLine($" Titel: {book.Title}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"***|");
+                    Console.ResetColor();
+                    Console.WriteLine($" Författare: {book.Author}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"***|");
+                    Console.ResetColor();
+                    Console.WriteLine($" ISBN: {book.Id}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"***|");
+                    Console.ResetColor();
+                    Console.WriteLine($" För tillfället utlånad! ");
+                }
             }
         }
         public static Book GetBookByAuthorAndTitle(string author, string title)
@@ -141,6 +245,56 @@ namespace IndividuelltProjekt.Models
             using (var context = new BookContext())
             {
                 return context.Books.FirstOrDefault(b => b.Id == isbn)!;
+            }
+        }
+        //Listar samtliga böcker från en författare
+        public static void SearchBookByAuthor(string author)
+        {
+            using (var context = new BookContext())
+            {
+                var allBooksByAuthor = context.Books.Where(b => b.Author == author).ToList();
+                foreach (var book in allBooksByAuthor)
+                {
+                    if (book.Available == true)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"\n***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" Titel: {book.Title}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" Författare: {book.Author}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" ISBN: {book.Id}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" Finns tillgänglig för lån! ");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"\n***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" Titel: {book.Title}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" Författare: {book.Author}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" ISBN: {book.Id}");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write($"***|");
+                        Console.ResetColor();
+                        Console.WriteLine($" För tillfället utlånad! ");
+                    }
+                }
+
             }
         }
         public static Book UpdateISBN(long isbn, long updateISBN)

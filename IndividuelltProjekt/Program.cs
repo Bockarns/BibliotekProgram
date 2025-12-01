@@ -653,15 +653,25 @@ bool insidemenu2running = true;
                                             Console.WriteLine("\t\tSök på författarens för- och efternamn:");
                                             Console.Write("\t\tFörfattare: ");
                                             var inputAuthor = Console.ReadLine();
-                                            Book.GetBookByAuthor(inputAuthor!);
+                                            Book.SearchBookByAuthor(inputAuthor!);
                                             available = false;
                                             Console.ReadKey();
                                             break;
                                         case "4":
+                                            Console.WriteLine("\t\tSök med nyckelord (i titel eller författare):");
+                                            Console.Write("\t\tNyckelord: ");
+                                            var inputKeyword = Console.ReadLine();
+                                            Book.SearchBooksByKeyword(inputKeyword!);
+                                            Console.ReadKey();
+                                            break;
+                                        case "5":
                                             //Listar alla tillgängliga böcker
                                             Book.ListAllAvailableBooks();
                                             Console.ReadKey();
-                                            Console.Clear();
+                                            break;
+                                        case "6":
+                                            Book.ListAllBooks();
+                                            Console.ReadKey();
                                             break;
                                         case "9":
                                             Console.WriteLine("\n\t\tÅter till föregående sida!");

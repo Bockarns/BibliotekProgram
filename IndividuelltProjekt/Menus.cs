@@ -19,7 +19,7 @@ namespace IndividuelltProjekt
             Console.Write($"\t*\t\t\t***");
             Console.ResetColor();
             Console.Write(" Välkommen till biblioteket! ");
-            Console.ForegroundColor= ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("***\t\t\t*\n");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
             Console.WriteLine("\t*********************************************************************************\n");
@@ -87,7 +87,7 @@ namespace IndividuelltProjekt
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write($"\t*\t\t\t***");
                 Console.ResetColor();
-                Console.Write($" Välkommen {userName }");
+                Console.Write($" Välkommen {userName}");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write("***\t\t\t\t*");
             }
@@ -99,7 +99,7 @@ namespace IndividuelltProjekt
             Console.Write("\t\t*");
             Console.Write("\n\t*\t");
             Console.ResetColor();
-            Console.Write("lämna tillbaka lånade böcker men också se alla dina lånade böcker." );
+            Console.Write("lämna tillbaka lånade böcker men också se alla dina lånade böcker.");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("\t*");
             Console.Write("\n\t*\t");
@@ -145,7 +145,9 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t1. Sök via ISBN nummer:");
             Console.WriteLine("\t\t2. Sök via titel på bok:");
             Console.WriteLine("\t\t3. Sök via författare:");
-            Console.WriteLine("\t\t4. Visa alla tillgängliga böcker: ");
+            Console.WriteLine("\t\t4. Sök via nyckelord i titel eller författare: ");
+            Console.WriteLine("\t\t5. Visa alla tillgängliga böcker: ");
+            Console.WriteLine("\t\t6. Visa alla böcker: ");
             Console.WriteLine("\t\t9. återgå till föregående sida");
             Console.WriteLine("\t\t0. Logga ut och avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
@@ -192,5 +194,5 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t0. Avsluta programmet "); ;
             Console.Write("\t\tSkriv in ditt val här: ");
         }
-    }
+    } 
 }
