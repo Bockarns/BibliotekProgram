@@ -35,36 +35,34 @@ namespace IndividuelltProjekt
         public static void AdminMainMenu(string adminUserName)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\t*********************************************************************************");
+            Console.Write($"\n\t\t\t\t***");
+            Console.ResetColor();
+            Console.Write($" Välkommen Admin {adminUserName} ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("***\t\t\t\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\n\t*********************************************************************************");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
-            //check lenght of username to get the outline to match
-            if (adminUserName.Length > 10)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"\t*\t\t\t***");
-                Console.ResetColor();
-                Console.Write($" Välkommen {adminUserName} ");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("***\t\t\t*\n");
-            }
-            else if (adminUserName.Length < 10)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"\t*\t\t\t***");
-                Console.ResetColor();
-                Console.Write($" Välkommen {adminUserName}");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("***\t\t\t\t*\n");
-            }
-            else if (adminUserName.Length < 6)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"\t*\t\t\t\t\t***");
-                Console.ResetColor();
-                Console.Write($" Välkommen {adminUserName}");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("***\t\t\t\t*\n");
-            }
+            Console.Write("\t*\t");
+            Console.ResetColor();
+            Console.Write("Här i adminmenyn nedan kan du lägga till/redigera eller ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\t\t*");
+            Console.Write("\n\t*\t");
+            Console.ResetColor();
+            Console.Write("ta bort böcker men även söka efter böcker och lista alla böcker");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\t\t*");
+            Console.Write("\n\t*\t");
+            Console.ResetColor();
+            Console.Write("Välj nedan vad du vill göra!");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\t\t\t\t\t\t*\n");
+            Console.Write("\t*\t");
+            Console.ResetColor();
+            Console.Write("OBS! Glöm ej att logga ut när du är klar för att skydda ditt konto.");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\t*\n");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
             Console.WriteLine("\t*********************************************************************************\n");
             Console.ResetColor();
@@ -81,38 +79,14 @@ namespace IndividuelltProjekt
         public static void UserMainMenu(string userName)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\t*********************************************************************************");
-            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
+            Console.Write($"\n\t\t\t\t***");
             Console.ResetColor();
-            //check lenght of username to get the outline to match
-            if (userName.Length > 10)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"\t*\t\t\t***");
-                Console.ResetColor();
-                Console.Write($" Välkommen {userName} ");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("***\t\t\t*");
-            }
-            else if (userName.Length < 10)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"\t*\t\t\t***");
-                Console.ResetColor();
-                Console.Write($" Välkommen {userName}");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("***\t\t\t\t*");
-            }
-            else if (userName.Length < 6)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"\t*\t\t\t\t***");
-                Console.ResetColor();
-                Console.Write($" Välkommen {userName}");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("***\t\t\t\t*");
-            }
-            Console.WriteLine("\n\t*\t\t\t\t\t\t\t\t\t\t*");
+            Console.Write($" Välkommen {userName} ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("***\t\t\t\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\n\t*********************************************************************************");
+            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
             Console.Write("\t*\t");
             Console.ResetColor();
             Console.Write("Här i menyn nedan kan du söka efter böcker, låna böcker,");
