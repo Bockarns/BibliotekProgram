@@ -54,16 +54,16 @@ namespace IndividuelltProjekt
                 Console.ResetColor();
                 Console.Write($" Välkommen {adminUserName}");
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("***\t\t\t\t*");
+                Console.Write("***\t\t\t\t*\n");
             }
             else if (adminUserName.Length < 6)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"\t*\t\t\t\t***");
+                Console.Write($"\t*\t\t\t\t\t***");
                 Console.ResetColor();
                 Console.Write($" Välkommen {adminUserName}");
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("***\t\t\t\t*");
+                Console.Write("***\t\t\t\t*\n");
             }
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
             Console.WriteLine("\t*********************************************************************************\n");
@@ -92,7 +92,7 @@ namespace IndividuelltProjekt
                 Console.ResetColor();
                 Console.Write($" Välkommen {userName} ");
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("***\t\t\t*\n");
+                Console.Write("***\t\t\t*");
             }
             else if (userName.Length < 10)
             {

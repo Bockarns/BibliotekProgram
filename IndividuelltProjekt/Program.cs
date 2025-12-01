@@ -42,6 +42,8 @@ bool insidemenu2running = true;
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("\n\t\tLösenorden matchar inte...");
                     Console.ResetColor();
+                    Console.ReadKey();  
+                    Console.Clear();
                     break;
                 }
                 Console.WriteLine("\n\t\tSka användaren vara Admin?");
@@ -180,29 +182,29 @@ bool insidemenu2running = true;
                                 switch (Choice)
                                 {
                                     case "1":
-                                        Console.WriteLine("Vill du söka via ISBN eller via författare och titel?");
-                                        Console.Write("1 = ISBN eller 2 = Författare och titel: ");
+                                        Console.WriteLine("\n\t\tVill du söka via ISBN eller via författare och titel?");
+                                        Console.Write("\t\t1 = ISBN eller 2 = Författare och titel: ");
                                         var searchChoice = Console.ReadLine();
                                         if (searchChoice == "1")
                                         {
-                                            Console.WriteLine("Skriv in ISBN nummer (13 siffror):");
+                                            Console.Write("\t\tSkriv in ISBN nummer (13 siffror): ");
                                             var ISBN = long.Parse(Console.ReadLine()!);
                                             if (ISBN.ToString().Length != 13)
                                             {
-                                                Console.WriteLine("ISBN Måste bestå av 13 siffror!");
+                                                Console.WriteLine("\t\tISBN Måste bestå av 13 siffror!");
                                                 Console.ReadKey();
                                                 Console.Clear();
                                             }
                                             else
                                             {
                                                 var book = Book.GetBookByISBN(ISBN);
-                                                Console.WriteLine("Stämmer det att du vill ändra författare för denna bok?");
+                                                Console.WriteLine("\n\n\t\tStämmer det att du vill ändra författare för denna bok?");
                                                 Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
-                                                Console.Write("JA/NEJ: ");
+                                                Console.Write("\nJA/NEJ: ");
                                                 var confirm = Console.ReadLine()!.ToUpper();
                                                 if (confirm == "JA")
                                                 {
-                                                    Console.WriteLine("Skriv in ny författare:");
+                                                    Console.Write("\n\t\tSkriv in ny författare: ");
                                                     var newAuthor = Console.ReadLine();
                                                     Book.UpdateAuthor(book.Author!, newAuthor!);
                                                     book = Book.GetBookByISBN(ISBN);
@@ -217,15 +219,15 @@ bool insidemenu2running = true;
                                         }
                                         else if (searchChoice == "2")
                                         {
-                                            Console.WriteLine("Skriv in författarens förnamn och efternamn: ");
+                                            Console.WriteLine("\n\t\tSkriv in författarens förnamn och efternamn: ");
                                             var author = Console.ReadLine();
-                                            Console.WriteLine("Skriv in titel på boken: ");
+                                            Console.Write("\t\tSkriv in titel på boken: ");
                                             var title = Console.ReadLine();
                                             var book = Book.GetBookByAuthorAndTitle(author!, title!);
                                             if (book == null)
                                             {
                                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                                Console.WriteLine("Boken hittades inte, kontrollera stavning och försök igen.");
+                                                Console.WriteLine("\n\t\tBoken hittades inte, kontrollera stavning och försök igen.");
                                                 Console.ResetColor();
                                                 Console.ReadKey();
                                                 Console.Clear();
@@ -233,13 +235,13 @@ bool insidemenu2running = true;
                                             }
                                             else
                                             {
-                                                Console.WriteLine("Stämmer det att du vill ändra författare för denna bok?");
+                                                Console.WriteLine("\n\t\tStämmer det att du vill ändra författare för denna bok?");
                                                 Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
-                                                Console.Write("JA/NEJ: ");
+                                                Console.Write("\nJA/NEJ: ");
                                                 var confirm = Console.ReadLine()!.ToUpper();
                                                 if (confirm == "JA")
                                                 {
-                                                    Console.WriteLine("Skriv in ny författare:");
+                                                    Console.WriteLine("\n\t\tSkriv in ny författare:");
                                                     var newAuthor = Console.ReadLine();
                                                     Book.UpdateAuthor(book.Author!, newAuthor!);
                                                     book = Book.GetBookByAuthorAndTitle(author!, title!);
@@ -256,17 +258,17 @@ bool insidemenu2running = true;
                                             break;
                                         break;
                                     case "2":
-                                        Console.WriteLine("Vill du söka via ISBN eller via författare och titel?");
-                                        Console.Write("1 = ISBN eller 2 = Författare och titel: ");
+                                        Console.WriteLine("\n\t\tVill du söka via ISBN eller via författare och titel?");
+                                        Console.Write("\t\t1 = ISBN eller 2 = Författare och titel: ");
                                         searchChoice = Console.ReadLine();
                                         if (searchChoice == "1")
                                         {
-                                            Console.WriteLine("Skriv in ISBN nummer (13 siffror):");
+                                            Console.WriteLine("\n\t\tSkriv in ISBN nummer (13 siffror):");
                                             var ISBN = long.Parse(Console.ReadLine()!);
                                             if (ISBN.ToString().Length != 13)
                                             {
                                                 Console.ForegroundColor = ConsoleColor.DarkYellow; 
-                                                Console.WriteLine("ISBN Måste bestå av 13 siffror!");
+                                                Console.WriteLine("\t\tISBN Måste bestå av 13 siffror!");
                                                 Console.ResetColor();
                                                 Console.ReadKey();
                                                 Console.Clear();
@@ -274,13 +276,13 @@ bool insidemenu2running = true;
                                             else
                                             {
                                                 var book = Book.GetBookByISBN(ISBN);
-                                                Console.WriteLine("Stämmer det att du vill ändra författare för denna bok?");
+                                                Console.WriteLine("\n\t\tStämmer det att du vill ändra författare för denna bok?");
                                                 Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
-                                                Console.Write("JA/NEJ: ");
+                                                Console.Write("\nJA/NEJ: ");
                                                 var confirm = Console.ReadLine()!.ToUpper();
                                                 if (confirm == "JA")
                                                 {
-                                                    Console.WriteLine("Skriv in ny titel:");
+                                                    Console.WriteLine("\n\t\tSkriv in ny titel:");
                                                     var newTitle = Console.ReadLine();
                                                     Book.UpdateTitle(book.Title!, newTitle!);
                                                     book = Book.GetBookByISBN(ISBN);
@@ -295,15 +297,15 @@ bool insidemenu2running = true;
                                         }
                                         else if (searchChoice == "2")
                                         {
-                                            Console.WriteLine("Skriv in författarens förnamn och efternamn: ");
+                                            Console.WriteLine("\n\t\tSkriv in författarens förnamn och efternamn: ");
                                             var author = Console.ReadLine();
-                                            Console.WriteLine("Skriv in titel på boken: ");
+                                            Console.Write("S\t\tkriv in titel på boken: ");
                                             var title = Console.ReadLine();
                                             var book = Book.GetBookByAuthorAndTitle(author!, title!);
                                             if (book == null)
                                             {
                                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                                Console.WriteLine("Boken hittades inte, kontrollera stavning och försök igen.");
+                                                Console.WriteLine("\n\t\tBoken hittades inte, kontrollera stavning och försök igen.");
                                                 Console.ResetColor();
                                                 Console.ReadKey();
                                                 Console.Clear();
@@ -311,13 +313,13 @@ bool insidemenu2running = true;
                                             }
                                             else
                                             {
-                                                Console.WriteLine("Stämmer det att du vill ändra författare för denna bok?");
+                                                Console.WriteLine("\n\t\tStämmer det att du vill ändra författare för denna bok?");
                                                 Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
-                                                Console.Write("JA/NEJ: ");
+                                                Console.Write("\nJA/NEJ: ");
                                                 var confirm = Console.ReadLine()!.ToUpper();
                                                 if (confirm == "JA")
                                                 {
-                                                    Console.WriteLine("Skriv in ny titel:");
+                                                    Console.WriteLine("\t\tSkriv in ny titel:");
                                                     var newTitle = Console.ReadLine();
                                                     Book.UpdateTitle(book.Title!, newTitle!);
                                                     book = Book.GetBookByAuthorAndTitle(author!, title!);
@@ -333,17 +335,17 @@ bool insidemenu2running = true;
                                             break;
                                         break;
                                     case "3":
-                                        Console.WriteLine("Vill du söka via ISBN eller via författare och titel?");
-                                        Console.Write("1 = ISBN eller 2 = Författare och titel: ");
+                                        Console.WriteLine("\n\t\tVill du söka via ISBN eller via författare och titel?");
+                                        Console.Write("\t\t1 = ISBN eller 2 = Författare och titel: ");
                                         searchChoice = Console.ReadLine();
                                         if (searchChoice == "1")
                                         {
-                                            Console.WriteLine("Skriv in ISBN nummer (13 siffror):");
+                                            Console.WriteLine("\t\tSkriv in ISBN nummer (13 siffror):");
                                             var ISBN = long.Parse(Console.ReadLine()!);
                                             if (ISBN.ToString().Length != 13)
                                             {
                                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                                Console.WriteLine("ISBN Måste bestå av 13 siffror!");
+                                                Console.WriteLine("\t\tISBN Måste bestå av 13 siffror!");
                                                 Console.ResetColor();
                                                 Console.ReadKey();
                                                 Console.Clear();
@@ -353,7 +355,7 @@ bool insidemenu2running = true;
                                                 var book = Book.GetBookByISBN(ISBN);
                                                 Console.WriteLine("Stämmer det att du vill ändra tillgängligheten för denna bok?");
                                                 Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}, \n***| Tillgänglighet: {book.Available}: ");
-                                                Console.Write("JA/NEJ: ");
+                                                Console.Write("\nJA/NEJ: ");
                                                 var confirm = Console.ReadLine()!.ToUpper();
                                                 if (confirm == "JA")
                                                 {
@@ -368,15 +370,15 @@ bool insidemenu2running = true;
                                         }
                                         else if (searchChoice == "2")
                                         {
-                                            Console.WriteLine("Skriv in författarens förnamn och efternamn: ");
+                                            Console.WriteLine("\n\t\tSkriv in författarens förnamn och efternamn: ");
                                             var author = Console.ReadLine();
-                                            Console.WriteLine("Skriv in titel på boken: ");
+                                            Console.Write("\t\tSkriv in titel på boken: ");
                                             var title = Console.ReadLine();
                                             var book = Book.GetBookByAuthorAndTitle(author!, title!);
                                             if (book == null)
                                             {
                                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                                Console.WriteLine("Boken hittades inte, kontrollera stavning och försök igen.");
+                                                Console.WriteLine("\n\t\tBoken hittades inte, kontrollera stavning och försök igen.");
                                                 Console.ResetColor();
                                                 Console.ReadKey();
                                                 Console.Clear();
@@ -384,9 +386,9 @@ bool insidemenu2running = true;
                                             }
                                             else
                                             {
-                                                Console.WriteLine("Stämmer det att du vill ändra tillgängligheten för denna bok?");
+                                                Console.WriteLine("\t\tStämmer det att du vill ändra tillgängligheten för denna bok?");
                                                 Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
-                                                Console.Write("JA/NEJ: ");
+                                                Console.Write("\nJA/NEJ: ");
                                                 var confirm = Console.ReadLine()!.ToUpper();
                                                 if (confirm == "JA")
                                                 {
@@ -404,7 +406,7 @@ bool insidemenu2running = true;
                                             break;
                                         break;
                                     case "9":
-                                        Console.WriteLine("Återgår till föregående meny");
+                                        Console.WriteLine("\n\t\tÅtergår till föregående meny");
                                         break;
                                     case "0":
                                         Console.WriteLine("\n\t\t\tVälkommen åter");
@@ -425,17 +427,17 @@ bool insidemenu2running = true;
                                 break;
                             case "3":
                                 //radera en bok
-                                Console.WriteLine("Vill du söka up boken via ISBN eller via författare och titel?");
-                                Console.Write("1 = ISBN eller 2 = Författare och titel ");
+                                Console.WriteLine("\n\t\tVill du söka up boken via ISBN eller via författare och titel?");
+                                Console.Write("\t\t1 = ISBN eller 2 = Författare och titel ");
                                 var deleteSearchChoice = Console.ReadLine();
                                 if (deleteSearchChoice == "1")
                                 {
-                                    Console.WriteLine("Skriv in ISBN nummer (13 siffror):");
+                                    Console.WriteLine("\n\t\tSkriv in ISBN nummer (13 siffror):");
                                     var ISBN = long.Parse(Console.ReadLine()!);
                                     if (ISBN.ToString().Length != 13)
                                     {
                                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                        Console.WriteLine("ISBN Måste bestå av 13 siffror!");
+                                        Console.WriteLine("\t\tISBN Måste bestå av 13 siffror!");
                                         Console.ResetColor();
                                         Console.ReadKey();
                                         Console.Clear();
@@ -443,14 +445,18 @@ bool insidemenu2running = true;
                                     else
                                     {
                                         var book = Book.GetBookByISBN(ISBN);
-                                        Console.WriteLine("Stämmer det att du vill radera denna bok?");
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine("\t\tStämmer det att du vill radera denna bok?");
                                         Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
-                                        Console.Write("JA/NEJ: ");
+                                        Console.ResetColor();
+                                        Console.Write("\nJA/NEJ: ");
                                         var confirm = Console.ReadLine()!.ToUpper();
                                         if (confirm == "JA")
                                         {
                                             Book.DeleteBook(ISBN);
-                                            Console.WriteLine("Boken är raderad från biblioteket.");
+                                            Console.ForegroundColor = ConsoleColor.Red;
+                                            Console.WriteLine("\n\t\tBoken är raderad från biblioteket.");
+                                            Console.ResetColor();
                                             Console.ReadKey();
                                             Console.Clear();
                                         }
@@ -461,15 +467,15 @@ bool insidemenu2running = true;
                                 }
                                 else if (deleteSearchChoice == "2")
                                 {
-                                    Console.WriteLine("Skriv in författarens förnamn och efternamn: ");
+                                    Console.WriteLine("\n\t\tSkriv in författarens förnamn och efternamn: ");
                                     var author = Console.ReadLine();
-                                    Console.WriteLine("Skriv in titel på boken: ");
+                                    Console.Write("\t\tSkriv in titel på boken: ");
                                     var title = Console.ReadLine();
                                     var book = Book.GetBookByAuthorAndTitle(author!, title!);
                                     if (book == null)
                                     {
                                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                        Console.WriteLine("Boken hittades inte, kontrollera stavning och försök igen.");
+                                        Console.WriteLine("\t\tBoken hittades inte, kontrollera stavning och försök igen.");
                                         Console.ResetColor();
                                         Console.ReadKey();
                                         Console.Clear();
@@ -477,14 +483,18 @@ bool insidemenu2running = true;
                                     }
                                     else
                                     {
-                                        Console.WriteLine("Stämmer det att du vill radera denna bok?");
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine("\t\tStämmer det att du vill radera denna bok?");
+                                        Console.ResetColor();
                                         Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
-                                        Console.Write("JA/NEJ: ");
+                                        Console.Write("\nJA/NEJ: ");
                                         var confirm = Console.ReadLine()!.ToUpper();
                                         if (confirm == "JA")
                                         {
                                             Book.DeleteBook(book.Id);
-                                            Console.WriteLine("Boken är raderad från biblioteket.");
+                                            Console.ForegroundColor = ConsoleColor.Red;
+                                            Console.WriteLine("\t\tBoken är raderad från biblioteket.");
+                                            Console.ResetColor();
                                             Console.ReadKey();
                                             Console.Clear();
                                         }
