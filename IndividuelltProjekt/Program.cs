@@ -156,11 +156,8 @@ bool insidemenu2running = true;
                                 }
                                 break;
                             case "2":
-                                //Tre olika lösningar. antingen så ska man söka på ISBN nummer för samtliga
-                                //Ändringar som nedan men med ISBN nummer på alla.
-                                //Eller så kommer ett prompt att man ska skriva in ISBN för den boken man 
-                                //Vill göra ändringar för. sen när boken är hittat så ska man välja vad man
-                                //Vill uppdatera.
+                                //Redigera böcker, ger användaren val att ändra författare, titel eller tillgänglighet
+                                //samt hur dom vill söka upp boken (ISBN eller författare och titel)
                                 Console.Clear();
                                 Menus.EditBook();
                                 Choice = Console.ReadLine();
@@ -191,7 +188,7 @@ bool insidemenu2running = true;
                                                 {
                                                     Console.WriteLine("Skriv in ny författare:");
                                                     var newAuthor = Console.ReadLine();
-                                                    Book.UpdateAuthor(book.Author, newAuthor);
+                                                    Book.UpdateAuthor(book.Author!, newAuthor!);
                                                     book = Book.GetBookByISBN(ISBN);
                                                     Console.WriteLine($"Boken: {book.Title}, Skriven av: {book.Author} har uppdaterats.");
                                                     Console.ReadKey();
@@ -226,7 +223,7 @@ bool insidemenu2running = true;
                                                 {
                                                     Console.WriteLine("Skriv in ny författare:");
                                                     var newAuthor = Console.ReadLine();
-                                                    Book.UpdateAuthor(book.Author, newAuthor);
+                                                    Book.UpdateAuthor(book.Author!, newAuthor!);
                                                     book = Book.GetBookByAuthorAndTitle(author!, title!);
                                                     Console.WriteLine($"Boken: {book.Title}, Skriven av: {book.Author} har uppdaterats.");
                                                     Console.ReadKey();
@@ -265,7 +262,7 @@ bool insidemenu2running = true;
                                                 {
                                                     Console.WriteLine("Skriv in ny titel:");
                                                     var newTitle = Console.ReadLine();
-                                                    Book.UpdateTitle(book.Title, newTitle);
+                                                    Book.UpdateTitle(book.Title!, newTitle!);
                                                     book = Book.GetBookByISBN(ISBN);
                                                     Console.WriteLine($"Boken: {book.Title}, Skriven av: {book.Author} har uppdaterats.");
                                                     Console.ReadKey();
@@ -300,7 +297,7 @@ bool insidemenu2running = true;
                                                 {
                                                     Console.WriteLine("Skriv in ny titel:");
                                                     var newTitle = Console.ReadLine();
-                                                    Book.UpdateTitle(book.Title, newTitle);
+                                                    Book.UpdateTitle(book.Title!, newTitle!);
                                                     book = Book.GetBookByAuthorAndTitle(author!, title!);
                                                     Console.WriteLine($"Boken: {book.Title}, Skriven av: {book.Author} har uppdaterats.");
                                                     Console.ReadKey();
@@ -460,7 +457,6 @@ bool insidemenu2running = true;
                                 }
                                 else
                                     break;
-                                break;
                             case "4":
                                         //Listar alla böcker och visar om de är lånade eller ej
                                         Console.WriteLine("Lista böcker");
@@ -650,36 +646,15 @@ bool insidemenu2running = true;
                                             Console.WriteLine("\t\tSök på titel på boken:");
                                             Console.Write("\t\tTitel: ");
                                             var inputTitle = Console.ReadLine();
-                                            book = Book.GetBookByTitle(inputTitle!);
-                                            available = false;
-                                            if (book != null)
-                                            {
-                                                available = book.Available;
-                                                if (available == true)
-                                                {
-                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id},\n***| Finns tillgänglig för lån!");
-                                                }
-                                                else
-                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id},\n***| Finns EJ tillgänglig för lån!");
-                                            }
+                                            Book.GetBookByTitle(inputTitle!);
                                             Console.ReadKey();
                                             break;
                                         case "3":
                                             Console.WriteLine("\t\tSök på författarens för- och efternamn:");
                                             Console.Write("\t\tFörfattare: ");
                                             var inputAuthor = Console.ReadLine();
-                                            book = Book.GetBookByAuthor(inputAuthor!);
+                                            Book.GetBookByAuthor(inputAuthor!);
                                             available = false;
-                                            if (book != null)
-                                            {
-                                                available = book.Available;
-                                                if (available == true)
-                                                {
-                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id},\n***| Finns tillgänglig för lån!");
-                                                }
-                                                else
-                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id},\n***| Finns EJ tillgänglig för lån!");
-                                            }
                                             Console.ReadKey();
                                             break;
                                         case "4":

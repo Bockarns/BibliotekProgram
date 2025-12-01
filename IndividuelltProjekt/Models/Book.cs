@@ -66,6 +66,8 @@ namespace IndividuelltProjekt.Models
             }
         }
         //Ska bygga om dessa nedan så dom visar böckerna här ifrån som void metoder för att städa program.cs
+        
+        //Hämtar bok via författare
         public static Book GetBookByAuthor(string author)
         {
             using (var context = new BookContext())
@@ -73,11 +75,57 @@ namespace IndividuelltProjekt.Models
                 return context.Books.FirstOrDefault(b => b.Author == author)!;
             }
         }
+        //Listar samtliga böcker från en författare
+        public static void SearchBookByAuthor(string author)
+        {
+            using (var context = new BookContext())
+            {
+                var allBooksByAuthor = context.Books.Where(b => b.Author == author).ToList();
+                foreach (var book in allBooksByAuthor)
+                {
+                    if (book.Available == false)
+                        Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| För tillfället utlånad! ");
+                    else
+                        Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| Finns tillgänglig för lån! ");
+                }
+                    
+            }
+        }
+        //För att söka efter en bok med ett nyckelord/sträng i titel eller författare
+        public static void SearchBooksByKeyWord(string keyword)
+        {
+            using (var context = new BookContext())
+            {
+                var booksWithKeyword = context.Books
+                    .Where(b => b.Title!.Contains(keyword) || b.Author!.Contains(keyword))
+                    .ToList();
+                foreach (var book in booksWithKeyword)
+                {
+                    if (book.Available == false)
+                        Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| För tillfället utlånad! ");
+                    else
+                        Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| Finns tillgänglig för lån! ");
+                }
+            }
+        }
+        //Hämtar bok via titel
         public static Book GetBookByTitle(string title)
         {
             using (var context = new BookContext())
             {
                 return context.Books.FirstOrDefault(b => b.Title == title)!;
+            }
+        }
+        //Listar bok via titel
+        public static void SearchBookByTitle(string title)
+        {
+            using (var context = new BookContext())
+            {
+                var book = context.Books.FirstOrDefault(b => b.Title == title)!;
+                if (book.Available == false)
+                    Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| För tillfället utlånad! ");
+                else
+                    Console.WriteLine($"\n***| Titel: {book.Title}\n***| Författare: {book.Author}\n***| ISBN: {book.Id}\n***| Finns tillgänglig för lån! ");
             }
         }
         public static Book GetBookByAuthorAndTitle(string author, string title)
@@ -146,7 +194,7 @@ namespace IndividuelltProjekt.Models
             {
                 var book = context.Books.FirstOrDefault(b => b.Id == isbn);
                 //var isAvailable = context.Books.FirstOrDefault(b => b.Available == checkout);
-                if (book.Available == true)
+                if (book!.Available == true)
                 {
                     book.Available = false;
                 }
