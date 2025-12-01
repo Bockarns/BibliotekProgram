@@ -33,22 +33,22 @@ namespace IndividuelltProjekt.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Mappa entiteter till tabeller
+            // Mappa entiteter/modeller till tabeller
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<Book>().ToTable("Book");
             modelBuilder.Entity<Loan>().ToTable("Loan"); 
 
             // Relation: Loan -> User
             modelBuilder.Entity<Loan>()
-                .HasOne(l => l.User)       
-                .WithMany(u => u.Loans)    
-                .HasForeignKey(l => l.User_Id);
+                .HasOne(l => l.User)       //Ett lån har en användare
+                .WithMany(u => u.Loans)    //En användare kan ha många lån
+                .HasForeignKey(l => l.User_Id); //Foreign key i Loan-tabellen från user tabellen
 
             // Relation: Loan -> Book
             modelBuilder.Entity<Loan>()
-                .HasOne(l => l.Book)
-                .WithMany(b => b.Loans)
-                .HasForeignKey(l => l.Book_Id);
+                .HasOne(l => l.Book)        // Ett lån har en bok
+                .WithMany(b => b.Loans)     // En bok kan ha haft många lån
+                .HasForeignKey(l => l.Book_Id);   // Foreign key i Loan-tabellen från book tabellen
         }
     }
 }

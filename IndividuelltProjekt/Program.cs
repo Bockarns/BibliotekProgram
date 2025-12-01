@@ -168,7 +168,13 @@ bool insidemenu2running = true;
                                 switch (Choice)
                                 {
                                     case "1":
-                                        Console.WriteLine("Skriv in ISBN nummer (13 siffror):");
+                                        Console.WriteLine("Skriv in nuvarande ISBN nummer (13 siffror):");
+                                        var existingISBN = long.Parse(Console.ReadLine()!);
+                                        Console.WriteLine("Skriv in nytt ISBN nummer (13 siffror):");
+                                        var newISBN = long.Parse(Console.ReadLine()!);
+                                        Book.UpdateISBN(existingISBN, newISBN);
+                                        var book = Book.GetBookByISBN(newISBN);
+                                        Console.WriteLine($"Boken: {book.Title}, Skriven av: {book.Author} har fått nytt ISBN: {newISBN}");
                                         break;
                                     case "2":
                                         Console.WriteLine("Skriv in Författar:");

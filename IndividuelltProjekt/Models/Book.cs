@@ -87,6 +87,21 @@ namespace IndividuelltProjekt.Models
                 return context.Books.FirstOrDefault(b => b.Id == isbn)!;
             }
         }
+        public static Book UpdateISBN(long isbn, long updateISBN)
+        {
+            using (var context = new BookContext())
+            {
+                var book = context.Books.FirstOrDefault(b => b.Id == isbn);
+                if (book == null)
+                    return null!;
+
+                book.Id = updateISBN;
+
+                context.SaveChanges();
+
+                return book;
+            }
+        }
         public static Book UpdateAuthor(string author, string updateAuthor)
         {
             using (var context = new BookContext())
