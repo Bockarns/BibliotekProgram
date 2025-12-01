@@ -80,6 +80,14 @@ namespace IndividuelltProjekt.Models
                 return context.Books.FirstOrDefault(b => b.Title == title)!;
             }
         }
+        public static Book GetBookByAuthorAndTitle(string author, string title)
+        {
+            using (var context = new BookContext())
+            {
+                var book = context.Books.FirstOrDefault(b => b.Author == author && b.Title == title);
+                return book!;
+            }
+        }
         public static Book GetBookByISBN(long isbn)
         {
             using (var context = new BookContext())
@@ -132,23 +140,23 @@ namespace IndividuelltProjekt.Models
                 return book;
             }
         }
-        //public static Book UpdateAvaliable(long isbn, bool checkout)
-        //{
-        //    using (var context = new BookContext())
-        //    {
-        //        var book = context.Books.FirstOrDefault(b => b.ISBN == isbn);
-        //        //var isAvaliable = context.Books.FirstOrDefault(b => b.Avaliable == checkout);
-        //        if (book.Avaliable == true)
-        //        {
-        //            book.Avaliable = false;
-        //        }
-        //        else
-        //            book.Avaliable = true;
-        //        context.SaveChanges();
-        //        return book;
+        public static Book UpdateAvailable(long isbn, bool checkout)
+        {
+            using (var context = new BookContext())
+            {
+                var book = context.Books.FirstOrDefault(b => b.Id == isbn);
+                //var isAvailable = context.Books.FirstOrDefault(b => b.Available == checkout);
+                if (book.Available == true)
+                {
+                    book.Available = false;
+                }
+                else
+                    book.Available = true;
+                context.SaveChanges();
+                return book;
 
-        //    }
-        //}
+            }
+        }
         public static void DeleteBook(long isbn)
         {
             using (var context = new BookContext())
