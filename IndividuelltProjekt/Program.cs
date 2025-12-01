@@ -30,21 +30,22 @@ bool insidemenu2running = true;
         case "1":
             try
             {
-                Console.Clear();
-                Console.WriteLine("\nSkapa nytt konto\n");
-                Console.WriteLine("Fyll i önskat användarnamn:");
+                Console.WriteLine("\n\t\tSkapa nytt konto\n");
+                Console.Write("\t\tFyll i önskat användarnamn: ");
                 var newUsername = Console.ReadLine();
-                Console.WriteLine("Fyll i önskat lösenord");
+                Console.Write("\t\tFyll i önskat lösenord: ");
                 var newPassword = Console.ReadLine();
-                Console.WriteLine("Upprepa lösenordet");
+                Console.Write("\t\tUpprepa lösenordet: ");
                 var newPassword2 = Console.ReadLine();
                 if (newPassword != newPassword2)
                 {
-                    Console.WriteLine("Lösenorden matchar inte...");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\n\t\tLösenorden matchar inte...");
+                    Console.ResetColor();
                     break;
                 }
-                Console.WriteLine("Ska användaren vara Admin?");
-                Console.Write("Ja/Nej: ");
+                Console.WriteLine("\n\t\tSka användaren vara Admin?");
+                Console.Write("\t\tJa/Nej: ");
                 var admincheck = Console.ReadLine()!.ToUpper();
                 if (admincheck == "JA")
                 {
@@ -56,16 +57,23 @@ bool insidemenu2running = true;
                         //Lägg till användare som admin
                         User.AddUser(newUsername!, newPassword!, isAdmin);
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"Konto skapat för användare: {newUsername}");
+                        Console.WriteLine($"\n\t\tKonto skapat för användare: {newUsername}");
                         Console.ResetColor();
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.WriteLine("Tryck på valfri tangent för att återgå till menyn...");
+                        Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
                         Console.ResetColor();
                         Console.ReadKey();
                         Console.Clear();
                     }
                     else
-                        Console.WriteLine($"Användarnamnet {newUsername} används redan");
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine($"\n\t\tAnvändarnamnet {newUsername} används redan");
+                        Console.ResetColor();
+                        Console.ReadKey(); 
+                        Console.Clear();
+                    }
+                        
                 }
                 else if (admincheck == "NEJ")
                 {
@@ -77,16 +85,23 @@ bool insidemenu2running = true;
                         //Lägg till användare
                         User.AddUser(newUsername!, newPassword!, isNotAdmin);
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"Konto skapat för användare: {newUsername}");
+                        Console.WriteLine($"\n\t\tKonto skapat för användare: {newUsername}");
                         Console.ResetColor();
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.WriteLine("Tryck på valfri tangent för att återgå till menyn...");
+                        Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
                         Console.ResetColor();
                         Console.ReadKey();
                         Console.Clear();
                     }
                     else
-                        Console.WriteLine($"Användarnamnet {newUsername} används redan");
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine($"\n\t\tAnvändarnamnet {newUsername} används redan");
+                        Console.ResetColor();
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                        
                 }
             }
             catch (Exception MyExcep)
@@ -96,11 +111,10 @@ bool insidemenu2running = true;
             break;
         case "2":
             //Logga in, denna kollar om användaren existerar i DB och om den är admin eller vanlig användare
-            Console.Clear();
-            Console.WriteLine("\nLogga in användare\n");
-            Console.WriteLine("Fyll i ditt användarnamn:");
+            Console.WriteLine("\n\t\tLogga in användare\n");
+            Console.Write("\t\tFyll i ditt användarnamn: ");
             var existingUsername = Console.ReadLine();
-            Console.WriteLine("Fyll i ditt lösenord:");
+            Console.Write("\n\t\tFyll i ditt lösenord: ");
             var existingPassword = Console.ReadLine();
             var user = User.GetUser(existingUsername!);
             if (user == null)
@@ -119,7 +133,9 @@ bool insidemenu2running = true;
                 user = User.GetUser(existingUsername!);
                 if (user != null && user.Password == existingPassword)
                 {
-                    Console.WriteLine($"Inloggning lyckades för användare {existingUsername}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"\n\t\tInloggning lyckades för användare {existingUsername}");
+                    Console.ResetColor();
                     Console.ReadKey();
                     Console.Clear();
                     insidemenurunning = true;
@@ -208,7 +224,9 @@ bool insidemenu2running = true;
                                             var book = Book.GetBookByAuthorAndTitle(author!, title!);
                                             if (book == null)
                                             {
+                                                Console.ForegroundColor = ConsoleColor.DarkYellow;
                                                 Console.WriteLine("Boken hittades inte, kontrollera stavning och försök igen.");
+                                                Console.ResetColor();
                                                 Console.ReadKey();
                                                 Console.Clear();
                                                 break;
@@ -247,7 +265,9 @@ bool insidemenu2running = true;
                                             var ISBN = long.Parse(Console.ReadLine()!);
                                             if (ISBN.ToString().Length != 13)
                                             {
+                                                Console.ForegroundColor = ConsoleColor.DarkYellow; 
                                                 Console.WriteLine("ISBN Måste bestå av 13 siffror!");
+                                                Console.ResetColor();
                                                 Console.ReadKey();
                                                 Console.Clear();
                                             }
@@ -282,7 +302,9 @@ bool insidemenu2running = true;
                                             var book = Book.GetBookByAuthorAndTitle(author!, title!);
                                             if (book == null)
                                             {
+                                                Console.ForegroundColor = ConsoleColor.DarkYellow;
                                                 Console.WriteLine("Boken hittades inte, kontrollera stavning och försök igen.");
+                                                Console.ResetColor();
                                                 Console.ReadKey();
                                                 Console.Clear();
                                                 break;
@@ -320,7 +342,9 @@ bool insidemenu2running = true;
                                             var ISBN = long.Parse(Console.ReadLine()!);
                                             if (ISBN.ToString().Length != 13)
                                             {
+                                                Console.ForegroundColor = ConsoleColor.DarkYellow;
                                                 Console.WriteLine("ISBN Måste bestå av 13 siffror!");
+                                                Console.ResetColor();
                                                 Console.ReadKey();
                                                 Console.Clear();
                                             }
@@ -351,7 +375,9 @@ bool insidemenu2running = true;
                                             var book = Book.GetBookByAuthorAndTitle(author!, title!);
                                             if (book == null)
                                             {
+                                                Console.ForegroundColor = ConsoleColor.DarkYellow;
                                                 Console.WriteLine("Boken hittades inte, kontrollera stavning och försök igen.");
+                                                Console.ResetColor();
                                                 Console.ReadKey();
                                                 Console.Clear();
                                                 break;
@@ -381,7 +407,7 @@ bool insidemenu2running = true;
                                         Console.WriteLine("Återgår till föregående meny");
                                         break;
                                     case "0":
-                                        Console.WriteLine("Välkommen åter");
+                                        Console.WriteLine("\n\t\t\tVälkommen åter");
                                         insidemenu2running = false;
                                         insidemenurunning = false;
                                         running = false;
@@ -389,7 +415,9 @@ bool insidemenu2running = true;
                                         Console.Clear();
                                         break;
                                     default:
+                                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                                         Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
+                                        Console.ResetColor();
                                         Console.ReadKey();
                                         Console.Clear();
                                         break;
@@ -406,7 +434,9 @@ bool insidemenu2running = true;
                                     var ISBN = long.Parse(Console.ReadLine()!);
                                     if (ISBN.ToString().Length != 13)
                                     {
+                                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                                         Console.WriteLine("ISBN Måste bestå av 13 siffror!");
+                                        Console.ResetColor();
                                         Console.ReadKey();
                                         Console.Clear();
                                     }
@@ -438,7 +468,9 @@ bool insidemenu2running = true;
                                     var book = Book.GetBookByAuthorAndTitle(author!, title!);
                                     if (book == null)
                                     {
+                                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                                         Console.WriteLine("Boken hittades inte, kontrollera stavning och försök igen.");
+                                        Console.ResetColor();
                                         Console.ReadKey();
                                         Console.Clear();
                                         break;
@@ -513,7 +545,11 @@ bool insidemenu2running = true;
                                         }
                                         else
                                         {
+                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
                                             Console.WriteLine("Lösenorden matchar inte! Försök igen.");
+                                            Console.ResetColor();
+                                            Console.ReadKey();
+                                            Console.Clear();
                                             continue;
                                         }
                                     }
@@ -565,7 +601,11 @@ bool insidemenu2running = true;
                                     }
                                     else
                                     {
-                                        Console.WriteLine("Felaktigt val, försök igen");
+                                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                        Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
+                                        Console.ResetColor();
+                                        Console.ReadKey();
+                                        Console.Clear();
                                         continue;
                                     }
                                 }
@@ -578,7 +618,7 @@ bool insidemenu2running = true;
                                 Console.Clear();
                                 break;
                             case "0":
-                                Console.WriteLine("Välkommen åter");
+                                Console.WriteLine("\n\t\t\tVälkommen åter");
                                 insidemenu2running = false;
                                 insidemenurunning = false;
                                 running = false;
@@ -586,7 +626,9 @@ bool insidemenu2running = true;
                                 Console.Clear();
                                 break;
                             default:
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
                                 Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
+                                Console.ResetColor();
                                 Console.ReadKey();
                                 Console.Clear();
                                 break;
@@ -602,7 +644,9 @@ bool insidemenu2running = true;
                 //Kontrollera att användaren finns och att lösenordet stämmer
                 if (user != null && user.Password == existingPassword)
                 {
-                    Console.WriteLine($"Inloggning lyckades för användare {existingUsername}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"\n\t\tInloggning lyckades för användare {existingUsername}");
+                    Console.ResetColor();
                     Console.ReadKey();
                     Console.Clear();
                     insidemenurunning = true;
@@ -728,7 +772,9 @@ bool insidemenu2running = true;
                                             Console.ReadKey();
                                             break;
                                         default:
+                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
                                             Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
+                                            Console.ResetColor();
                                             Console.ReadKey();
                                             Console.Clear();
                                             break;
@@ -781,7 +827,15 @@ bool insidemenu2running = true;
                                             Console.Clear();
                                         }
                                         else
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
                                             Console.WriteLine($"Användarnamnet {newUsername} används redan");
+                                            Console.ResetColor();
+                                            Console.ReadKey();
+                                            Console.Clear();
+                                            break;
+                                        }
+                                            
                                         break;
                                     }
                                     else if (Choice == "2")
@@ -798,7 +852,11 @@ bool insidemenu2running = true;
                                         }
                                         else
                                         {
+                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
                                             Console.WriteLine("Lösenorden matchar inte! Försök igen.");
+                                            Console.ResetColor();
+                                            Console.ReadKey();
+                                            Console.Clear();
                                             continue;
                                         }
                                     }
@@ -825,8 +883,12 @@ bool insidemenu2running = true;
                                         }
                                         else
                                         {
-                                            Console.WriteLine("Felaktigt val!");
+                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                            Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
+                                            Console.ResetColor();
                                             Console.ReadKey();
+                                            Console.Clear();
+                                            break;
                                         }
                                         break;
                                     }
@@ -849,7 +911,11 @@ bool insidemenu2running = true;
                                     }
                                     else
                                     {
-                                        Console.WriteLine("Felaktigt val, försök igen");
+                                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                        Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
+                                        Console.ResetColor();
+                                        Console.ReadKey();
+                                        Console.Clear();
                                         continue;
                                     }   
                                 }
@@ -879,7 +945,9 @@ bool insidemenu2running = true;
             Console.Clear();
             break;
         default:
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
+            Console.ResetColor();
             Console.ReadKey();
             Console.Clear();
             break;
