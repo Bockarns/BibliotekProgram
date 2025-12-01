@@ -10,7 +10,7 @@ namespace IndividuelltProjekt
 {
     static class Menus
     {
-        //Mainmenu printout
+        //Mainmeny
         public static void MainMenu()
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -31,6 +31,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t0. Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
         }
+        //Adminmeny efter inloggning
         public static void AdminMainMenu(string adminUserName)
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -65,7 +66,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t0.Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
         }
-        //Usermenu printout
+        //Användaremeny efter inloggning
         public static void UserMainMenu(string userName)
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -124,6 +125,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t0.Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
         }
+        //Användaremeny för sökning av bok
         public static void UserSearchMenu()
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -152,6 +154,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t0. Logga ut och avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
         }
+        //Redigera profil meny
         public static void EditProfile()
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -173,6 +176,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t0. Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
         }
+        //Redigera bokmeny
         public static void EditBook()
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -193,6 +197,61 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t9. Återgå till föregående meny ");
             Console.WriteLine("\t\t0. Avsluta programmet "); ;
             Console.Write("\t\tSkriv in ditt val här: ");
+        }
+        //Visar bokinfo för tillgängliga böcker
+        public static void DisplayAvailableBookInfo(Book book)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"\n***|");
+            Console.ResetColor();
+            Console.WriteLine($" Titel: {book.Title}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"***|");
+            Console.ResetColor();
+            Console.WriteLine($" Författare: {book.Author}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"***|");
+            Console.ResetColor();
+            Console.WriteLine($" ISBN: {book.Id}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"***|");
+            Console.ResetColor();
+            Console.WriteLine($" Finns tillgänglig för lån! ");
+        }
+        //Visar bokinfo för otillgängliga böcker
+        public static void DisplayUnavailableBookInfo(Book book)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"\n***|");
+            Console.ResetColor();
+            Console.WriteLine($" Titel: {book.Title}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"***|");
+            Console.ResetColor();
+            Console.WriteLine($" Författare: {book.Author}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"***|");
+            Console.ResetColor();
+            Console.WriteLine($" ISBN: {book.Id}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"***|");
+            Console.ResetColor();
+            Console.WriteLine($" För tillfället utlånad! ");
+        }
+        public static void DisplayBooksWithoutAvailability(Book book)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"\n***|");
+            Console.ResetColor();
+            Console.WriteLine($" Titel: {book.Title}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"***|");
+            Console.ResetColor();
+            Console.WriteLine($" Författare: {book.Author}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"***|");
+            Console.ResetColor();
+            Console.WriteLine($" ISBN: {book.Id}");
         }
     } 
 }
