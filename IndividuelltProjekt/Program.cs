@@ -285,111 +285,239 @@ bool insidemenu2running = true;
                                             break;
                                         break;
                                     case "3":
-                                        Console.WriteLine("Skriv in ISBN nummer (13 siffror):");
+                                        Console.WriteLine("Vill du söka via ISBN eller via författare och titel?");
+                                        Console.Write("1 = ISBN eller 2 = Författare och titel ");
+                                        searchChoice = Console.ReadLine();
+                                        if (searchChoice == "1")
+                                        {
+                                            Console.WriteLine("Skriv in ISBN nummer (13 siffror):");
+                                            var ISBN = long.Parse(Console.ReadLine()!);
+                                            var book = Book.GetBookByISBN(ISBN);
+                                            Console.WriteLine("Stämmer det att du vill ändra författare för denna bok?");
+                                            Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}, \n***| Tillgänglighet: {book.Available}: ");
+                                            Console.Write("JA/NEJ: ");
+                                            var confirm = Console.ReadLine()!.ToUpper();
+                                            if (confirm == "JA")
+                                            {
+                                                Book.UpdateAvailable(ISBN, book.Available);
+                                                book = Book.GetBookByISBN(ISBN);
+                                                Console.WriteLine($"Boken: {book.Title}, Tillgänglighet har uppdaterats till: {book.Available}");
+                                                Console.ReadKey();
+                                            }
+                                        }
+                                        else if (searchChoice == "2")
+                                        {
+                                            Console.WriteLine("Skriv in författarens förnamn och efternamn: ");
+                                            var author = Console.ReadLine();
+                                            Console.WriteLine("Skriv in titel på boken: ");
+                                            var title = Console.ReadLine();
+                                            var book = Book.GetBookByAuthorAndTitle(author!, title!);
+                                            if (book == null)
+                                            {
+                                                Console.WriteLine("Boken hittades inte, kontrollera stavning och försök igen.");
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Stämmer det att du vill ändra författare för denna bok?");
+                                                Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
+                                                Console.Write("JA/NEJ: ");
+                                                var confirm = Console.ReadLine()!.ToUpper();
+                                                if (confirm == "JA")
+                                                {
+                                                    Book.UpdateAvailable(book.Id, book.Available);
+                                                    book = Book.GetBookByISBN(book.Id);
+                                                    Console.WriteLine($"Boken: {book.Title}, Tillgänglighet har uppdaterats till: {book.Available}");
+                                                    Console.ReadKey();
+                                                }
+                                                else
+                                                    break;
+                                            }
+                                        }
+                                        else
+                                            break;
                                         break;
                                     case "9":
                                         Console.WriteLine("Återgår till föregående meny");
                                         break;
                                     case "0":
+                                        Console.WriteLine("Välkommen åter");
+                                        insidemenu2running = false;
+                                        insidemenurunning = false;
+                                        running = false;
+                                        Console.ReadKey();
+                                        Console.Clear();
                                         break;
                                 }
                                 break;
                             case "3":
-                                Console.WriteLine("Radera bok");
+                                Console.WriteLine("Vill du söka up boken via ISBN eller via författare och titel?");
+                                Console.Write("1 = ISBN eller 2 = Författare och titel ");
+                                var deleteSearchChoice = Console.ReadLine();
+                                if (deleteSearchChoice == "1")
+                                {
+                                    Console.WriteLine("Skriv in ISBN nummer (13 siffror):");
+                                    var ISBN = long.Parse(Console.ReadLine()!);
+                                    var book = Book.GetBookByISBN(ISBN);
+                                    Console.WriteLine("Stämmer det att du vill radera denna bok?");
+                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
+                                    Console.Write("JA/NEJ: ");
+                                    var confirm = Console.ReadLine()!.ToUpper();
+                                    if (confirm == "JA")
+                                    {
+                                        Book.DeleteBook(ISBN);
+                                        Console.WriteLine("Boken är raderad från biblioteket.");
+                                    }
+                                    else
+                                        break;
+                                }
+                                else if (deleteSearchChoice == "2")
+                                {
+                                    Console.WriteLine("Skriv in författarens förnamn och efternamn: ");
+                                    var author = Console.ReadLine();
+                                    Console.WriteLine("Skriv in titel på boken: ");
+                                    var title = Console.ReadLine();
+                                    var book = Book.GetBookByAuthorAndTitle(author!, title!);
+                                    if (book == null)
+                                    {
+                                        Console.WriteLine("Boken hittades inte, kontrollera stavning och försök igen.");
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Stämmer det att du vill radera denna bok?");
+                                        Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
+                                        Console.Write("JA/NEJ: ");
+                                        var confirm = Console.ReadLine()!.ToUpper();
+                                        if (confirm == "JA")
+                                        {
+                                            Book.DeleteBook(book.Id);
+                                            Console.WriteLine("Boken är raderad från biblioteket.");
+                                        }
+                                        else
+                                            break;
+                                    }
+                                    break;
+                                }
+                                else
+                                    break;
                                 break;
                             case "4":
-                                //Listar alla böcker och visar om de är lånade eller ej
-                                Console.WriteLine("Lista böcker");
-                                Book.ListAllBooks();
-                                Console.ReadKey();
-                                Console.Clear();
-                                break;
-                            case "5":
-                                //Redigera profil
-                                Console.Clear();
-                                var editProfile = true;
-                                while (editProfile)
-                                {
-                                    Menus.EditProfile();
-                                    Choice = Console.ReadLine();
-                                    if (Choice == "1")
-                                    {
-                                        //Byta användarnamn
-                                        Console.WriteLine("Skriv in nytt önskat användarnamn: ");
-                                        var newUsername = Console.ReadLine();
-                                        //Kontroll om nya användarnamnet redan finns
-                                        bool checker = User.CheckUser(newUsername!);
-                                        if (checker == false)
-                                        {
-                                            //Byt namn om nya användarnamnet är ledigt.
-                                            user = User.UpdateUsername(existingUsername!, newUsername!);
-                                            Console.WriteLine($"Nytt användarnamn {newUsername} registrerat för {existingUsername}");
-                                            Console.ReadKey();
-                                            Console.Clear(); 
-                                        }
-                                        else
-                                            Console.WriteLine($"Användarnamnet {newUsername} används redan");
-                                        break;
-                                    }
-                                    else if (Choice == "2")
-                                    {
-                                        //Byt lösenord
-                                        Console.WriteLine("Skriv in nya lösenordet:");
-                                        var newPassword = Console.ReadLine();
-                                        Console.WriteLine("Skriv in nya lösenordet igen:");
-                                        var newPassword2 = Console.ReadLine();
-                                        //Ber användaren upprepa lösenord för att säkerställa att dom skriver rätt
-                                        if (newPassword == newPassword2)
-                                        {
-                                            user = User.UpdatePassword(existingUsername!, existingPassword!, newPassword!);
-                                            Console.WriteLine($"Nytt lösenord registrerat för {existingUsername}");
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Lösenorden matchar inte! Försök igen.");
-                                            continue;
-                                        }
-                                    }
-                                    else if (Choice == "3")
-                                    {
-                                        Console.WriteLine("Är du säker på att du vill radera användaren? JA/NEJ");
-                                        var deletechoice = Console.ReadLine()!.ToUpper();
-                                        if (deletechoice == "JA")
-                                        {
-                                            User.DeleteUser(existingUsername!);
-                                            Console.WriteLine("Användaren är borttagen, Tråkigt att se dig lämna oss :´(");
-                                            Console.WriteLine("Du blir automatiskt tagen till huvudmenyn.");
-                                            Console.ReadKey();
-                                            Console.Clear();
-                                            editProfile = false;
-                                            insidemenu2running = false;
-                                            insidemenurunning = false;
-                                            break;
-                                        }
-                                        else if (deletechoice == "NEJ")
-                                        {
-                                            Console.WriteLine("Vad glada vi blir att du valt att stanna hos oss <3");
-                                            Console.ReadKey();
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Felaktigt val!");
-                                            Console.ReadKey();
-                                        }
-                                        break;
-                                    }
-                                    else if (Choice == "9")
-                                    {
-                                        editProfile = false;
-                                        insidemenu2running = false;
+                                        //Listar alla böcker och visar om de är lånade eller ej
+                                        Console.WriteLine("Lista böcker");
+                                        Book.ListAllBooks();
+                                        Console.ReadKey();
                                         Console.Clear();
                                         break;
-                                    }
-                                    else if (Choice == "0")
-                                    {
+                                    case "5":
+                                        //Redigera profil
+                                        Console.Clear();
+                                        var editProfile = true;
+                                        while (editProfile)
+                                        {
+                                            Menus.EditProfile();
+                                            Choice = Console.ReadLine();
+                                            if (Choice == "1")
+                                            {
+                                                //Byta användarnamn
+                                                Console.WriteLine("Skriv in nytt önskat användarnamn: ");
+                                                var newUsername = Console.ReadLine();
+                                                //Kontroll om nya användarnamnet redan finns
+                                                bool checker = User.CheckUser(newUsername!);
+                                                if (checker == false)
+                                                {
+                                                    //Byt namn om nya användarnamnet är ledigt.
+                                                    user = User.UpdateUsername(existingUsername!, newUsername!);
+                                                    Console.WriteLine($"Nytt användarnamn {newUsername} registrerat för {existingUsername}");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                }
+                                                else
+                                                    Console.WriteLine($"Användarnamnet {newUsername} används redan");
+                                                break;
+                                            }
+                                            else if (Choice == "2")
+                                            {
+                                                //Byt lösenord
+                                                Console.WriteLine("Skriv in nya lösenordet:");
+                                                var newPassword = Console.ReadLine();
+                                                Console.WriteLine("Skriv in nya lösenordet igen:");
+                                                var newPassword2 = Console.ReadLine();
+                                                //Ber användaren upprepa lösenord för att säkerställa att dom skriver rätt
+                                                if (newPassword == newPassword2)
+                                                {
+                                                    user = User.UpdatePassword(existingUsername!, existingPassword!, newPassword!);
+                                                    Console.WriteLine($"Nytt lösenord registrerat för {existingUsername}");
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("Lösenorden matchar inte! Försök igen.");
+                                                    continue;
+                                                }
+                                            }
+                                            else if (Choice == "3")
+                                            {
+                                                Console.WriteLine("Är du säker på att du vill radera användaren? JA/NEJ");
+                                                var deletechoice = Console.ReadLine()!.ToUpper();
+                                                if (deletechoice == "JA")
+                                                {
+                                                    User.DeleteUser(existingUsername!);
+                                                    Console.WriteLine("Användaren är borttagen, Tråkigt att se dig lämna oss :´(");
+                                                    Console.WriteLine("Du blir automatiskt tagen till huvudmenyn.");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                    editProfile = false;
+                                                    insidemenu2running = false;
+                                                    insidemenurunning = false;
+                                                    break;
+                                                }
+                                                else if (deletechoice == "NEJ")
+                                                {
+                                                    Console.WriteLine("Vad glada vi blir att du valt att stanna hos oss <3");
+                                                    Console.ReadKey();
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("Felaktigt val!");
+                                                    Console.ReadKey();
+                                                }
+                                                break;
+                                            }
+                                            else if (Choice == "9")
+                                            {
+                                                editProfile = false;
+                                                insidemenu2running = false;
+                                                Console.Clear();
+                                                break;
+                                            }
+                                            else if (Choice == "0")
+                                            {
+                                                Console.WriteLine("Välkommen åter");
+                                                editProfile = false;
+                                                insidemenu2running = false;
+                                                insidemenurunning = false;
+                                                running = false;
+                                                Console.ReadKey();
+                                                Console.Clear();
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Felaktigt val, försök igen");
+                                                continue;
+                                            }
+                                        }
+                                        break;
+                                    case "9":
+                                        Console.WriteLine("Utloggad");
+                                        insidemenu2running = false;
+                                        insidemenurunning = false;
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                        break;
+                                    case "0":
                                         Console.WriteLine("Välkommen åter");
-                                        editProfile = false;
                                         insidemenu2running = false;
                                         insidemenurunning = false;
                                         running = false;
@@ -397,29 +525,6 @@ bool insidemenu2running = true;
                                         Console.Clear();
                                         break;
                                     }
-                                    else
-                                    {
-                                        Console.WriteLine("Felaktigt val, försök igen");
-                                        continue;
-                                    }
-                                }
-                                break;
-                            case "9":
-                                Console.WriteLine("Utloggad");
-                                insidemenu2running = false;
-                                insidemenurunning = false;
-                                Console.ReadKey();
-                                Console.Clear();
-                                break;
-                            case "0":
-                                Console.WriteLine("Välkommen åter");
-                                insidemenu2running = false;
-                                insidemenurunning = false;
-                                running = false;
-                                Console.ReadKey();
-                                Console.Clear();
-                                break;
-                        }
                     }
                     break;
                 }
