@@ -67,6 +67,72 @@ namespace IndividuelltProjekt.Models
 
             Console.WriteLine("\t\tBoken har lämnats tillbaka!");
         }
+        public static void LoanHistory(int userId)
+        {
+            using var context = new LoanContext();
+            var loans = context.Loans
+                .Where(l => l.User_Id == userId)
+                .Include(l => l.Book)
+                .ToList();
+            Console.WriteLine("\n\t\tLånehistorik:");
+            foreach (var loan in loans)
+            {
+                string returnDate = loan.ReturnDate.HasValue ? loan.ReturnDate.Value.ToString("yyyy-MM-dd") : "Ej återlämnad";
+                Console.WriteLine($"\t\tBoktitel: {loan.Book?.Title}, Lånedatum: {loan.LoanDate:yyyy-MM-dd}, Återlämningsdatum: {returnDate}");
+            }
+        }
+        public static void OverdueLoans()
+        {
+            using var context = new LoanContext();
+            var overdueLoans = context.Loans
+                .Where(l => l.ReturnDate == null && l.LoanDate <= DateTime.Now.AddDays(-30))
+                .Include(l => l.User)
+                .Include(l => l.Book)
+                .ToList();
+            Console.WriteLine("\n\t\tFörsenade lån (över 30 dagar):");
+            foreach (var loan in overdueLoans)
+            {
+                Console.WriteLine($"\t\tAnvändare: {loan.User?.Username}, Boktitel: {loan.Book?.Title}, Lånedatum: {loan.LoanDate:yyyy-MM-dd}");
+            }
+        }
+        public static void LoanedBooksReport()
+        {
+            using var context = new LoanContext();
+            var loanedBooks = context.Loans
+                .Where(l => l.ReturnDate == null)
+                .Include(l => l.Book)
+                .Include(l => l.User)
+                .ToList();
+            Console.WriteLine("\n\t\tUtlånade böcker:");
+            foreach (var loan in loanedBooks)
+            {
+                Console.WriteLine($"\t\tBoktitel: {loan.Book?.Title}, Lånad av: {loan.User?.Username}, Lånedatum: {loan.LoanDate:yyyy-MM-dd}");
+            }
+        }
+        public static void LoanQuestion(int userId)
+        {
+            Console.WriteLine("Vill du låna någon av ovanstående böcker?");
+            Console.Write("Ja/Nej: ");
+            var loanChoice = Console.ReadLine()!.ToUpper();
+            if (loanChoice == "JA")
+            {
+                Console.WriteLine("Skriv in ISBN nummer på boken du vill låna:");
+                Console.Write("13 siffror: ");
+                var inputISBN = long.Parse(Console.ReadLine()!);
+                if (inputISBN.ToString().Length != 13)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\t\tISBN Måste bestå av 13 siffror!");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else
+                {
+                    Loan.LoanBook(userId, inputISBN);
+                }
+            }
+        }
     }
     
 }
