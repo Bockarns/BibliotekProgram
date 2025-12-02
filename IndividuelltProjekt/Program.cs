@@ -221,8 +221,6 @@ bool insidemenu2running = true;
                                                     Console.ReadKey();
                                                     Console.Clear();
                                                 }
-                                                else
-                                                    break;
                                             } 
                                             break;
                                         }
@@ -259,12 +257,8 @@ bool insidemenu2running = true;
                                                     Console.ReadKey();
                                                     Console.Clear();
                                                 }
-                                                else
-                                                    break;
                                             } 
                                         }
-                                        else
-                                            break;
                                         break;
                                     case "2":
                                         Console.WriteLine("\n\t\tVill du söka via ISBN eller via författare och titel?");
@@ -300,8 +294,6 @@ bool insidemenu2running = true;
                                                     Console.ReadKey();
                                                     Console.Clear();
                                                 }
-                                                else
-                                                    break;
                                             }
                                             break;
                                         }
@@ -338,12 +330,8 @@ bool insidemenu2running = true;
                                                     Console.ReadKey();
                                                     Console.Clear();
                                                 }
-                                                else
-                                                    break;
                                             }
                                         }
-                                        else
-                                            break;
                                         break;
                                     case "3":
                                         Console.WriteLine("\n\t\tVill du söka via ISBN eller via författare och titel?");
@@ -415,12 +403,8 @@ bool insidemenu2running = true;
                                                     Console.ReadKey();
                                                     Console.Clear();
                                                 }
-                                                else
-                                                    break;
                                             }
                                         }
-                                        else
-                                            break;
                                         break;
                                     case "9":
                                         Console.WriteLine("\n\t\tÅtergår till föregående meny");
@@ -477,8 +461,6 @@ bool insidemenu2running = true;
                                             Console.ReadKey();
                                             Console.Clear();
                                         }
-                                        else
-                                            break;
                                     }
                                     break;
                                 }
@@ -515,13 +497,9 @@ bool insidemenu2running = true;
                                             Console.ReadKey();
                                             Console.Clear();
                                         }
-                                        else
-                                            break;
                                     }
-                                    break;
                                 }
-                                else
-                                    break;
+                                break;
                             case "4":
                                 //Listar alla böcker och visar om de är lånade eller ej
                                 Console.WriteLine("Lista böcker");
@@ -884,7 +862,6 @@ bool insidemenu2running = true;
                                             Console.Clear();
                                             break;
                                         }
-                                            
                                         break;
                                     }
                                     else if (Choice == "2")
