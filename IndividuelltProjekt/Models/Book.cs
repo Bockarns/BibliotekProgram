@@ -23,6 +23,8 @@ namespace IndividuelltProjekt.Models
                 Title = "";
         }
 
+        //Metoder för CRUD operationer
+
         //Lägger till en bok
         public static void AddBook(long isbn, string author, string title, bool available)
         {
@@ -42,7 +44,6 @@ namespace IndividuelltProjekt.Models
                 var availableBooks = context.Books.Where(b => b.Available).ToList();
                 foreach (var book in availableBooks)
                     Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
-
             }
         }
         //Lista alla böcker
@@ -138,7 +139,6 @@ namespace IndividuelltProjekt.Models
                         Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
                     }
                 }
-
             }
         }
         //Hämtar bok via titel
@@ -251,11 +251,8 @@ namespace IndividuelltProjekt.Models
                 var book = context.Books.FirstOrDefault(b => b.Author == author);
                 if (book == null)
                     return null!;
-
                 book.Author = updateAuthor;
-
                 context.SaveChanges();
-
                 return book;
             }
         }
@@ -267,11 +264,8 @@ namespace IndividuelltProjekt.Models
                 var book = context.Books.FirstOrDefault(b => b.Title == title);
                 if (book == null)
                     return null!;
-
                 book.Title = title;
-
                 context.SaveChanges();
-
                 return book;
             }
         }
@@ -290,7 +284,6 @@ namespace IndividuelltProjekt.Models
                     book.Available = true;
                 context.SaveChanges();
                 return book;
-
             }
         }
         //Ta bort en bok
@@ -303,6 +296,5 @@ namespace IndividuelltProjekt.Models
                 context.SaveChanges();
             }
         }
-        
     }
 }
