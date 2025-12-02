@@ -67,6 +67,8 @@ namespace IndividuelltProjekt.Models
 
             Console.WriteLine("\t\tBoken har lämnats tillbaka!");
         }
+
+        // Lånehistorik för en användare - Ska fortfarande testas om den fungerar
         public static void LoanHistory(int userId)
         {
             using var context = new LoanContext();
@@ -81,6 +83,7 @@ namespace IndividuelltProjekt.Models
                 Console.WriteLine($"\t\tBoktitel: {loan.Book?.Title}, Lånedatum: {loan.LoanDate:yyyy-MM-dd}, Återlämningsdatum: {returnDate}");
             }
         }
+        // Rapport över försenade lån (över 30 dagar) - Ska fortfarande testas om den fungerar
         public static void OverdueLoans()
         {
             using var context = new LoanContext();
@@ -95,6 +98,7 @@ namespace IndividuelltProjekt.Models
                 Console.WriteLine($"\t\tAnvändare: {loan.User?.Username}, Boktitel: {loan.Book?.Title}, Lånedatum: {loan.LoanDate:yyyy-MM-dd}");
             }
         }
+        // Rapport över alla utlånade böcker - Ska fortfarande testas om den fungerar
         public static void LoanedBooksReport()
         {
             using var context = new LoanContext();
@@ -109,6 +113,7 @@ namespace IndividuelltProjekt.Models
                 Console.WriteLine($"\t\tBoktitel: {loan.Book?.Title}, Lånad av: {loan.User?.Username}, Lånedatum: {loan.LoanDate:yyyy-MM-dd}");
             }
         }
+        // Fråga användaren om de vill låna en bok från en visad lista.
         public static void LoanQuestion(int userId)
         {
             Console.WriteLine("Vill du låna någon av ovanstående böcker?");
