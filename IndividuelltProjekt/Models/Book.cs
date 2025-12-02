@@ -131,26 +131,26 @@ namespace IndividuelltProjekt.Models
                 return context.Books.FirstOrDefault(b => b.Title == title)!;
             }
         }
-        ////Listar böckwr via titel
-        //public static void SearchBookByTitleSorted(string title)
-        //{
-        //    using (var context = new BookContext())
-        //    {
-        //        var books = context.Books.Where(b => b.Title!.Contains(title)).OrderBy(b => b.Title).ToList();
-        //        foreach (var book in books)
-        //        {
-        //            if (book.Available == true)
-        //            {
-        //                Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
-        //            }
-        //            else
-        //            {
-        //                Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
-        //            }
-        //        }
-                    
-        //    }
-        //}
+        //Listar böckwr via titel
+        public static void SearchBookByTitleSorted(string title)
+        {
+            using (var context = new BookContext())
+            {
+                var books = context.Books.Where(b => b.Title!.Contains(title)).OrderBy(b => b.Title).ToList();
+                foreach (var book in books)
+                {
+                    if (book.Available == true)
+                    {
+                        Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
+                    }
+                    else
+                    {
+                        Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
+                    }
+                }
+
+            }
+        }
         //Lista alla böcker sorterat på titel
         public static void ListAllBooksSortedTitle()
         {

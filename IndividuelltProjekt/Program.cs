@@ -691,26 +691,37 @@ bool insidemenu2running = true;
                                             var inputISBN = long.Parse(Console.ReadLine()!);
                                             var book = Book.GetBookByISBN(inputISBN);
                                             var available = false;
-                                            //Kontroll om boken finns i databasen
-                                            if (book != null)
+                                            if (inputISBN.ToString().Length != 13)
                                             {
-                                                available = book.Available;
-                                                //Kontroll om boken finns tillgänglig för lån eller redan är utlånad.
-                                                if (available == true)
+                                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                Console.WriteLine("\t\tISBN Måste bestå av 13 siffror!");
+                                                Console.ResetColor();
+                                                Console.ReadKey();
+                                                Console.Clear();
+                                            }
+                                            else
+                                            {
+                                                //Kontroll om boken finns i databasen
+                                                if (book != null)
                                                 {
-                                                    Menus.DisplayAvailableBookInfo(book);
-                                                    Console.WriteLine("\nVill du låna denna?");
-                                                    Console.Write("JA/NEJ: ");
-                                                    var checkingOutBook = Console.ReadLine()!.ToUpper();
-                                                    if (checkingOutBook == "JA")
+                                                    available = book.Available;
+                                                    //Kontroll om boken finns tillgänglig för lån eller redan är utlånad.
+                                                    if (available == true)
                                                     {
-                                                        Loan.LoanBook(userId, book.Id);
+                                                        Menus.DisplayAvailableBookInfo(book);
+                                                        Console.WriteLine("\nVill du låna denna?");
+                                                        Console.Write("JA/NEJ: ");
+                                                        var checkingOutBook = Console.ReadLine()!.ToUpper();
+                                                        if (checkingOutBook == "JA")
+                                                        {
+                                                            Loan.LoanBook(userId, book.Id);
+                                                        }
+                                                        else
+                                                            break;
                                                     }
                                                     else
-                                                        break;
+                                                        Menus.DisplayUnavailableBookInfo(book);
                                                 }
-                                                else
-                                                    Menus.DisplayUnavailableBookInfo(book);
                                             }
                                             Console.ReadKey();
                                             break;
@@ -718,38 +729,30 @@ bool insidemenu2running = true;
                                             Console.WriteLine("\t\tSök på titel på boken:");
                                             Console.Write("\t\tTitel: ");
                                             var inputTitle = Console.ReadLine();
-                                            book = Book.GetBookByTitle(inputTitle!);
-                                            if (book != null)
+                                            Book.SearchBookByTitleSorted(inputTitle!);
+                                            Console.WriteLine("Vill du låna någon av ovanstående böcker?");
+                                            Console.Write("Ja/Nej: ");
+                                            var loanChoice = Console.ReadLine()!.ToUpper();
+                                            if (loanChoice == "JA")
                                             {
-                                                available = book.Available;
-                                                Menus.DisplayAvailableBookInfo(book!);
-                                                if (available == true)
-                                                    {
-                                                    Console.WriteLine("\nVill du låna denna?");
-                                                    Console.Write("JA/NEJ: ");
-                                                    var checkingOutBook = Console.ReadLine()!.ToUpper();
-                                                    if (checkingOutBook == "JA")
-                                                    {
-                                                        Loan.LoanBook(userId, book.Id);
-                                                    }
-                                                    else
-                                                        break;
+                                                Console.WriteLine("Skriv in ISBN nummer på boken du vill låna:");
+                                                Console.Write("13 siffror: ");
+                                                inputISBN = long.Parse(Console.ReadLine()!);
+                                                if (inputISBN.ToString().Length != 13)
+                                                {
+                                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                    Console.WriteLine("\t\tISBN Måste bestå av 13 siffror!");
+                                                    Console.ResetColor();
+                                                    Console.ReadKey();
+                                                    Console.Clear();
                                                 }
                                                 else
                                                 {
-                                                    Console.WriteLine("Denna bok går ej att låna för tillfället!");
-                                                    Console.ReadKey();
-                                                    break;
+                                                    Loan.LoanBook(userId, inputISBN);
                                                 }
                                             }
-                                            else if (book == null)
-                                            { 
-                                                Console.WriteLine("Boken hittades inte, kontrollera stavning och försök igen.");
-                                                Console.ReadKey();
-                                                Console.Clear();
+                                            else
                                                 break;
-                                            }
-                                            Console.ReadKey();
                                             break;
                                         case "3":
                                             Console.WriteLine("\t\tSök på författarens för- och efternamn:");
@@ -758,13 +761,24 @@ bool insidemenu2running = true;
                                             Book.SearchBookByAuthorSorted(inputAuthor!);
                                             Console.WriteLine("Vill du låna någon av ovanstående böcker?");
                                             Console.Write("Ja/Nej: ");
-                                            var loanChoice = Console.ReadLine()!.ToUpper();
+                                            loanChoice = Console.ReadLine()!.ToUpper();
                                             if (loanChoice == "JA")
                                             {
                                                 Console.WriteLine("Skriv in ISBN nummer på boken du vill låna:");
                                                 Console.Write("13 siffror: ");
-                                                var isbnToLoan = long.Parse(Console.ReadLine()!);
-                                                Loan.LoanBook(userId, isbnToLoan);
+                                                inputISBN = long.Parse(Console.ReadLine()!);
+                                                if (inputISBN.ToString().Length != 13)
+                                                {
+                                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                    Console.WriteLine("\t\tISBN Måste bestå av 13 siffror!");
+                                                    Console.ResetColor();
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                }
+                                                else
+                                                {
+                                                    Loan.LoanBook(userId, inputISBN);
+                                                }
                                             }
                                             else
                                                 break;
@@ -774,54 +788,48 @@ bool insidemenu2running = true;
                                             Console.WriteLine("\t\tSök med nyckelord (i titel eller författare):");
                                             Console.Write("\t\tNyckelord: ");
                                             var inputKeyword = Console.ReadLine();
-                                            Book.SearchBooksByKeyword(inputKeyword!);
-                                            Console.WriteLine("\nVill du sortera böckerna?");
-                                            Console.Write("JA/NEJ: ");
-                                            var sortChoice = Console.ReadLine()!.ToUpper();
-                                            if (sortChoice == "JA")
+                                            Console.WriteLine("\n\t\tVill du sortera böckerna?");
+                                            Console.WriteLine("\t\t1. På författare");
+                                            Console.WriteLine("\t\t2. På Titel");
+                                            Console.Write("\n\t\tSvar: ");
+                                            var sortChoice = Console.ReadLine();
+                                            if (sortChoice == "1")
                                             {
-                                                Console.WriteLine("\nVill du sortera på författare eller titlar?");
-                                                Console.Write("1 = Författare eller 2 = Titel: ");
-                                                var sortType = Console.ReadLine();
-                                                if (sortType == "1")
-                                                {
-                                                    Book.SearchBooksByKeywordSortedAuthor(inputKeyword!);
-                                                    Console.WriteLine("\nVill du sortera dom på titlar?");
-                                                    Console.Write("JA/NEJ: ");
-                                                    var sortTitleChoice = Console.ReadLine()!.ToUpper();
-                                                    if (sortTitleChoice == "JA")
-                                                    {
-                                                        Book.SearchBooksByKeywordSortedTitle(inputKeyword!);
-                                                    }
-                                                    else
-                                                        break;
-                                                }
-                                                else if (sortType == "2")
-                                                {
-                                                    Book.SearchBooksByKeywordSortedTitle(inputKeyword!);
-                                                    Console.WriteLine("\nVill du sortera dom på författare?");
-                                                    Console.Write("JA/NEJ: ");
-                                                    var sortAuthorChoice = Console.ReadLine()!.ToUpper();
-                                                    if (sortAuthorChoice == "JA")
-                                                    {
-                                                        Book.SearchBooksByKeywordSortedAuthor(inputKeyword!);
-                                                    }
-                                                    else
-                                                        break;
-                                                }
-                                                else
+                                                Book.SearchBooksByKeywordSortedAuthor(inputKeyword!);
+                                                
+                                            }
+                                            else if (sortChoice == "2")
+                                            {
+                                                Book.SearchBooksByKeywordSortedTitle(inputKeyword!);
+                                                
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("\n\t\tOsorterad Lista\n");
+                                                Book.SearchBooksByKeyword(inputKeyword!);
+                                                
+                                            }
+                                            Console.WriteLine("Vill du låna någon av ovanstående böcker?");
+                                            Console.Write("Ja/Nej: ");
+                                            loanChoice = Console.ReadLine()!.ToUpper();
+                                            if (loanChoice == "JA")
+                                            {
+                                                Console.WriteLine("Skriv in ISBN nummer på boken du vill låna:");
+                                                Console.Write("13 siffror: ");
+                                                inputISBN = long.Parse(Console.ReadLine()!);
+                                                if (inputISBN.ToString().Length != 13)
                                                 {
                                                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                                    Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
+                                                    Console.WriteLine("\t\tISBN Måste bestå av 13 siffror!");
                                                     Console.ResetColor();
                                                     Console.ReadKey();
                                                     Console.Clear();
-                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    Loan.LoanBook(userId, inputISBN);
                                                 }
                                             }
-                                            else
-                                                break;
-                                            Console.ReadKey();
                                             break;
                                         case "5":
                                             //Listar alla tillgängliga böcker
