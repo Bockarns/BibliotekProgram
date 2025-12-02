@@ -138,6 +138,30 @@ namespace IndividuelltProjekt.Models
                 }
             }
         }
+        public static void ReturnQuestion()
+        {
+            Console.WriteLine("\n\t\tVill du lämna tillbaka någon av ovanstående böcker?");
+            Console.Write("\t\tJa/Nej: ");
+            var returnChoice = Console.ReadLine()!.ToUpper();
+            if (returnChoice == "JA")
+            {
+                Console.WriteLine("\n\t\tSkriv in ISBN nummer på boken du vill lämna tillbaka:");
+                Console.Write("\t\t13 siffror: ");
+                var inputISBN = long.Parse(Console.ReadLine()!);
+                if (inputISBN.ToString().Length != 13)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\n\t\tISBN Måste bestå av 13 siffror!");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else
+                {
+                    Loan.ReturnBook(inputISBN);
+                }
+            }
+        }
     }
     
 }

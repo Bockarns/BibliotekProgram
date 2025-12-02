@@ -757,6 +757,7 @@ bool insidemenu2running = true;
                                         case "5":
                                             //Listar alla tillgängliga böcker
                                             Book.ListAllAvailableBooks();
+                                            Loan.LoanQuestion(userId);
                                             Console.ReadKey();
                                             break;
                                         case "6":
@@ -769,21 +770,15 @@ bool insidemenu2running = true;
                                             if (sortChoice == "1")
                                             {
                                                 Book.ListAllBooksSortedAuthor();
-                                                Console.ReadKey();
-                                                Console.Clear();
                                             }
                                             else if (sortChoice == "2")
                                             {
                                                 Book.ListAllBooksSortedTitle();
-                                                Console.ReadKey();
-                                                Console.Clear();
                                             }
                                             else
                                             {
                                                 Console.WriteLine("\n\t\tOsorterad Lista\n");
                                                 Book.ListAllBooks();
-                                                Console.ReadKey();
-                                                Console.Clear();
                                             }
                                             Loan.LoanQuestion(userId);
                                             Console.ReadKey();
