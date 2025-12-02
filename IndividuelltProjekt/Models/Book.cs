@@ -66,44 +66,7 @@ namespace IndividuelltProjekt.Models
                 }
             }
         }
-        //Lista alla böcker sorterat på författare
-        public static void ListAllBooksSortedAuthor()
-        {
-            using (var context = new BookContext())
-            {
-                var allBooks = context.Books.OrderBy(b => b.Author).ToList();
-                foreach (var book in allBooks)
-                {
-                    if (book.Available == true)
-                    {
-                        Menus.DisplayAvailableBookInfo(book); 
-                    }
-                    else
-                    {
-                        Menus.DisplayUnavailableBookInfo(book); 
-                    }
-                }
-            }
-        }
-        //Lista alla böcker sorterat på titel
-        public static void ListAllBooksSortedTitle()
-        {
-            using (var context = new BookContext())
-            {
-                var allBooks = context.Books.OrderBy(b => b.Title).ToList();
-                foreach (var book in allBooks)
-                {
-                    if (book.Available == true)
-                    {
-                        Menus.DisplayAvailableBookInfo(book);
-                    }
-                    else
-                    {
-                        Menus.DisplayUnavailableBookInfo(book); 
-                    }
-                }
-            }
-        }
+        
         //Kontrollera tillgänglighet på en bock
         public static bool CheckBookAvaliable(bool available)
         {
@@ -123,11 +86,11 @@ namespace IndividuelltProjekt.Models
             }
         }
         //Listar samtliga böcker från en författare
-        public static void SearchBookByAuthor(string author)
+        public static void SearchBookByAuthorSorted(string author)
         {
             using (var context = new BookContext())
             {
-                var allBooksByAuthor = context.Books.Where(b => b.Author == author).ToList();
+                var allBooksByAuthor = context.Books.Where(b => b.Author!.Contains(author)).OrderBy(b => b.Author).ToList();
                 foreach (var book in allBooksByAuthor)
                 {
                     if (book.Available == true)
@@ -141,6 +104,25 @@ namespace IndividuelltProjekt.Models
                 }
             }
         }
+        //Lista alla böcker sorterat på författare
+        public static void ListAllBooksSortedAuthor()
+        {
+            using (var context = new BookContext())
+            {
+                var allBooks = context.Books.OrderBy(b => b.Author).ToList();
+                foreach (var book in allBooks)
+                {
+                    if (book.Available == true)
+                    {
+                        Menus.DisplayAvailableBookInfo(book);
+                    }
+                    else
+                    {
+                        Menus.DisplayUnavailableBookInfo(book);
+                    }
+                }
+            }
+        }
         //Hämtar bok via titel
         public static Book GetBookByTitle(string title)
         {
@@ -149,19 +131,42 @@ namespace IndividuelltProjekt.Models
                 return context.Books.FirstOrDefault(b => b.Title == title)!;
             }
         }
-        //Listar böckwr via titel
-        public static void SearchBookByTitle(string title)
+        ////Listar böckwr via titel
+        //public static void SearchBookByTitleSorted(string title)
+        //{
+        //    using (var context = new BookContext())
+        //    {
+        //        var books = context.Books.Where(b => b.Title!.Contains(title)).OrderBy(b => b.Title).ToList();
+        //        foreach (var book in books)
+        //        {
+        //            if (book.Available == true)
+        //            {
+        //                Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
+        //            }
+        //            else
+        //            {
+        //                Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
+        //            }
+        //        }
+                    
+        //    }
+        //}
+        //Lista alla böcker sorterat på titel
+        public static void ListAllBooksSortedTitle()
         {
             using (var context = new BookContext())
             {
-                var book = context.Books.FirstOrDefault(b => b.Title == title)!;
-                if (book.Available == true)
+                var allBooks = context.Books.OrderBy(b => b.Title).ToList();
+                foreach (var book in allBooks)
                 {
-                    Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
-                }
-                else
-                {
-                    Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
+                    if (book.Available == true)
+                    {
+                        Menus.DisplayAvailableBookInfo(book);
+                    }
+                    else
+                    {
+                        Menus.DisplayUnavailableBookInfo(book);
+                    }
                 }
             }
         }

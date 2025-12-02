@@ -47,11 +47,11 @@ namespace IndividuelltProjekt
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\t*********************************************************************************");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
-            Console.Write($"\t*\t\t\t***");
+            Console.Write($"\t*\t\t***");
             Console.ResetColor();
-            Console.Write(" Välkommen till biblioteket! ");
+            Console.Write(" Välkommen till JGB´s bibliotek! ");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("***\t\t\t*\n");
+            Console.Write("***\t\t\t\t*\n");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
             Console.WriteLine("\t*********************************************************************************\n");
             Console.ResetColor();
@@ -65,13 +65,13 @@ namespace IndividuelltProjekt
         public static void AdminMainMenu(string adminUserName)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($"\n\t\t\t\t***");
+            Console.WriteLine("\t*********************************************************************************");
+            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
+            Console.Write($"\t*\t\t***");
             Console.ResetColor();
-            Console.Write($" Välkommen Admin {adminUserName} ");
+            Console.Write(" Välkommen till JGB´s bibliotek! ");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("***\t\t\t\n");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\n\t*********************************************************************************");
+            Console.Write("***\t\t\t\t*\n");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
             Console.Write("\t*\t");
             Console.ResetColor();
@@ -95,8 +95,14 @@ namespace IndividuelltProjekt
             Console.Write("\t*\n");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
             Console.WriteLine("\t*********************************************************************************\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"\n\t\t\t***");
             Console.ResetColor();
-            Console.WriteLine("\t\t1.Lägg till ny bok");
+            Console.Write($" Inloggad Admin: {adminUserName} ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("***\t\t\t\n");
+            Console.ResetColor();
+            Console.WriteLine("\n\t\t1.Lägg till ny bok");
             Console.WriteLine("\t\t2.Redigera befintlig bok");
             Console.WriteLine("\t\t3.Ta bort bok");
             Console.WriteLine("\t\t4.Lista alla böcker");
@@ -109,13 +115,13 @@ namespace IndividuelltProjekt
         public static void UserMainMenu(string userName)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($"\n\t\t\t\t***");
+            Console.WriteLine("\t*********************************************************************************");
+            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
+            Console.Write($"\t*\t\t***");
             Console.ResetColor();
-            Console.Write($" Välkommen {userName} ");
+            Console.Write(" Välkommen till JGB´s bibliotek! ");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("***\t\t\t\n");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\n\t*********************************************************************************");
+            Console.Write("***\t\t\t\t*\n");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
             Console.Write("\t*\t");
             Console.ResetColor();
@@ -139,12 +145,17 @@ namespace IndividuelltProjekt
             Console.Write("\t*\n");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
             Console.WriteLine("\t*********************************************************************************\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"\t\t\t***");
             Console.ResetColor();
-            Console.WriteLine("\t\t1.Sök bok");
-            Console.WriteLine("\t\t2.Låna bok");
-            Console.WriteLine("\t\t3.Lämna tillbaka bok");
-            Console.WriteLine("\t\t4.Lista alla dina lånade böcker");
-            Console.WriteLine("\t\t5.Redigera profil");
+            Console.Write($" Inloggad användare: {userName} ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("***\t\t\t\n");
+            Console.ResetColor();
+            Console.WriteLine("\n\t\t1.Låna bok");
+            Console.WriteLine("\t\t2.Lämna tillbaka bok");
+            Console.WriteLine("\t\t3.Lista alla dina lånade böcker");
+            Console.WriteLine("\t\t4.Redigera profil");
             Console.WriteLine("\t\t9.Logga ut och återgå till huvudmenyn");
             Console.WriteLine("\t\t0.Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
