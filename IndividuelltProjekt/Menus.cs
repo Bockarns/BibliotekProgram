@@ -10,6 +10,37 @@ namespace IndividuelltProjekt
 {
     static class Menus
     {
+        //Försökte göra enums för menyvalen men fick inte riktigt till det som jag ville.
+        //public enum MainMenuOptions
+        //{
+        //    CreateAccount = 1,
+        //    Login = 2,
+        //    ReturnToMainMenu = 3,
+        //    Exit = 0
+        //}
+
+        //public enum AdminMenuOptions
+        //{
+        //    AddBook = 1,
+        //    EditBook = 2,
+        //    RemoveBook = 3,
+        //    ListAllBooks = 4,
+        //    EditProfile = 5,
+        //    Logout = 9,
+        //    Exit = 0
+        //}
+
+        //public enum UserMenuOptions
+        //{
+        //    SearchBook = 1,
+        //    BorrowBook = 2,
+        //    ReturnBook = 3,
+        //    ListBorrowedBooks = 4,
+        //    EditProfile = 5,
+        //    Logout = 9,
+        //    Exit = 0
+        //}
+
         //Mainmeny
         public static void MainMenu()
         {
@@ -27,7 +58,6 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\tVälj ett av följande alternativ:");
             Console.WriteLine("\t\t1. Skapa nytt konto");
             Console.WriteLine("\t\t2. Logga in");
-            Console.WriteLine("\t\t3. Återgå till huvudmenyn");
             Console.WriteLine("\t\t0. Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
         }

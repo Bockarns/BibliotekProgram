@@ -74,8 +74,7 @@ bool insidemenu2running = true;
                         Console.ResetColor();
                         Console.ReadKey(); 
                         Console.Clear();
-                    }
-                        
+                    }  
                 }
                 else if (admincheck == "NEJ")
                 {
@@ -103,7 +102,6 @@ bool insidemenu2running = true;
                         Console.ReadKey();
                         Console.Clear();
                     }
-                        
                 }
             }
             catch (Exception MyExcep)
@@ -168,7 +166,7 @@ bool insidemenu2running = true;
                                     Console.WriteLine("Ny bok tillagd i biblioteket");
                                     var book = Book.GetBookByISBN(newIsbn);
                                     if (book != null)
-                                        Console.Write($"{book.Title}, {book.Author}, {book.Id} ");
+                                        Menus.DisplayBooksWithoutAvailability(book);
                                     Console.ReadKey();
                                     Console.Clear();
                                 }
@@ -199,7 +197,7 @@ bool insidemenu2running = true;
                                             {
                                                 var book = Book.GetBookByISBN(ISBN);
                                                 Console.WriteLine("\n\n\t\tStämmer det att du vill ändra författare för denna bok?");
-                                                Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
+                                                Menus.DisplayBooksWithoutAvailability(book);
                                                 Console.Write("\nJA/NEJ: ");
                                                 var confirm = Console.ReadLine()!.ToUpper();
                                                 if (confirm == "JA")
@@ -208,7 +206,8 @@ bool insidemenu2running = true;
                                                     var newAuthor = Console.ReadLine();
                                                     Book.UpdateAuthor(book.Author!, newAuthor!);
                                                     book = Book.GetBookByISBN(ISBN);
-                                                    Console.WriteLine($"Boken: {book.Title}, Skriven av: {book.Author} har uppdaterats.");
+                                                    Console.WriteLine("\n\t\tBoken har uppdaterat enligt nedan: \n");
+                                                    Menus.DisplayBooksWithoutAvailability(book);
                                                     Console.ReadKey();
                                                     Console.Clear();
                                                 }
@@ -236,7 +235,7 @@ bool insidemenu2running = true;
                                             else
                                             {
                                                 Console.WriteLine("\n\t\tStämmer det att du vill ändra författare för denna bok?");
-                                                Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
+                                                Menus.DisplayBooksWithoutAvailability(book);
                                                 Console.Write("\nJA/NEJ: ");
                                                 var confirm = Console.ReadLine()!.ToUpper();
                                                 if (confirm == "JA")
@@ -245,14 +244,14 @@ bool insidemenu2running = true;
                                                     var newAuthor = Console.ReadLine();
                                                     Book.UpdateAuthor(book.Author!, newAuthor!);
                                                     book = Book.GetBookByAuthorAndTitle(author!, title!);
-                                                    Console.WriteLine($"Boken: {book.Title}, Skriven av: {book.Author} har uppdaterats.");
+                                                    Console.WriteLine("\n\t\tBoken har uppdaterat enligt nedan: \n");
+                                                    Menus.DisplayBooksWithoutAvailability(book);
                                                     Console.ReadKey();
                                                     Console.Clear();
                                                 }
                                                 else
                                                     break;
-                                            }
-                                                
+                                            } 
                                         }
                                         else
                                             break;
@@ -276,8 +275,8 @@ bool insidemenu2running = true;
                                             else
                                             {
                                                 var book = Book.GetBookByISBN(ISBN);
-                                                Console.WriteLine("\n\t\tStämmer det att du vill ändra författare för denna bok?");
-                                                Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
+                                                Console.WriteLine("\n\t\tStämmer det att du vill ändra titel för denna bok?");
+                                                Menus.DisplayBooksWithoutAvailability(book);
                                                 Console.Write("\nJA/NEJ: ");
                                                 var confirm = Console.ReadLine()!.ToUpper();
                                                 if (confirm == "JA")
@@ -286,7 +285,8 @@ bool insidemenu2running = true;
                                                     var newTitle = Console.ReadLine();
                                                     Book.UpdateTitle(book.Title!, newTitle!);
                                                     book = Book.GetBookByISBN(ISBN);
-                                                    Console.WriteLine($"Boken: {book.Title}, Skriven av: {book.Author} har uppdaterats.");
+                                                    Console.WriteLine("\n\t\tBoken har uppdaterat enligt nedan: \n");
+                                                    Menus.DisplayBooksWithoutAvailability(book);
                                                     Console.ReadKey();
                                                     Console.Clear();
                                                 }
@@ -313,8 +313,8 @@ bool insidemenu2running = true;
                                             }
                                             else
                                             {
-                                                Console.WriteLine("\n\t\tStämmer det att du vill ändra författare för denna bok?");
-                                                Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
+                                                Console.WriteLine("\n\t\tStämmer det att du vill ändra titel för denna bok?");
+                                                Menus.DisplayBooksWithoutAvailability(book);
                                                 Console.Write("\nJA/NEJ: ");
                                                 var confirm = Console.ReadLine()!.ToUpper();
                                                 if (confirm == "JA")
@@ -323,7 +323,8 @@ bool insidemenu2running = true;
                                                     var newTitle = Console.ReadLine();
                                                     Book.UpdateTitle(book.Title!, newTitle!);
                                                     book = Book.GetBookByAuthorAndTitle(author!, title!);
-                                                    Console.WriteLine($"Boken: {book.Title}, Skriven av: {book.Author} har uppdaterats.");
+                                                    Console.WriteLine("\n\t\tBoken har uppdaterat enligt nedan: \n");
+                                                    Menus.DisplayBooksWithoutAvailability(book);
                                                     Console.ReadKey();
                                                     Console.Clear();
                                                 }
@@ -354,14 +355,17 @@ bool insidemenu2running = true;
                                             {
                                                 var book = Book.GetBookByISBN(ISBN);
                                                 Console.WriteLine("Stämmer det att du vill ändra tillgängligheten för denna bok?");
-                                                Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}, \n***| Tillgänglighet: {book.Available}: ");
+                                                Menus.DisplayBooksWithoutAvailability(book);
+                                                Console.WriteLine($"\n***| Tillgänglighet: {book.Available}: ");
                                                 Console.Write("\nJA/NEJ: ");
                                                 var confirm = Console.ReadLine()!.ToUpper();
                                                 if (confirm == "JA")
                                                 {
                                                     Book.UpdateAvailable(ISBN, book.Available);
                                                     book = Book.GetBookByISBN(ISBN);
-                                                    Console.WriteLine($"Boken: {book.Title}, Tillgänglighet har uppdaterats till: {book.Available}");
+                                                    Console.WriteLine("\n\t\tBoken har uppdaterat enligt nedan: \n");
+                                                    Menus.DisplayBooksWithoutAvailability(book);
+                                                    Console.WriteLine($"\nTillgänglighet har uppdaterats till: {book.Available}");
                                                     Console.ReadKey();
                                                     Console.Clear();
                                                 }
@@ -387,14 +391,17 @@ bool insidemenu2running = true;
                                             else
                                             {
                                                 Console.WriteLine("\t\tStämmer det att du vill ändra tillgängligheten för denna bok?");
-                                                Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
+                                                Menus.DisplayBooksWithoutAvailability(book);
+                                                Console.WriteLine($"\n***| Tillgänglighet: {book.Available}: ");
                                                 Console.Write("\nJA/NEJ: ");
                                                 var confirm = Console.ReadLine()!.ToUpper();
                                                 if (confirm == "JA")
                                                 {
                                                     Book.UpdateAvailable(book.Id, book.Available);
                                                     book = Book.GetBookByISBN(book.Id);
-                                                    Console.WriteLine($"Boken: {book.Title}, Tillgänglighet har uppdaterats till: {book.Available}");
+                                                    Console.WriteLine("\n\t\tBoken har uppdaterat enligt nedan: \n");
+                                                    Menus.DisplayBooksWithoutAvailability(book);
+                                                    Console.WriteLine($"\nTillgänglighet har uppdaterats till: {book.Available}");
                                                     Console.ReadKey();
                                                     Console.Clear();
                                                 }
@@ -447,7 +454,7 @@ bool insidemenu2running = true;
                                         var book = Book.GetBookByISBN(ISBN);
                                         Console.ForegroundColor = ConsoleColor.Red;
                                         Console.WriteLine("\t\tStämmer det att du vill radera denna bok?");
-                                        Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
+                                        Menus.DisplayBooksWithoutAvailability(book);
                                         Console.ResetColor();
                                         Console.Write("\nJA/NEJ: ");
                                         var confirm = Console.ReadLine()!.ToUpper();
@@ -486,7 +493,7 @@ bool insidemenu2running = true;
                                         Console.ForegroundColor = ConsoleColor.Red;
                                         Console.WriteLine("\t\tStämmer det att du vill radera denna bok?");
                                         Console.ResetColor();
-                                        Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id}");
+                                        Menus.DisplayBooksWithoutAvailability(book);
                                         Console.Write("\nJA/NEJ: ");
                                         var confirm = Console.ReadLine()!.ToUpper();
                                         if (confirm == "JA")
@@ -691,7 +698,7 @@ bool insidemenu2running = true;
                                                 //Kontroll om boken finns tillgänglig för lån eller redan är utlånad.
                                                 if (available == true)
                                                 {
-                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id},\n***| Finns tillgänglig för lån!");
+                                                    Menus.DisplayAvailableBookInfo(book);
                                                     Console.WriteLine("\nVill du låna denna?");
                                                     Console.Write("JA/NEJ: ");
                                                     var checkingOutBook = Console.ReadLine()!.ToUpper();
@@ -703,7 +710,7 @@ bool insidemenu2running = true;
                                                         break;
                                                 }
                                                 else
-                                                    Console.WriteLine($"\n***| Titel: {book.Title},\n***| Författare: {book.Author},\n***| ISBN: {book.Id},\n***| Finns EJ tillgänglig för lån!");
+                                                    Menus.DisplayUnavailableBookInfo(book);
                                             }
                                             Console.ReadKey();
                                             break;
@@ -734,7 +741,6 @@ bool insidemenu2running = true;
                                                     Console.ReadKey();
                                                     break;
                                                 }
-                                                
                                             }
                                             else if (book == null)
                                             { 
