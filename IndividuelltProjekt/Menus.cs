@@ -299,16 +299,22 @@ namespace IndividuelltProjekt
             Console.Write("\t\tSkriv in ditt val här: ");
         }
         //Redigera profil meny
-        public static void EditProfile()
+        public static void EditProfile(string choice)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\t*********************************************************************************");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
-            Console.Write($"\t*\t\t\t\t***");
+            Console.Write($"\t*\t\t\t   ***");
             Console.ResetColor();
-            Console.Write(" Redigera din profil ");
+            Console.Write(" JGB´s bibliotek! ");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("***\t\t\t*\n");
+            Console.Write("***\t\t\t\t*\n");
+            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
+            Console.Write($"\t*\t\t\t    ");
+            Console.ResetColor();
+            Console.Write($"{choice}. Redigera din profil ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\t\t\t\t*\n");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
             Console.WriteLine("\t*********************************************************************************\n");
             Console.ResetColor();

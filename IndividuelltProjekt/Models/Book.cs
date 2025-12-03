@@ -251,6 +251,30 @@ namespace IndividuelltProjekt.Models
                 return context.Books.FirstOrDefault(b => b.Id == isbn)!;
             }
         }
+        //Fråga efter ISBN
+        public static long AskForISBN()
+        {
+            Console.Write("\t\t13 siffror: ");
+            var inputISBN = Console.ReadLine()!;
+            if (inputISBN.Length != 13)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("\t\tISBN Måste bestå av 13 siffror!");
+                Console.ResetColor();
+                Console.ReadKey();
+                Console.Clear();
+                return 0;
+            }
+            else if (inputISBN.Length == 13)
+            {
+                long parsedISBN = long.Parse(inputISBN);
+                return parsedISBN;
+            }
+            else
+            {
+                return 0;
+            }
+        }
         //Uppdatera författare information
         public static Book UpdateAuthor(string author, string updateAuthor)
         {

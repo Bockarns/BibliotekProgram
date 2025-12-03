@@ -183,6 +183,7 @@ namespace IndividuelltProjekt.Models
             Console.Clear();
             Console.WriteLine("\x1b[3J");
         }
+        
         public static void ReturnQuestion()
         {
             Console.WriteLine("\n\t\tVill du lämna tillbaka någon av ovanstående böcker?");
