@@ -411,9 +411,21 @@ bool insidemenu2running = true;
                                                 }
                                             }
                                         }
+                                        else if (searchChoice != "1" || searchChoice != "2")
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                            Console.WriteLine("\n\t\tFelaktigt val, försök igen!");
+                                            Console.ResetColor();
+                                            Console.ReadKey();
+                                            Console.Clear();
+                                        }
                                         break;
                                     case "9":
                                         Console.WriteLine("\n\t\tÅtergår till föregående meny");
+                                        insidemenu2running = false;
+                                        insidemenurunning = false;
+                                        Console.ReadKey();
+                                        Console.Clear();
                                         break;
                                     case "0":
                                         Console.WriteLine("\n\t\t\tVälkommen åter");
@@ -444,7 +456,7 @@ bool insidemenu2running = true;
                                     if (ISBN.ToString().Length != 13)
                                     {
                                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                        Console.WriteLine("\t\tISBN Måste bestå av 13 siffror!");
+                                        Console.WriteLine("\n\t\tISBN Måste bestå av 13 siffror!");
                                         Console.ResetColor();
                                         Console.ReadKey();
                                         Console.Clear();
@@ -453,7 +465,7 @@ bool insidemenu2running = true;
                                     {
                                         var book = Book.GetBookByISBN(ISBN);
                                         Console.ForegroundColor = ConsoleColor.Red;
-                                        Console.WriteLine("\t\tStämmer det att du vill radera denna bok?");
+                                        Console.WriteLine("\n\t\tStämmer det att du vill radera denna bok?");
                                         Menus.DisplayBooksWithoutAvailability(book);
                                         Console.ResetColor();
                                         Console.Write("\nJA/NEJ: ");
@@ -480,7 +492,7 @@ bool insidemenu2running = true;
                                     if (book == null)
                                     {
                                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                        Console.WriteLine("\t\tBoken hittades inte, kontrollera stavning och försök igen.");
+                                        Console.WriteLine("\n\t\tBoken hittades inte, kontrollera stavning och försök igen.");
                                         Console.ResetColor();
                                         Console.ReadKey();
                                         Console.Clear();
@@ -505,12 +517,22 @@ bool insidemenu2running = true;
                                         }
                                     }
                                 }
+                                else if (deleteSearchChoice != "1" || deleteSearchChoice != "2")
+                                {
+                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                    Console.WriteLine("\n\t\tFelaktigt val, försök igen!");
+                                    Console.ResetColor();
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                }
                                 break;
                             case "4":
-                                Console.Clear();
                                 //Listar alla böcker och visar om de är lånade eller ej
                                 Console.WriteLine("Lista böcker");
                                 Book.ListAllBooks();
+                                Console.ReadKey();
+                                Console.Clear();
+                                Console.WriteLine("\x1b[3J");
                                 break;
                             case "5":
                                 Console.Clear();
@@ -707,6 +729,7 @@ bool insidemenu2running = true;
                                                 Console.ReadKey();
                                                 Console.Clear();
                                                 Console.WriteLine("\x1b[3J");
+                                                break;
                                             }
                                             else
                                             {

@@ -113,7 +113,19 @@ namespace IndividuelltProjekt.Models
             Console.WriteLine("\n\t\tFörsenade lån (över 30 dagar):");
             foreach (var loan in overdueLoans)
             {
-                Console.WriteLine($"\t\tAnvändare: {loan.User?.Username}, Boktitel: {loan.Book?.Title}, Lånedatum: {loan.LoanDate:yyyy-MM-dd}");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"\n***|");
+                Console.ResetColor();
+                Console.WriteLine($" Titel: {loan.Book?.Title}");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"***|");
+                Console.ResetColor();
+                Console.WriteLine($" Lånad av: {loan.User?.Username}");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"***|");
+                Console.ResetColor();
+                Console.WriteLine($" Lånedatum: {loan.LoanDate:yyyy-MM-dd}");
+                Console.ResetColor();
             }
             Console.ReadKey();
             Console.Clear();
@@ -127,7 +139,19 @@ namespace IndividuelltProjekt.Models
             Console.WriteLine("\n\t\tUtlånade böcker:");
             foreach (var loan in loanedBooks)
             {
-                Console.WriteLine($"\t\tBoktitel: {loan.Book?.Title}, Lånad av: {loan.User?.Username}, Lånedatum: {loan.LoanDate:yyyy-MM-dd}");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"\n***|");
+                Console.ResetColor();
+                Console.WriteLine($" Titel: {loan.Book?.Title}");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"***|");
+                Console.ResetColor();
+                Console.WriteLine($" Lånad av: {loan.User?.Username}");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"***|");
+                Console.ResetColor();
+                Console.WriteLine($" Lånedatum: {loan.LoanDate:yyyy-MM-dd}");
+                Console.ResetColor();
             }
             Console.ReadKey();
             Console.Clear();

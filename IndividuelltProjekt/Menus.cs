@@ -53,6 +53,12 @@ namespace IndividuelltProjekt
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("***\t\t\t\t*\n");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
+            Console.Write("\t*\t\t\t");
+            Console.ResetColor();
+            Console.Write("Vi har böcker för alla!");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\t\t\t\t\t*\n");
+            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
             Console.WriteLine("\t*********************************************************************************\n");
             Console.ResetColor();
             Console.WriteLine("\t\tVälj ett av följande alternativ:");
@@ -67,9 +73,9 @@ namespace IndividuelltProjekt
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\t*********************************************************************************");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
-            Console.Write($"\t*\t\t***");
+            Console.Write($"\t*\t\t\t  ***");
             Console.ResetColor();
-            Console.Write(" Välkommen till JGB´s bibliotek! ");
+            Console.Write(" JGB´s bibliotek! ");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("***\t\t\t\t*\n");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
@@ -117,9 +123,9 @@ namespace IndividuelltProjekt
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\t*********************************************************************************");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
-            Console.Write($"\t*\t\t***");
+            Console.Write($"\t*\t\t\t  ***");
             Console.ResetColor();
-            Console.Write(" Välkommen till JGB´s bibliotek! ");
+            Console.Write(" JGB´s bibliotek! ");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("***\t\t\t\t*\n");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
@@ -159,9 +165,9 @@ namespace IndividuelltProjekt
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\t*********************************************************************************");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
-            Console.Write($"\t*\t\t***");
+            Console.Write($"\t*\t\t\t  ***");
             Console.ResetColor();
-            Console.Write(" Välkommen till JGB´s bibliotek! ");
+            Console.Write(" JGB´s bibliotek! ");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("***\t\t\t\t*\n");
             Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
