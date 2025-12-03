@@ -706,6 +706,7 @@ bool insidemenu2running = true;
                                                 Console.ResetColor();
                                                 Console.ReadKey();
                                                 Console.Clear();
+                                                Console.WriteLine("\x1b[3J");
                                             }
                                             else
                                             {
@@ -732,9 +733,11 @@ bool insidemenu2running = true;
                                                 }
                                             }
                                             Console.ReadKey();
+                                            Console.Clear();
+                                            Console.WriteLine("\x1b[3J");
                                             break;
                                         case "2":
-                                            Console.WriteLine("\t\tSök på titel på boken:");
+                                            Console.WriteLine("\n\t\tSök på titel på boken:");
                                             Console.Write("\t\tTitel: ");
                                             var inputTitle = Console.ReadLine();
                                             Book.SearchBookByTitleSorted(inputTitle!);
@@ -742,7 +745,7 @@ bool insidemenu2running = true;
                                             Console.ReadKey();
                                             break;
                                         case "3":
-                                            Console.WriteLine("\t\tSök på författarens för- och efternamn:");
+                                            Console.WriteLine("\n\t\tSök på författarens för- och efternamn:");
                                             Console.Write("\t\tFörfattare: ");
                                             var inputAuthor = Console.ReadLine();
                                             Book.SearchBookByAuthorSorted(inputAuthor!);
@@ -750,7 +753,7 @@ bool insidemenu2running = true;
                                             Console.ReadKey();
                                             break;
                                         case "4":
-                                            Console.WriteLine("\t\tSök med nyckelord (i titel eller författare):");
+                                            Console.WriteLine("\n\t\tSök med nyckelord (i titel eller författare):");
                                             Console.Write("\t\tNyckelord: ");
                                             var inputKeyword = Console.ReadLine();
                                             Console.WriteLine("\n\t\tVill du sortera böckerna?");
@@ -867,6 +870,20 @@ bool insidemenu2running = true;
                                 {
                                     Loan.LoanHistory(userId);
                                     Loan.ReturnQuestion();
+                                }
+                                else if (Choice == "9")
+                                {
+                                    break;
+                                }
+                                else if (Choice == "0")
+                                {
+                                    Console.WriteLine("Välkommen åter");
+                                    insidemenu2running = false;
+                                    insidemenurunning = false;
+                                    running = false;
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                    break;
                                 }
                                 else
                                     Console.WriteLine("\n\t\tDu har inga återlämnade böcker just nu!");
