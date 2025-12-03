@@ -168,6 +168,9 @@ namespace IndividuelltProjekt.Models
                         Menus.DisplayUnavailableBookInfo(book);
                     }
                 }
+                Console.ReadKey();
+                Console.Clear();
+                Console.WriteLine("\x1b[3J");
             }
         }
         //Hämtar bok via författare och titel

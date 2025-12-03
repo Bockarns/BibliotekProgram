@@ -507,13 +507,27 @@ bool insidemenu2running = true;
                                 }
                                 break;
                             case "4":
+                                Console.Clear();
                                 //Listar alla böcker och visar om de är lånade eller ej
                                 Console.WriteLine("Lista böcker");
                                 Book.ListAllBooks();
-                                Console.ReadKey();
-                                Console.Clear();
                                 break;
                             case "5":
+                                Console.Clear();
+                                Menus.AdminLoanMenu();
+                                Choice = Console.ReadLine();
+                                if (Choice == "1")
+                                {
+                                    //Rapport över försenade lån (över 30 dagar)
+                                    Loan.OverdueLoans();
+                                }
+                                else if (Choice == "2")
+                                {
+                                    //Rapport över alla utlånade böcker
+                                    Loan.LoanedBooksReport();
+                                }
+                                break;
+                            case "6":
                                 //Redigera profil
                                 Console.Clear();
                                 var editProfile = true;

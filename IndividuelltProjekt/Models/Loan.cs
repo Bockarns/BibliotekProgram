@@ -115,6 +115,9 @@ namespace IndividuelltProjekt.Models
             {
                 Console.WriteLine($"\t\tAnvändare: {loan.User?.Username}, Boktitel: {loan.Book?.Title}, Lånedatum: {loan.LoanDate:yyyy-MM-dd}");
             }
+            Console.ReadKey();
+            Console.Clear();
+            Console.WriteLine("\x1b[3J");
         }
         // Rapport över alla utlånade böcker - Ska fortfarande testas om den fungerar
         public static void LoanedBooksReport()
@@ -126,6 +129,9 @@ namespace IndividuelltProjekt.Models
             {
                 Console.WriteLine($"\t\tBoktitel: {loan.Book?.Title}, Lånad av: {loan.User?.Username}, Lånedatum: {loan.LoanDate:yyyy-MM-dd}");
             }
+            Console.ReadKey();
+            Console.Clear();
+            Console.WriteLine("\x1b[3J");
         }
         // Fråga användaren om de vill låna en bok från en visad lista.
         public static void LoanQuestion(int userId)
