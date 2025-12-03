@@ -28,7 +28,7 @@ namespace IndividuelltProjekt.Models
         {
             using var context = new LoanContext();
             var books = context.Loans.Where(l => l.User_Id == User_id && l.ReturnDate == null).Include(l => l.Book).Select(l => l.Book).ToList();
-            return books!;
+                return books!;
         }
         public static void LoanBook(int userId, long bookId)
         {
@@ -72,26 +72,44 @@ namespace IndividuelltProjekt.Models
         public static void LoanHistory(int userId)
         {
             using var context = new LoanContext();
-            var loans = context.Loans
-                .Where(l => l.User_Id == userId)
-                .Include(l => l.Book)
-                .ToList();
+            var loans = context.Loans.Where(l => l.User_Id == userId).Include(l => l.Book).ToList();
             Console.WriteLine("\n\t\tLånehistorik:");
-            foreach (var loan in loans)
+            if (loans.Count == 0)
             {
-                string returnDate = loan.ReturnDate.HasValue ? loan.ReturnDate.Value.ToString("yyyy-MM-dd") : "Ej återlämnad";
-                Console.WriteLine($"\t\tBoktitel: {loan.Book?.Title}, Lånedatum: {loan.LoanDate:yyyy-MM-dd}, Återlämningsdatum: {returnDate}");
+                Console.WriteLine("\t\tInga lån hittades för denna användare.");
+                return;
             }
+            else
+            {
+                foreach (var loan in loans)
+                {
+                    string returnDate = loan.ReturnDate.HasValue ? loan.ReturnDate.Value.ToString("yyyy-MM-dd") : "Ej återlämnad";
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"\n***|");
+                    Console.ResetColor();
+                    Console.WriteLine($" Titel: {loan.Book?.Title}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"***|");
+                    Console.ResetColor();
+                    Console.WriteLine($" Författare: {loan.Book?.Author}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"***|");
+                    Console.ResetColor();
+                    Console.WriteLine($" Lånedatum: {loan.LoanDate:yyyy-MM-dd}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"***|");
+                    Console.ResetColor();
+                    Console.WriteLine($"Återlämningsdatum: {returnDate}");
+                }
+
+            }
+                
         }
         // Rapport över försenade lån (över 30 dagar) - Ska fortfarande testas om den fungerar
         public static void OverdueLoans()
         {
             using var context = new LoanContext();
-            var overdueLoans = context.Loans
-                .Where(l => l.ReturnDate == null && l.LoanDate <= DateTime.Now.AddDays(-30))
-                .Include(l => l.User)
-                .Include(l => l.Book)
-                .ToList();
+            var overdueLoans = context.Loans.Where(l => l.ReturnDate == null && l.LoanDate <= DateTime.Now.AddDays(-30)).Include(l => l.User).Include(l => l.Book).ToList();
             Console.WriteLine("\n\t\tFörsenade lån (över 30 dagar):");
             foreach (var loan in overdueLoans)
             {
@@ -102,11 +120,7 @@ namespace IndividuelltProjekt.Models
         public static void LoanedBooksReport()
         {
             using var context = new LoanContext();
-            var loanedBooks = context.Loans
-                .Where(l => l.ReturnDate == null)
-                .Include(l => l.Book)
-                .Include(l => l.User)
-                .ToList();
+            var loanedBooks = context.Loans.Where(l => l.ReturnDate == null).Include(l => l.Book).Include(l => l.User).ToList();
             Console.WriteLine("\n\t\tUtlånade böcker:");
             foreach (var loan in loanedBooks)
             {
@@ -129,14 +143,15 @@ namespace IndividuelltProjekt.Models
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("\t\tISBN Måste bestå av 13 siffror!");
                     Console.ResetColor();
-                    Console.ReadKey();
-                    Console.Clear();
                 }
                 else
                 {
                     Loan.LoanBook(userId, inputISBN);
                 }
             }
+            Console.ReadKey();
+            Console.Clear();
+            Console.WriteLine("\x1b[3J");
         }
         public static void ReturnQuestion()
         {
@@ -147,20 +162,23 @@ namespace IndividuelltProjekt.Models
             {
                 Console.WriteLine("\n\t\tSkriv in ISBN nummer på boken du vill lämna tillbaka:");
                 Console.Write("\t\t13 siffror: ");
-                var inputISBN = long.Parse(Console.ReadLine()!);
-                if (inputISBN.ToString().Length != 13)
+                var inputISBN = Console.ReadLine();
+                if (inputISBN!.Length != 13)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("\n\t\tISBN Måste bestå av 13 siffror!");
                     Console.ResetColor();
-                    Console.ReadKey();
-                    Console.Clear();
                 }
                 else
                 {
-                    Loan.ReturnBook(inputISBN);
+                    long parsedISBN = long.Parse(inputISBN);
+                    Loan.ReturnBook(parsedISBN);
                 }
+                
             }
+            Console.ReadKey();
+            Console.Clear();
+            Console.WriteLine("\x1b[3J");
         }
     }
     

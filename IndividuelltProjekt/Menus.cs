@@ -154,12 +154,55 @@ namespace IndividuelltProjekt
             Console.ResetColor();
             Console.WriteLine("\n\t\t1.Låna bok");
             Console.WriteLine("\t\t2.Lämna tillbaka bok");
-            Console.WriteLine("\t\t3.Lista alla dina lånade böcker");
+            Console.WriteLine("\t\t3.Dina lån");
             Console.WriteLine("\t\t4.Redigera profil");
             Console.WriteLine("\t\t9.Logga ut och återgå till huvudmenyn");
             Console.WriteLine("\t\t0.Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
         }
+        public static void UserLoanMenu()
+        {
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\t*********************************************************************************");
+            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
+            Console.Write($"\t*\t\t***");
+            Console.ResetColor();
+            Console.Write(" Välkommen till JGB´s bibliotek! ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("***\t\t\t\t*\n");
+            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
+            Console.Write("\t*\t");
+            Console.ResetColor();
+            Console.Write("Här i menyn nedan kan du söka efter böcker, låna böcker,");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\t\t*");
+            Console.Write("\n\t*\t");
+            Console.ResetColor();
+            Console.Write("lämna tillbaka lånade böcker men också se alla dina lånade böcker.");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\t*");
+            Console.Write("\n\t*\t");
+            Console.ResetColor();
+            Console.Write("Välj nedan vad du vill göra!");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\t\t\t\t\t\t*\n");
+            Console.Write("\t*\t");
+            Console.ResetColor();
+            Console.Write("OBS! Glöm ej att logga ut när du är klar för att skydda ditt konto.");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("\t*\n");
+            Console.WriteLine("\t*\t\t\t\t\t\t\t\t\t\t*");
+            Console.WriteLine("\t*********************************************************************************\n");
+            Console.ResetColor();
+            Console.WriteLine("\n\t\t1.Se dina lånade böcker");
+            Console.WriteLine("\t\t2.Lånehistorik");
+            Console.WriteLine("\t\t3.Försenade böcker");
+            Console.WriteLine("\t\t9.Logga ut och återgå till huvudmenyn");
+            Console.WriteLine("\t\t0.Avsluta");
+            Console.Write("\t\tSkriv in ditt val här: ");
+        }
+
         //Användaremeny för sökning av bok
         public static void UserSearchMenu()
         {

@@ -4,10 +4,16 @@ using IndividuelltProjekt.Data;
 using IndividuelltProjekt.Models;
 using System;
 using System.Diagnostics.Eventing.Reader;
+using System.Runtime.InteropServices;
 
 //Jag har valt att lägga menyerna i en egen klass som void, för annars blev koden så plottrig med alla extra rader.
 
 Console.Title = "JGB Bibliotek";
+
+////Rensa konsolen och scrollback buffern ska klistras in där det behövs
+//Console.Clear();
+//Console.WriteLine("\x1b[3J");
+
 
 //Jag har kvitterar null varningar med ? eller ! för att lättare få överblick
 //när jag stöter på ett en varning som kan vara problimatisk.
@@ -752,13 +758,11 @@ bool insidemenu2running = true;
                                                 Book.SearchBooksByKeyword(inputKeyword!);
                                             }
                                             Loan.LoanQuestion(userId);
-                                            Console.ReadKey();
                                             break;
                                         case "5":
                                             //Listar alla tillgängliga böcker
                                             Book.ListAllAvailableBooks();
                                             Loan.LoanQuestion(userId);
-                                            Console.ReadKey();
                                             break;
                                         case "6":
                                             Console.WriteLine("\n\t\tVill du sortera böckerna?");
@@ -808,26 +812,65 @@ bool insidemenu2running = true;
                                 }
                                 break;
                             case "2":
-                                Console.WriteLine("\t\tLämna tillbaka en bok");
+                                Console.WriteLine("\n\t\tLämna tillbaka en bok");
                                 Console.WriteLine("\t\tSkriv in ISBN nummer på den bok du vill lämna tillbaka");
                                 Console.Write("\t\t13 siffror: ");
                                 long isbnReturn = long.Parse(Console.ReadLine()!);
-                                Loan.ReturnBook(isbnReturn);
-                                Console.ReadKey();
-                                Console.Clear();
-                                break;
-                            case "3":
-                                var bookLoanList = Loan.GetLoanList(userId);
-                                if (bookLoanList != null)
-                                {   
-                                    Console.WriteLine("\t\tLista alla dina lånade böcker");
-                                    foreach(var book in bookLoanList)
-                                        Menus.DisplayBooksWithoutAvailability(book);
+                                if (isbnReturn.ToString().Length != 13)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                    Console.WriteLine("\t\tISBN Måste bestå av 13 siffror!");
+                                    Console.ResetColor();
+                                    Console.ReadKey();
+                                    Console.Clear();
                                 }
                                 else
-                                    Console.WriteLine("\n\t\tDu har inga lånade böcker just nu!");
-                                Console.ReadKey();
+                                {
+                                    Loan.ReturnBook(isbnReturn);
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                }
+                                break;
+                            case "3":
                                 Console.Clear();
+                                Menus.UserLoanMenu();
+                                Choice = Console.ReadLine();
+                                if (Choice == "1")
+                                {
+                                    var bookLoanList = Loan.GetLoanList(userId);
+                                    if (bookLoanList.Count != 0)
+                                    {
+                                        Console.WriteLine("\n\t\tLista alla dina lånade böcker");
+                                        foreach (var book in bookLoanList)
+                                            Menus.DisplayBooksWithoutAvailability(book);
+                                        Loan.ReturnQuestion();
+                                        break;
+                                    }
+                                    else
+                                        Console.WriteLine("\n\t\tDu har inga lånade böcker just nu!");
+                                }
+                                else if (Choice == "2")
+                                {
+                                    Loan.LoanHistory(userId);
+                                    Loan.ReturnQuestion();
+                                }
+                                else
+                                    Console.WriteLine("\n\t\tDu har inga återlämnade böcker just nu!");
+
+                                //else if (Choice == "3")
+                                //{
+                                //    var overdueBooks = Loan.OverdueLoans(userId);
+                                //    if (overdueBooks.Count != 0)
+                                //    {
+                                //        Console.WriteLine("\n\t\tDina försenade böcker:");
+                                //        foreach (var book in overdueBooks)
+                                //            Menus.DisplayBooksWithoutAvailability(book);
+                                //        Loan.ReturnQuestion();
+                                //        break;
+                                //    }
+                                //}
+                                //else
+                                //    Console.WriteLine("\n\t\tDu har inga försenade böcker just nu!");
                                 break;
                             case "4":
                                 Console.Clear();
