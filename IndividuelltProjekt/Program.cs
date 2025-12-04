@@ -33,6 +33,7 @@ bool insidemenu2running = true;
     var Choice = Console.ReadLine();
     switch (Choice)
     {
+        #region Skapa konto
         case "1":
             try
             {
@@ -118,6 +119,8 @@ bool insidemenu2running = true;
                 Console.WriteLine(MyExcep.ToString());
             }
             break;
+        #endregion
+        #region Logga in
         case "2":
             
             //Logga in, denna kollar om användaren existerar i DB och om den är admin eller vanlig användare
@@ -137,7 +140,9 @@ bool insidemenu2running = true;
                 Console.ReadKey();
                 Console.Clear();
                 break;
-            }            
+            }
+            #endregion
+            #region Admin inloggning
             var adminCheck = User.CheckUserAdmin(existingUsername!);
             if (adminCheck == true)
             {
@@ -151,7 +156,10 @@ bool insidemenu2running = true;
                     Console.ReadKey();
                     Console.Clear();
                     insidemenurunning = true;
+                    #endregion
+                    #region Admin meny
                     while (insidemenurunning)
+                    
                     {
                         Console.Clear();
                         Console.WriteLine("\x1b[3J");
@@ -658,6 +666,8 @@ bool insidemenu2running = true;
                     break;
                 }
             }
+            #endregion
+            #region User inloggning
             else if (adminCheck == false)
             {
                 user = User.GetUser(existingUsername!);
@@ -671,6 +681,8 @@ bool insidemenu2running = true;
                     Console.ReadKey();
                     Console.Clear();
                     insidemenurunning = true;
+                    #endregion
+                    #region User Meny
                     while (insidemenurunning)
                     {
                         //Användarmenyn
@@ -1008,6 +1020,7 @@ bool insidemenu2running = true;
                 }
             }
             break;
+        #endregion
         case "0":
             Console.WriteLine("\n\t\t\tVälkommen åter");
             running = false;
