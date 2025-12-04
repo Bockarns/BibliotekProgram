@@ -88,7 +88,7 @@ namespace IndividuelltProjekt.Models
             Console.ReadKey();
         }
 
-        // Lånehistorik för en användare - Ska fortfarande testas om den fungerar
+        // Lånehistorik för en användare
         public static void LoanHistory(int userId)
         {
             using var context = new LoanContext();
@@ -123,9 +123,8 @@ namespace IndividuelltProjekt.Models
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write($"***|");
                     Console.ResetColor();
-                    Console.WriteLine($"Återlämningsdatum: {returnDate}");
+                    Console.WriteLine($" Återlämningsdatum: {returnDate}");
                 }
-
             }
                 
         }
@@ -244,10 +243,10 @@ namespace IndividuelltProjekt.Models
                 }
                 
             }
-            Console.ReadKey();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
             Console.ResetColor();
+            Console.ReadKey();
             Console.Clear();
             Console.WriteLine("\x1b[3J");
         }
