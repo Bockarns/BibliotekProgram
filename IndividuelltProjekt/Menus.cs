@@ -114,6 +114,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t4.Lista alla böcker");
             Console.WriteLine("\t\t5.Lån");
             Console.WriteLine("\t\t6.Redigera profil");
+            Console.WriteLine("\t\t7.Spärra-/aktivera användarkonto");
             Console.WriteLine("\t\t9.Logga ut och återgå till huvudmenyn");
             Console.WriteLine("\t\t0.Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
@@ -321,7 +322,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\tVälj ett av följande alternativ:");
             Console.WriteLine("\t\t1. Byt användarnamn");
             Console.WriteLine("\t\t2. Byt lösenord");
-            Console.WriteLine("\t\t3. Radera konto");
+            Console.WriteLine("\t\t3. Avaktivera konto");
             Console.WriteLine("\t\t9. Återgå till föregående sida");
             Console.WriteLine("\t\t0. Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");

@@ -135,10 +135,20 @@ bool insidemenu2running = true;
             Console.Write("\t\t");
             var existingPassword = Console.ReadLine();
             var user = User.GetUser(existingUsername!);
+            var accountInactivated = User.CheckUserAccountInactivated(existingUsername!);
             if (user == null)
             {
                 Console.ForegroundColor = ConsoleColor. DarkYellow;
                 Console.WriteLine("\n\t\tAnvändaren finns ej, Skapa ny användare först!");
+                Console.ResetColor();
+                Console.ReadKey();
+                Console.Clear();
+                break;
+            }
+            else if (accountInactivated == true)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("\n\t\tDitt konto är inaktiverat, kontakta en administratör för att aktivera det igen.");
                 Console.ResetColor();
                 Console.ReadKey();
                 Console.Clear();
@@ -669,7 +679,8 @@ bool insidemenu2running = true;
                                         var deletechoice = Console.ReadLine()!.ToUpper();
                                         if (deletechoice == "JA")
                                         {
-                                            User.DeleteUser(existingUsername!);
+                                            var deactivateAccount = true;
+                                            User.DeleteUser(existingUsername!, deactivateAccount);
                                             Console.WriteLine("\n\t\tAnvändaren är borttagen, Tråkigt att se dig lämna oss :´(");
                                             Console.WriteLine("\n\t\tDu blir automatiskt tagen till huvudmenyn.");
                                             Console.ReadKey();
@@ -723,14 +734,55 @@ bool insidemenu2running = true;
                                 }
                                 #endregion
                                 break;
+                            case "7":
+                                Console.WriteLine("\n\t\tVill du spärra eller återaktivera ett användarkonto?");
+                                Console.Write("\t\tSpärra/aktivera: ");
+                                var lockChoice = Console.ReadLine()!.ToUpper();
+                                if (lockChoice == "SPÄRRA")
+                                {
+                                    Console.WriteLine("\n\t\tAnge användarnamn på det konto du vill spärra:");
+                                    Console.Write("\t\tAnvändarnamn: ");
+                                    var lockUsername = Console.ReadLine();
+                                    var deactivateAccount = true;
+                                    User.DeleteUser(lockUsername!, deactivateAccount);
+                                    Console.WriteLine("\n\t\tKontot är nu spärrat!");
+                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                    Console.ResetColor();
+                                    Console.ReadKey();
+                                }
+                                else if (lockChoice == "AKTIVERA")
+                                {
+                                    Console.WriteLine("\n\t\tAnge användarnamn på det konto du vill återaktivera:");
+                                    Console.Write("\t\tAnvändarnamn: ");
+                                    var unlockUsername = Console.ReadLine();
+                                    var deactivateAccount = false;
+                                    User.ReactivateUser(unlockUsername!, deactivateAccount);
+                                    Console.WriteLine("\n\t\tKontot är nu återaktiverat!");
+                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                    Console.ResetColor();
+                                    Console.ReadKey();
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                    Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
+                                    Console.ResetColor();
+                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                    Console.ResetColor();
+                                    Console.ReadKey();
+                                }
+                                break;
                             case "9":
                                 Console.WriteLine("\n\t\t\tUtloggad");
                                 insidemenu2running = false;
                                 insidemenurunning = false;
-                                Console.ReadKey();
                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                                 Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
                                 Console.ResetColor();
+                                Console.ReadKey();
                                 Console.Clear();
                                 break;
                             case "0":
@@ -989,20 +1041,20 @@ bool insidemenu2running = true;
                                     Choice = Console.ReadLine();
                                     if ( Choice == "1")
                                     {
-                                        Console.WriteLine("Skriv in nytt önskat användarnamn: ");
+                                        Console.WriteLine("\n\t\tSkriv in nytt önskat användarnamn: ");
                                         var newUsername = Console.ReadLine();
                                         bool checker = User.CheckUser(newUsername!);
                                         if (checker == false)
                                         {
                                             user = User.UpdateUsername(existingUsername!, newUsername!);
-                                            Console.WriteLine($"Nytt användarnamn {newUsername} registrerat för {existingUsername}");
+                                            Console.WriteLine($"\n\t\tNytt användarnamn {newUsername} registrerat för {existingUsername}");
                                             Console.ReadKey();
                                             Console.Clear();
                                         }
                                         else
                                         {
                                             Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                            Console.WriteLine($"Användarnamnet {newUsername} används redan");
+                                            Console.WriteLine($"\n\t\tAnvändarnamnet {newUsername} används redan");
                                             Console.ResetColor();
                                             Console.ReadKey();
                                             Console.Clear();
@@ -1012,20 +1064,22 @@ bool insidemenu2running = true;
                                     }
                                     else if (Choice == "2")
                                     {
-                                        Console.WriteLine("Skriv in nya lösenordet:");
+                                        Console.WriteLine("\n\t\tSkriv in nya lösenordet:");
+                                        Console.Write("\\");
                                         var newPassword = Console.ReadLine();
-                                        Console.WriteLine("Skriv in nya lösenordet igen:");
+                                        Console.WriteLine("\n\t\tSkriv in nya lösenordet igen:");
+                                        Console.Write("\t\t");
                                         var newPassword2 = Console.ReadLine();
                                         if (newPassword == newPassword2)
                                         {
                                             user = User.UpdatePassword(existingUsername!, existingPassword!, newPassword!);
-                                            Console.WriteLine($"Nytt lösenord registrerat för {existingUsername}");
+                                            Console.WriteLine($"\n\t\tNytt lösenord registrerat för {existingUsername}");
                                             break;
                                         }
                                         else
                                         {
                                             Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                            Console.WriteLine("Lösenorden matchar inte! Försök igen.");
+                                            Console.WriteLine("\n\t\tLösenorden matchar inte! Försök igen.");
                                             Console.ResetColor();
                                             Console.ReadKey();
                                             Console.Clear();
@@ -1034,13 +1088,18 @@ bool insidemenu2running = true;
                                     }
                                     else if (Choice == "3")
                                     {
-                                        Console.WriteLine("Är du säker på att du vill radera användaren? JA/NEJ");
+                                        Console.WriteLine("\n\t\tÄr du säker på att du vill avaktivera kontot? JA/NEJ");
+                                        Console.Write("\t\t");
                                         var deletechoice = Console.ReadLine()!.ToUpper();
                                         if (deletechoice == "JA")
                                         {
-                                            User.DeleteUser(existingUsername!);
-                                            Console.WriteLine("Användaren är borttagen, Tråkigt att se dig lämna oss :´(");
-                                            Console.WriteLine("Du blir automatiskt tagen till huvudmenyn.");
+                                            var deactivateAccount = true;
+                                            User.DeleteUser(existingUsername!, deactivateAccount);
+                                            Console.WriteLine("\n\t\tAnvändaren är borttagen, Tråkigt att se dig lämna oss :´(");
+                                            Console.WriteLine("\n\t\tDu blir nu tagen till huvudmenyn.");
+                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                            Console.WriteLine("\n\t\tTryck på valfri tangent för att fortsätta...");
+                                            Console.ResetColor();
                                             Console.ReadKey();
                                             Console.Clear();
                                             editProfile = false;

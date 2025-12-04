@@ -14,6 +14,7 @@ namespace IndividuelltProjekt.Models
         public string? Username { get; set; }
         public string? Password { get; set; }
         public bool Admin { get; set; }
+        public bool AccountInactivated { get; set; }
         public List<Loan> Loans { get; set; } = new();
         public User()
         {
@@ -43,6 +44,13 @@ namespace IndividuelltProjekt.Models
             using (var context = new UserContext())
             {
                 return context.Users.Where(u => u.Username == username).Select(u => u.Admin).FirstOrDefault();
+            }
+        }
+        public static bool CheckUserAccountInactivated(string username)
+        {
+            using (var context = new UserContext())
+            {
+                return context.Users.Where(u => u.Username == username).Select(u => u.AccountInactivated).FirstOrDefault();
             }
         }
         public static User GetUser(string username)
@@ -90,12 +98,21 @@ namespace IndividuelltProjekt.Models
                 return user;
             }
         }
-        public static void DeleteUser(string username)
+        public static void DeleteUser(string username, bool deactivateaccount)
         {
             using (var context = new UserContext())
             {
                 var user = context.Users.FirstOrDefault(u => u.Username == username);
-                context.Users.Remove(user!);
+                user!.AccountInactivated = deactivateaccount;
+                context.SaveChanges();
+            }
+        }
+        public static void ReactivateUser(string username, bool reactivateaccount)
+        {
+            using (var context = new UserContext())
+            {
+                var user = context.Users.FirstOrDefault(u => u.Username == username);
+                user!.AccountInactivated = reactivateaccount;
                 context.SaveChanges();
             }
         }

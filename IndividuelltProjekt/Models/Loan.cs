@@ -81,9 +81,9 @@ namespace IndividuelltProjekt.Models
 
             context.SaveChanges();
 
-            Console.WriteLine("\t\tBoken har lämnats tillbaka!");
+            Console.WriteLine("\n\t\tBoken har lämnats tillbaka!");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+            Console.WriteLine("\n\t\tTryck på valfri tangent för att fortsätta...");
             Console.ResetColor();
             Console.ReadKey();
         }
@@ -240,15 +240,20 @@ namespace IndividuelltProjekt.Models
                 {
                     long parsedISBN = long.Parse(inputISBN);
                     Loan.ReturnBook(parsedISBN);
+                    Loan.ReturnQuestion();
                 }
                 
             }
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
-            Console.ResetColor();
-            Console.ReadKey();
-            Console.Clear();
-            Console.WriteLine("\x1b[3J");
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                Console.ResetColor();
+                Console.ReadKey();
+                Console.Clear();
+                Console.WriteLine("\x1b[3J");
+            }
+            
         }
     }
     
