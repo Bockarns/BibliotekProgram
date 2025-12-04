@@ -3,8 +3,6 @@ using IndividuelltProjekt;
 using IndividuelltProjekt.Data;
 using IndividuelltProjekt.Models;
 using System;
-using System.Diagnostics.Eventing.Reader;
-using System.Runtime.InteropServices;
 
 //Jag har valt att lägga menyerna i en egen klass som void, för annars blev koden så plottrig med alla extra rader.
 
