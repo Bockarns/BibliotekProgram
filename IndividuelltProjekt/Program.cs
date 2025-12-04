@@ -248,7 +248,7 @@ bool insidemenu2running = true;
                                                     Console.WriteLine("\n\t\tSkriv in ny författare:");
                                                     var newAuthor = Console.ReadLine();
                                                     Book.UpdateAuthor(book.Author!, newAuthor!);
-                                                    book = Book.GetBookByAuthorAndTitle(author!, title!);
+                                                    book = Book.GetBookByAuthorAndTitle(newAuthor!, title!);
                                                     Console.WriteLine("\n\t\tBoken har uppdaterat enligt nedan: \n");
                                                     Menus.DisplayBooksWithoutAvailability(book);
                                                     Console.ReadKey();
