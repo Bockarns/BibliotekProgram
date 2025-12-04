@@ -313,7 +313,7 @@ bool insidemenu2running = true;
                                                     Console.WriteLine("\t\tSkriv in ny titel:");
                                                     var newTitle = Console.ReadLine();
                                                     Book.UpdateTitle(book.Title!, newTitle!);
-                                                    book = Book.GetBookByAuthorAndTitle(author!, title!);
+                                                    book = Book.GetBookByAuthorAndTitle(author!, newTitle!);
                                                     Console.WriteLine("\n\t\tBoken har uppdaterat enligt nedan: \n");
                                                     Menus.DisplayBooksWithoutAvailability(book);
                                                     Console.ReadKey();
