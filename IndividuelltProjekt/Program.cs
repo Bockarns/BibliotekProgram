@@ -680,7 +680,7 @@ bool insidemenu2running = true;
                                         if (deletechoice == "JA")
                                         {
                                             var deactivateAccount = true;
-                                            User.DeleteUser(existingUsername!, deactivateAccount);
+                                            User.DeactivateUser(existingUsername!, deactivateAccount);
                                             Console.WriteLine("\n\t\tAnvändaren är borttagen, Tråkigt att se dig lämna oss :´(");
                                             Console.WriteLine("\n\t\tDu blir automatiskt tagen till huvudmenyn.");
                                             Console.ReadKey();
@@ -744,7 +744,7 @@ bool insidemenu2running = true;
                                     Console.Write("\t\tAnvändarnamn: ");
                                     var lockUsername = Console.ReadLine();
                                     var deactivateAccount = true;
-                                    User.DeleteUser(lockUsername!, deactivateAccount);
+                                    User.DeactivateUser(lockUsername!, deactivateAccount);
                                     Console.WriteLine("\n\t\tKontot är nu spärrat!");
                                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                                     Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
@@ -1094,7 +1094,7 @@ bool insidemenu2running = true;
                                         if (deletechoice == "JA")
                                         {
                                             var deactivateAccount = true;
-                                            User.DeleteUser(existingUsername!, deactivateAccount);
+                                            User.DeactivateUser(existingUsername!, deactivateAccount);
                                             Console.WriteLine("\n\t\tAnvändaren är borttagen, Tråkigt att se dig lämna oss :´(");
                                             Console.WriteLine("\n\t\tDu blir nu tagen till huvudmenyn.");
                                             Console.ForegroundColor = ConsoleColor.DarkYellow;

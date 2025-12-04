@@ -98,7 +98,7 @@ namespace IndividuelltProjekt.Models
                 return user;
             }
         }
-        public static void DeleteUser(string username, bool deactivateaccount)
+        public static void DeactivateUser(string username, bool deactivateaccount)
         {
             using (var context = new UserContext())
             {
@@ -116,6 +116,15 @@ namespace IndividuelltProjekt.Models
                 context.SaveChanges();
             }
         }
+        //public static void DeleteUser(string username)
+        //{
+        //    using (var context = new UserContext())
+        //    {
+        //        var user = context.Users.FirstOrDefault(u => u.Username == username);
+        //        context.Users.Remove(user);
+        //        context.SaveChanges();
+        //    }
+        //}
     }
     
 }
