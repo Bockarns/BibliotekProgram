@@ -159,6 +159,9 @@ bool insidemenu2running = true;
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"\n\t\tInloggning lyckades för användare {existingUsername}");
                     Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\n\t\tTryck på valfri tangent för att komma till menyn...");
+                    Console.ResetColor();
                     Console.ReadKey();
                     Console.Clear();
                     insidemenurunning = true;
@@ -202,6 +205,9 @@ bool insidemenu2running = true;
                                     book = Book.GetBookByISBN(newISBN);
                                     if (book != null)
                                         Menus.DisplayBooksWithoutAvailability(book);
+                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                    Console.ResetColor();
                                     Console.ReadKey();
                                     Console.Clear();
                                 }
@@ -244,6 +250,9 @@ bool insidemenu2running = true;
                                                     Console.WriteLine("\n\t\tBoken har uppdaterat enligt nedan: \n");
                                                     Menus.DisplayBooksWithoutAvailability(book);
                                                     Console.ReadKey();
+                                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                                    Console.ResetColor();
                                                     Console.Clear();
                                                 }
                                             } 
@@ -260,6 +269,9 @@ bool insidemenu2running = true;
                                             {
                                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                                                 Console.WriteLine("\n\t\tBoken hittades inte, kontrollera stavning och försök igen.");
+                                                Console.ResetColor();
+                                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
                                                 Console.ResetColor();
                                                 Console.ReadKey();
                                                 Console.Clear();
@@ -280,6 +292,9 @@ bool insidemenu2running = true;
                                                     Console.WriteLine("\n\t\tBoken har uppdaterat enligt nedan: \n");
                                                     Menus.DisplayBooksWithoutAvailability(book);
                                                     Console.ReadKey();
+                                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                                    Console.ResetColor();
                                                     Console.Clear();
                                                 }
                                             } 
@@ -309,6 +324,9 @@ bool insidemenu2running = true;
                                                     Console.WriteLine("\n\t\tBoken har uppdaterat enligt nedan: \n");
                                                     Menus.DisplayBooksWithoutAvailability(book);
                                                     Console.ReadKey();
+                                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                                    Console.ResetColor();
                                                     Console.Clear();
                                                 }
                                             }
@@ -345,6 +363,9 @@ bool insidemenu2running = true;
                                                     Console.WriteLine("\n\t\tBoken har uppdaterat enligt nedan: \n");
                                                     Menus.DisplayBooksWithoutAvailability(book);
                                                     Console.ReadKey();
+                                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                                    Console.ResetColor();
                                                     Console.Clear();
                                                 }
                                             }
@@ -374,6 +395,9 @@ bool insidemenu2running = true;
                                                     Menus.DisplayBooksWithoutAvailability(book);
                                                     Console.WriteLine($"\nTillgänglighet har uppdaterats till: {book.Available}");
                                                     Console.ReadKey();
+                                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                                    Console.ResetColor();
                                                     Console.Clear();
                                                 }
                                             }
@@ -392,6 +416,9 @@ bool insidemenu2running = true;
                                                 Console.WriteLine("\n\t\tBoken hittades inte, kontrollera stavning och försök igen.");
                                                 Console.ResetColor();
                                                 Console.ReadKey();
+                                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                                Console.ResetColor();
                                                 Console.Clear();
                                                 break;
                                             }
@@ -410,6 +437,9 @@ bool insidemenu2running = true;
                                                     Menus.DisplayBooksWithoutAvailability(book);
                                                     Console.WriteLine($"\nTillgänglighet har uppdaterats till: {book.Available}");
                                                     Console.ReadKey();
+                                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                                    Console.ResetColor();
                                                     Console.Clear();
                                                 }
                                             }
@@ -420,14 +450,14 @@ bool insidemenu2running = true;
                                             Console.WriteLine("\n\t\tFelaktigt val, försök igen!");
                                             Console.ResetColor();
                                             Console.ReadKey();
+                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                            Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                            Console.ResetColor();
                                             Console.Clear();
                                         }
                                         break;
                                     case "9":
-                                        Console.WriteLine("\n\t\tÅtergår till föregående meny");
                                         insidemenu2running = false;
-                                        insidemenurunning = false;
-                                        Console.ReadKey();
                                         Console.Clear();
                                         break;
                                     case "0":
@@ -436,6 +466,9 @@ bool insidemenu2running = true;
                                         insidemenurunning = false;
                                         running = false;
                                         Console.ReadKey();
+                                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                        Console.WriteLine("\n\t\tTryck på valfri tangent för att avsluta...");
+                                        Console.ResetColor();
                                         Console.Clear();
                                         break;
                                     default:
@@ -443,6 +476,9 @@ bool insidemenu2running = true;
                                         Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
                                         Console.ResetColor();
                                         Console.ReadKey();
+                                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                        Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                        Console.ResetColor();
                                         Console.Clear();
                                         break;
                                 }
@@ -478,6 +514,9 @@ bool insidemenu2running = true;
                                             Console.WriteLine("\n\t\tBoken är raderad från biblioteket.");
                                             Console.ResetColor();
                                             Console.ReadKey();
+                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                            Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                            Console.ResetColor();
                                             Console.Clear();
                                         }
                                     }
@@ -495,6 +534,9 @@ bool insidemenu2running = true;
                                         Console.WriteLine("\n\t\tBoken hittades inte, kontrollera stavning och försök igen.");
                                         Console.ResetColor();
                                         Console.ReadKey();
+                                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                        Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                        Console.ResetColor();
                                         Console.Clear();
                                         break;
                                     }
@@ -513,6 +555,9 @@ bool insidemenu2running = true;
                                             Console.WriteLine("\t\tBoken är raderad från biblioteket.");
                                             Console.ResetColor();
                                             Console.ReadKey();
+                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                            Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                            Console.ResetColor();
                                             Console.Clear();
                                         }
                                     }
@@ -523,6 +568,9 @@ bool insidemenu2running = true;
                                     Console.WriteLine("\n\t\tFelaktigt val, försök igen!");
                                     Console.ResetColor();
                                     Console.ReadKey();
+                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                    Console.ResetColor();
                                     Console.Clear();
                                 }
                                 #endregion
@@ -530,8 +578,11 @@ bool insidemenu2running = true;
                             case "4":
                                 //Listar alla böcker och visar om de är lånade eller ej
                                 Console.WriteLine("Lista böcker");
-                                Book.ListAllBooks();
+                                Book.ListAllBooksAdmin();
                                 Console.ReadKey();
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                Console.ResetColor();
                                 Console.Clear();
                                 Console.WriteLine("\x1b[3J");
                                 break;
@@ -677,6 +728,9 @@ bool insidemenu2running = true;
                                 insidemenu2running = false;
                                 insidemenurunning = false;
                                 Console.ReadKey();
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                Console.ResetColor();
                                 Console.Clear();
                                 break;
                             case "0":
@@ -685,11 +739,17 @@ bool insidemenu2running = true;
                                 insidemenurunning = false;
                                 running = false;
                                 Console.ReadKey();
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                Console.WriteLine("\n\t\tTryck på valfri tangent för att avsluta...");
+                                Console.ResetColor();
                                 Console.Clear();
                                 break;
                             default:
                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                                 Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
+                                Console.ResetColor();
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
                                 Console.ResetColor();
                                 Console.ReadKey();
                                 Console.Clear();
@@ -697,6 +757,16 @@ bool insidemenu2running = true;
                         }
                     }
                     break;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\n\t\tInloggning misslyckades!");
+                    Console.WriteLine("\t\tFel lösenord...");
+                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    Console.Clear();
                 }
             }
             #endregion
@@ -769,17 +839,13 @@ bool insidemenu2running = true;
                                             Console.WriteLine("\n\t\tSök på titel på boken:");
                                             Console.Write("\t\tTitel: ");
                                             var inputTitle = Console.ReadLine();
-                                            Book.SearchBookByTitleSorted(inputTitle!);
-                                            Loan.LoanQuestion(userId);
-                                            Console.ReadKey();
+                                            Book.SearchBookByTitleSorted(inputTitle!, userId);
                                             break;
                                         case "3":
                                             Console.WriteLine("\n\t\tSök på författarens för- och efternamn:");
                                             Console.Write("\t\tFörfattare: ");
                                             var inputAuthor = Console.ReadLine();
-                                            Book.SearchBookByAuthorSorted(inputAuthor!);
-                                            Loan.LoanQuestion(userId);
-                                            Console.ReadKey();
+                                            Book.SearchBookByAuthorSorted(inputAuthor!, userId);
                                             break;
                                         case "4":
                                             Console.WriteLine("\n\t\tSök med nyckelord (i titel eller författare):");
@@ -792,18 +858,17 @@ bool insidemenu2running = true;
                                             var sortChoice = Console.ReadLine();
                                             if (sortChoice == "1")
                                             {
-                                                Book.SearchBooksByKeywordSortedAuthor(inputKeyword!);
+                                                Book.SearchBooksByKeywordSortedAuthor(inputKeyword!, userId);
                                             }
                                             else if (sortChoice == "2")
                                             {
-                                                Book.SearchBooksByKeywordSortedTitle(inputKeyword!);
+                                                Book.SearchBooksByKeywordSortedTitle(inputKeyword!, userId);
                                             }
                                             else
                                             {
                                                 Console.WriteLine("\n\t\tOsorterad Lista\n");
-                                                Book.SearchBooksByKeyword(inputKeyword!);
+                                                Book.SearchBooksByKeyword(inputKeyword!, userId);
                                             }
-                                            Loan.LoanQuestion(userId);
                                             break;
                                         case "5":
                                             //Listar alla tillgängliga böcker
@@ -819,23 +884,19 @@ bool insidemenu2running = true;
                                             sortChoice = Console.ReadLine();
                                             if (sortChoice == "1")
                                             {
-                                                Book.ListAllBooksSortedAuthor();
+                                                Book.ListAllBooksSortedAuthor(userId);
                                             }
                                             else if (sortChoice == "2")
                                             {
-                                                Book.ListAllBooksSortedTitle();
+                                                Book.ListAllBooksSortedTitle(userId);
                                             }
                                             else
                                             {
                                                 Console.WriteLine("\n\t\tOsorterad Lista\n");
-                                                Book.ListAllBooks();
+                                                Book.ListAllBooks(userId);
                                             }
-                                            Loan.LoanQuestion(userId);
-                                            Console.ReadKey();
                                             break;
                                         case "9":
-                                            Console.WriteLine("\n\t\tÅter till föregående sida!");
-                                            Console.ReadKey();
                                             Console.Clear();
                                             insidemenu2running = false;
                                             break;
@@ -866,7 +927,7 @@ bool insidemenu2running = true;
                                 {
                                     Loan.ReturnBook(returnedISBN);
                                 }
-                                break;
+                                    break;
                             case "3":
                                 #region Dina lån
                                 Console.Clear();
@@ -884,9 +945,14 @@ bool insidemenu2running = true;
                                         break;
                                     }
                                     else
+                                    {
                                         Console.WriteLine("\n\t\tDu har inga lånade böcker just nu!");
-
-                                    Console.ReadKey();
+                                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                        Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                        Console.ResetColor();
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                    }
                                 }
                                 else if (Choice == "2")
                                 {
@@ -895,6 +961,7 @@ bool insidemenu2running = true;
                                 }
                                 else if (Choice == "9")
                                 {
+                                    insidemenu2running = false;
                                     break;
                                 }
                                 else if (Choice == "0")
@@ -909,21 +976,6 @@ bool insidemenu2running = true;
                                 }
                                 else
                                     Console.WriteLine("\n\t\tDu har inga återlämnade böcker just nu!");
-
-                                //else if (Choice == "3")
-                                //{
-                                //    var overdueBooks = Loan.OverdueLoans(userId);
-                                //    if (overdueBooks.Count != 0)
-                                //    {
-                                //        Console.WriteLine("\n\t\tDina försenade böcker:");
-                                //        foreach (var book in overdueBooks)
-                                //            Menus.DisplayBooksWithoutAvailability(book);
-                                //        Loan.ReturnQuestion();
-                                //        break;
-                                //    }
-                                //}
-                                //else
-                                //    Console.WriteLine("\n\t\tDu har inga försenade böcker just nu!");
                                 break;
                             #endregion
                             case "4":
@@ -1034,7 +1086,11 @@ bool insidemenu2running = true;
                                         Console.ForegroundColor = ConsoleColor.DarkYellow;
                                         Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
                                         Console.ResetColor();
+                                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                        Console.WriteLine("\n\t\tTryck på valfri tangent för att avsluta...");
+                                        Console.ResetColor();
                                         Console.ReadKey();
+                                        insidemenu2running = false;
                                         Console.Clear();
                                         continue;
                                     }   
@@ -1043,19 +1099,35 @@ bool insidemenu2running = true;
                                 break;
                             case "9":
                                 Console.WriteLine("\n\t\t\tUtloggad");
-                                insidemenurunning = false;
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                Console.ResetColor();
                                 Console.ReadKey();
+                                insidemenurunning = false;
                                 Console.Clear();
                                 break;
                             case "0":
                                 Console.WriteLine("\n\t\t\tVälkommen åter");
                                 insidemenurunning = false;
                                 running = false;
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                Console.WriteLine("\n\t\tTryck på valfri tangent för att avsluta...");
+                                Console.ResetColor();
                                 Console.ReadKey();
                                 Console.Clear();
                                 break;
                         }
                     }
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\n\t\tInloggning misslyckades!");
+                    Console.WriteLine("\t\tFel lösenord...");
+                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    Console.Clear();
                 }
             }
             break;

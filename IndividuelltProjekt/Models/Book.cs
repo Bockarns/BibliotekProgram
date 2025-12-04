@@ -47,7 +47,7 @@ namespace IndividuelltProjekt.Models
             }
         }
         //Lista alla böcker
-        public static void ListAllBooks()
+        public static void ListAllBooksAdmin()
         {
             using (var context = new BookContext())
             {
@@ -64,6 +64,42 @@ namespace IndividuelltProjekt.Models
                         Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
                     }
                 }
+            }
+        }
+        public static void ListAllBooks(int userid)
+        {
+            using (var context = new BookContext())
+            {
+                //skapa en lista och lägg böckerna för att sedan läsa ut dom en efter en..
+                var allBooks = context.Books.ToList();
+                if (allBooks.Count == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\t\tInga böcker hittades i databasen.");
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    Console.Clear();
+                    return;
+                }
+                else
+                {
+                    foreach (var book in allBooks)
+                    {
+                        if (book.Available == true)
+                        {
+                            Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
+                        }
+                        else
+                        {
+                            Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
+                        }
+                    }
+                    Loan.LoanQuestion(userid);
+                }
+                    
             }
         }
         
@@ -86,40 +122,72 @@ namespace IndividuelltProjekt.Models
             }
         }
         //Listar samtliga böcker från en författare
-        public static void SearchBookByAuthorSorted(string author)
+        public static void SearchBookByAuthorSorted(string author, int userid)
         {
             using (var context = new BookContext())
             {
                 var allBooksByAuthor = context.Books.Where(b => b.Author!.Contains(author)).OrderBy(b => b.Author).ToList();
-                foreach (var book in allBooksByAuthor)
+                if (allBooksByAuthor.Count == 0)
                 {
-                    if (book.Available == true)
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\t\tInga böcker hittades för författaren du sökte efter.");
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    Console.Clear();
+                    return;
+                }
+                else
+                { 
+                    foreach (var book in allBooksByAuthor)
                     {
-                        Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
+                        if (book.Available == true)
+                        {
+                            Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
+                        }
+                        else
+                        {
+                            Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
+                        }
                     }
-                    else
-                    {
-                        Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
-                    }
+                    Loan.LoanQuestion(userid);
                 }
             }
         }
         //Lista alla böcker sorterat på författare
-        public static void ListAllBooksSortedAuthor()
+        public static void ListAllBooksSortedAuthor(int userid)
         {
             using (var context = new BookContext())
             {
                 var allBooks = context.Books.OrderBy(b => b.Author).ToList();
-                foreach (var book in allBooks)
+                if (allBooks.Count == 0)
                 {
-                    if (book.Available == true)
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\t\tInga böcker hittades för författaren du sökte efter.");
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    Console.Clear();
+                    return;
+                }
+                else
+                {
+                    foreach (var book in allBooks)
                     {
-                        Menus.DisplayAvailableBookInfo(book);
+                        if (book.Available == true)
+                        {
+                            Menus.DisplayAvailableBookInfo(book);
+                        }
+                        else
+                        {
+                            Menus.DisplayUnavailableBookInfo(book);
+                        }
                     }
-                    else
-                    {
-                        Menus.DisplayUnavailableBookInfo(book);
-                    }
+                    Loan.LoanQuestion(userid);
                 }
             }
         }
@@ -132,45 +200,74 @@ namespace IndividuelltProjekt.Models
             }
         }
         //Listar böckwr via titel
-        public static void SearchBookByTitleSorted(string title)
+        public static void SearchBookByTitleSorted(string title, int userid)
         {
             using (var context = new BookContext())
             {
                 var books = context.Books.Where(b => b.Title!.Contains(title)).OrderBy(b => b.Title).ToList();
-                foreach (var book in books)
+                if (books.Count == 0)
                 {
-                    if (book.Available == true)
-                    {
-                        Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
-                    }
-                    else
-                    {
-                        Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
-                    }
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\t\tInga böcker hittades med den titeln du sökte efter.");
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    Console.Clear();
+                    return;
                 }
-
+                else
+                {
+                    foreach (var book in books)
+                    {
+                        if (book.Available == true)
+                        {
+                            Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
+                        }
+                        else
+                        {
+                            Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
+                        }
+                    }
+                    Loan.LoanQuestion(userid);
+                }
+                    
             }
         }
         //Lista alla böcker sorterat på titel
-        public static void ListAllBooksSortedTitle()
+        public static void ListAllBooksSortedTitle(int userid)
         {
             using (var context = new BookContext())
             {
                 var allBooks = context.Books.OrderBy(b => b.Title).ToList();
-                foreach (var book in allBooks)
+                if (allBooks.Count == 0)
                 {
-                    if (book.Available == true)
-                    {
-                        Menus.DisplayAvailableBookInfo(book);
-                    }
-                    else
-                    {
-                        Menus.DisplayUnavailableBookInfo(book);
-                    }
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\t\tInga böcker hittades med den titeln du sökte efter.");
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    Console.Clear();
+                    return;
                 }
-                Console.ReadKey();
-                Console.Clear();
-                Console.WriteLine("\x1b[3J");
+                else
+                {
+                    foreach (var book in allBooks)
+                    {
+                        if (book.Available == true)
+                        {
+                            Menus.DisplayAvailableBookInfo(book);
+                        }
+                        else
+                        {
+                            Menus.DisplayUnavailableBookInfo(book);
+                        }
+                    }
+                    Loan.LoanQuestion(userid);
+                }
             }
         }
         //Hämtar bok via författare och titel
@@ -183,63 +280,111 @@ namespace IndividuelltProjekt.Models
             }
         }
         //För att söka efter en bok med ett nyckelord/sträng i titel eller författare
-        public static void SearchBooksByKeyword(string keyword)
+        public static void SearchBooksByKeyword(string keyword, int userid)
         {
             using (var context = new BookContext())
             {
                 var booksWithKeyword = context.Books
                     .Where(b => b.Title!.Contains(keyword) || b.Author!.Contains(keyword))
                     .ToList();
-                foreach (var book in booksWithKeyword)
+                if (booksWithKeyword.Count == 0)
                 {
-                    if (book.Available == true)
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\t\tInga böcker hittades med det nyckelordet/strängen.");
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    Console.Clear();
+                    return;
+                }
+                else
+                {
+                    foreach (var book in booksWithKeyword)
                     {
-                        Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
+                        if (book.Available == true)
+                        {
+                            Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
+                        }
+                        else
+                        {
+                            Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
+                        }
                     }
-                    else
-                    {
-                        Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
-                    }
+                    Loan.LoanQuestion(userid);
                 }
             }
         }
-        public static void SearchBooksByKeywordSortedAuthor(string keyword)
+        public static void SearchBooksByKeywordSortedAuthor(string keyword, int userid)
         {
             using (var context = new BookContext())
             {
                 var booksWithKeyword = context.Books
                     .Where(b => b.Title!.Contains(keyword) || b.Author!.Contains(keyword))
                     .OrderBy(b => b.Author).ToList();
-                foreach (var book in booksWithKeyword)
+                if (booksWithKeyword.Count == 0)
                 {
-                    if (book.Available == true)
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\t\tInga böcker hittades med det nyckelordet/strängen.");
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    Console.Clear();
+                    return;
+                }
+                else
+                {
+                    foreach (var book in booksWithKeyword)
                     {
-                        Menus.DisplayAvailableBookInfo(book); 
+                        if (book.Available == true)
+                        {
+                            Menus.DisplayAvailableBookInfo(book);
+                        }
+                        else
+                        {
+                            Menus.DisplayUnavailableBookInfo(book);
+                        }
                     }
-                    else
-                    {
-                        Menus.DisplayUnavailableBookInfo(book); 
-                    }
+                    Loan.LoanQuestion(userid);
                 }
             }
         }
-        public static void SearchBooksByKeywordSortedTitle(string keyword)
+        public static void SearchBooksByKeywordSortedTitle(string keyword, int userid)
         {
             using (var context = new BookContext())
             {
                 var booksWithKeyword = context.Books
                     .Where(b => b.Title!.Contains(keyword) || b.Author!.Contains(keyword))
                     .OrderBy(b => b.Title).ToList();
-                foreach (var book in booksWithKeyword)
+                if (booksWithKeyword.Count == 0)
                 {
-                    if (book.Available == true)
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\t\tInga böcker hittades med det nyckelordet/strängen.");
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    Console.Clear();
+                    return;
+                }
+                else
+                {
+                    foreach (var book in booksWithKeyword)
                     {
-                        Menus.DisplayAvailableBookInfo(book);
+                        if (book.Available == true)
+                        {
+                            Menus.DisplayAvailableBookInfo(book);
+                        }
+                        else
+                        {
+                            Menus.DisplayUnavailableBookInfo(book);
+                        }
                     }
-                    else
-                    {
-                        Menus.DisplayUnavailableBookInfo(book);
-                    }
+                    Loan.LoanQuestion(userid);
                 }
             }
         }
@@ -261,6 +406,9 @@ namespace IndividuelltProjekt.Models
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("\t\tISBN Måste bestå av 13 siffror!");
                 Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                Console.ResetColor();
                 Console.ReadKey();
                 Console.Clear();
                 return 0;
@@ -271,6 +419,9 @@ namespace IndividuelltProjekt.Models
                 {
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("\t\tISBN får endast innehålla siffror!");
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
                     Console.ResetColor();
                     Console.ReadKey();
                     Console.Clear();

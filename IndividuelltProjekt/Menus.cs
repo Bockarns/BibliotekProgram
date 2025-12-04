@@ -155,7 +155,7 @@ namespace IndividuelltProjekt
             Console.ResetColor();
             Console.WriteLine("\n\t\t1.Försenade böcker");
             Console.WriteLine("\t\t2.Utlånade böcker");
-            Console.WriteLine("\t\t9.Logga ut och återgå till huvudmenyn");
+            Console.WriteLine("\t\t9.Återgå till föregående sida");
             Console.WriteLine("\t\t0.Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
         }
@@ -252,7 +252,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\n\t\t1.Se dina lånade böcker");
             Console.WriteLine("\t\t2.Lånehistorik");
             Console.WriteLine("\t\t3.Försenade böcker");
-            Console.WriteLine("\t\t9.Logga ut och återgå till huvudmenyn");
+            Console.WriteLine("\t\t9.Återgå till föregående sida");
             Console.WriteLine("\t\t0.Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
         }
@@ -294,7 +294,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t4. Sök via nyckelord i titel eller författare: ");
             Console.WriteLine("\t\t5. Visa alla tillgängliga böcker: ");
             Console.WriteLine("\t\t6. Visa alla böcker: ");
-            Console.WriteLine("\t\t9. återgå till föregående sida");
+            Console.WriteLine("\t\t9. Återgå till föregående sida");
             Console.WriteLine("\t\t0. Logga ut och avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
         }
@@ -322,7 +322,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t1. Byt användarnamn");
             Console.WriteLine("\t\t2. Byt lösenord");
             Console.WriteLine("\t\t3. Radera konto");
-            Console.WriteLine("\t\t9. Gå tillbaka till föregående meny");
+            Console.WriteLine("\t\t9. Återgå till föregående sida");
             Console.WriteLine("\t\t0. Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
         }
@@ -352,7 +352,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t1. Författare ");
             Console.WriteLine("\t\t2. Titel ");
             Console.WriteLine("\t\t3. Tillgänglighet ");
-            Console.WriteLine("\t\t9. Återgå till föregående meny ");
+            Console.WriteLine("\t\t9. Återgå till föregående sida ");
             Console.WriteLine("\t\t0. Avsluta programmet "); ;
             Console.Write("\t\tSkriv in ditt val här: ");
         }

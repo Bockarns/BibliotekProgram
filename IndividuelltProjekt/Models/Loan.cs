@@ -35,9 +35,15 @@ namespace IndividuelltProjekt.Models
             using var context = new LoanContext();
             var book = context.Books.FirstOrDefault(b => b.Id == bookId);
             if (book == null)
+            {
                 throw new Exception("\n\t\tBoken finns inte!");
+            }
+                
             if (!book.Available)
+            {
                 throw new Exception("\n\t\tBoken är redan utlånad!");
+            }
+                
             var loan = new Loan
             {
                 User_Id = userId,
@@ -49,6 +55,10 @@ namespace IndividuelltProjekt.Models
             context.Loans.Add(loan);
             context.SaveChanges();
             Console.WriteLine("\n\t\tBoken är nu utlånad!");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+            Console.ResetColor();
+            Console.ReadKey();
         }
         public static void ReturnBook(long bookId)
         {
@@ -56,16 +66,26 @@ namespace IndividuelltProjekt.Models
             var loan = context.Loans
                 .FirstOrDefault(l => l.Book_Id == bookId && l.ReturnDate == null);
             if (loan == null)
+            {
                 throw new Exception("\t\tDenna bok är inte utlånad!");
+            }
+                
             var book = context.Books.FirstOrDefault(b => b.Id == bookId);
             if (book == null)
+            {
                 throw new Exception("\t\tBoken saknas i biblioteket!");
+            }
+                
             loan.ReturnDate = DateTime.Now;  // Registrera retur
             book.Available = true;           // Markera som ledig igen
 
             context.SaveChanges();
 
             Console.WriteLine("\t\tBoken har lämnats tillbaka!");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+            Console.ResetColor();
+            Console.ReadKey();
         }
 
         // Lånehistorik för en användare - Ska fortfarande testas om den fungerar
@@ -77,6 +97,10 @@ namespace IndividuelltProjekt.Models
             if (loans.Count == 0)
             {
                 Console.WriteLine("\t\tInga lån hittades för denna användare.");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                Console.ResetColor();
+                Console.ReadKey();
                 return;
             }
             else
@@ -128,6 +152,9 @@ namespace IndividuelltProjekt.Models
                 Console.ResetColor();
             }
             Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+            Console.ResetColor();
             Console.Clear();
             Console.WriteLine("\x1b[3J");
         }
@@ -154,13 +181,16 @@ namespace IndividuelltProjekt.Models
                 Console.ResetColor();
             }
             Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+            Console.ResetColor();
             Console.Clear();
             Console.WriteLine("\x1b[3J");
         }
         // Fråga användaren om de vill låna en bok från en visad lista.
         public static void LoanQuestion(int userId)
         {
-            Console.WriteLine("Vill du låna någon av ovanstående böcker?");
+            Console.WriteLine("\nVill du låna någon av ovanstående böcker?");
             Console.Write("Ja/Nej: ");
             var loanChoice = Console.ReadLine()!.ToUpper();
             if (loanChoice == "JA")
@@ -179,9 +209,16 @@ namespace IndividuelltProjekt.Models
                     Loan.LoanBook(userId, inputISBN);
                 }
             }
-            Console.ReadKey();
-            Console.Clear();
-            Console.WriteLine("\x1b[3J");
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                Console.ResetColor();
+                Console.ReadKey();
+                Console.Clear();
+                Console.WriteLine("\x1b[3J");
+            }
+                
         }
         
         public static void ReturnQuestion()
@@ -208,6 +245,9 @@ namespace IndividuelltProjekt.Models
                 
             }
             Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+            Console.ResetColor();
             Console.Clear();
             Console.WriteLine("\x1b[3J");
         }
