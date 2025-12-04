@@ -34,6 +34,10 @@ bool insidemenu2running = true;
     switch (Choice)
     {
         #region Skapa konto
+        /// <summary>
+        /// Här skapas ett nytt konto, användaren får fylla i önskat användarnamn och lösenord två gånger för att verifiera.
+        /// </summary>
+
         case "1":
             try
             {
@@ -121,9 +125,10 @@ bool insidemenu2running = true;
             break;
         #endregion
         #region Logga in
+        /// <summary>
+        /// Här loggar en befintlig användare in, kollar om användaren är admin eller vanlig användare.
+        ///</summary>
         case "2":
-            
-            //Logga in, denna kollar om användaren existerar i DB och om den är admin eller vanlig användare
             Console.WriteLine("\n\t\tLogga in användare\n");
             Console.WriteLine("\t\tFyll i ditt användarnamn: ");
             Console.Write("\t\t");
@@ -143,6 +148,9 @@ bool insidemenu2running = true;
             }
             #endregion
             #region Admin inloggning
+            /// <summary>
+            /// Här startar admin inloggningen och menyerna för admin
+            /// </summary>
             var adminCheck = User.CheckUserAdmin(existingUsername!);
             if (adminCheck == true)
             {
@@ -158,6 +166,9 @@ bool insidemenu2running = true;
                     insidemenurunning = true;
                     #endregion
                     #region Admin meny
+                    /// <summary>
+                    ///Admin meny loop
+                    ///</summary>
                     while (insidemenurunning)
                     
                     {
@@ -168,6 +179,11 @@ bool insidemenu2running = true;
                         switch (Choice)
                         {
                             case "1":
+                                #region Lägg till bok
+                                /// <summary>
+                                /// Här läggs en ny bok till i biblioteket
+                                /// </summary>
+                                
                                 //Lägg till bok
                                 Console.WriteLine("\n\t\tSkriv in ISBN (13 siffror): ");
                                 long newISBN = Book.AskForISBN();
@@ -190,9 +206,15 @@ bool insidemenu2running = true;
                                         Menus.DisplayBooksWithoutAvailability(book);
                                     Console.ReadKey();
                                     Console.Clear();
-                                } 
+                                }
+                                #endregion
                                 break;
                             case "2":
+                                #region Redigera bok
+                                /// <summary>
+                                /// Här får admin möjlighet att redigera böcker i biblioteket
+                                /// </summary>
+                                
                                 //Redigera böcker, ger användaren val att ändra författare, titel eller tillgänglighet
                                 //samt hur dom vill söka upp boken (ISBN eller författare och titel)
                                 Console.Clear();
@@ -426,8 +448,14 @@ bool insidemenu2running = true;
                                         Console.Clear();
                                         break;
                                 }
+                                #endregion
                                 break;
                             case "3":
+                                #region Radera bok
+                                /// <summary>
+                                /// Här får admin möjlighet att radera böcker i biblioteket
+                                /// </summary>
+                                
                                 //radera en bok
                                 Console.WriteLine("\n\t\tVill du söka up boken via ISBN eller via författare och titel?");
                                 Console.Write("\t\t1 = ISBN eller 2 = Författare och titel ");
@@ -499,6 +527,7 @@ bool insidemenu2running = true;
                                     Console.ReadKey();
                                     Console.Clear();
                                 }
+                                #endregion
                                 break;
                             case "4":
                                 //Listar alla böcker och visar om de är lånade eller ej
@@ -524,6 +553,11 @@ bool insidemenu2running = true;
                                 }
                                 break;
                             case "6":
+                                #region Redigera profil
+                                /// <summary>
+                                /// Här får admin möjlighet att redigera sin profil eller radera sitt konto helt
+                                ///</summary>
+                                
                                 //Redigera profil
                                 Console.Clear();
                                 Console.WriteLine("\x1b[3J");
@@ -638,6 +672,7 @@ bool insidemenu2running = true;
                                         continue;
                                     }
                                 }
+                                #endregion
                                 break;
                             case "9":
                                 Console.WriteLine("\n\t\t\tUtloggad");
@@ -692,6 +727,7 @@ bool insidemenu2running = true;
                         switch (Choice)
                         {
                             case "1":
+                                #region Sökmeny
                                 //Sökmenyn
                                 insidemenu2running = true;
                                 while (insidemenu2running)
@@ -822,6 +858,7 @@ bool insidemenu2running = true;
                                             break;
                                     }
                                 }
+                                #endregion
                                 break;
                             case "2":
                                 Console.WriteLine("\n\t\tLämna tillbaka en bok");
@@ -833,6 +870,7 @@ bool insidemenu2running = true;
                                 }
                                 break;
                             case "3":
+                                #region Dina lån
                                 Console.Clear();
                                 Menus.UserLoanMenu();
                                 Choice = Console.ReadLine();
@@ -889,7 +927,9 @@ bool insidemenu2running = true;
                                 //else
                                 //    Console.WriteLine("\n\t\tDu har inga försenade böcker just nu!");
                                 break;
+                            #endregion
                             case "4":
+                                #region Redigera profil
                                 Console.Clear();
                                 var editProfile = true;
                                 while(editProfile)
@@ -1001,6 +1041,7 @@ bool insidemenu2running = true;
                                         continue;
                                     }   
                                 }
+                                #endregion
                                 break;
                             case "9":
                                 Console.WriteLine("\n\t\t\tUtloggad");
