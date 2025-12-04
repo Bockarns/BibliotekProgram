@@ -267,8 +267,20 @@ namespace IndividuelltProjekt.Models
             }
             else if (inputISBN.Length == 13)
             {
-                long parsedISBN = long.Parse(inputISBN);
-                return parsedISBN;
+                if (!long.TryParse(inputISBN, out _))
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\t\tISBN får endast innehålla siffror!");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    Console.Clear();
+                    return 0;
+                }
+                else
+                {
+                    long parsedISBN = long.Parse(inputISBN);
+                    return parsedISBN;
+                }
             }
             else
             {
