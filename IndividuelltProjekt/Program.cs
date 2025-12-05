@@ -674,14 +674,45 @@ bool insidemenu2running = true;
                                     }
                                     else if (Choice == "3")
                                     {
-                                        Console.WriteLine("\n\t\tÄr du säker på att du vill radera användaren? JA/NEJ");
+                                        Console.WriteLine("\n\t\tÄr du säker på att du vill avaktivera kontot? JA/NEJ");
                                         Console.Write("\t\t");
                                         var deletechoice = Console.ReadLine()!.ToUpper();
                                         if (deletechoice == "JA")
                                         {
                                             var deactivateAccount = true;
                                             User.DeactivateUser(existingUsername!, deactivateAccount);
-                                            Console.WriteLine("\n\t\tAnvändaren är borttagen, Tråkigt att se dig lämna oss :´(");
+                                            Console.WriteLine("\n\t\tAnvändaren är avaktiverad, Tråkigt att se dig lämna oss :´(");
+                                            Console.WriteLine("\n\t\tDu blir automatiskt tagen till huvudmenyn.");
+                                            Console.ReadKey();
+                                            Console.Clear();
+                                            editProfile = false;
+                                            insidemenu2running = false;
+                                            insidemenurunning = false;
+                                            break;
+                                        }
+                                        else if (deletechoice == "NEJ")
+                                        {
+                                            Console.WriteLine("\n\t\tVad glada vi blir att du valt att stanna hos oss <3");
+                                            Console.ReadKey();
+                                        }
+                                        else
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                            Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
+                                            Console.ResetColor();
+                                            Console.ReadKey();
+                                        }
+                                        break;
+                                    }
+                                    else if(Choice == "4")
+                                    {
+                                        Console.WriteLine("\n\t\tÄr du säker på att du vill radera kontot permanent? JA/NEJ");
+                                        Console.Write("\t\t");
+                                        var deletechoice = Console.ReadLine()!.ToUpper();
+                                        if (deletechoice == "JA")
+                                        {
+                                            User.DeleteUser(existingUsername!);
+                                            Console.WriteLine("\n\t\tAnvändaren är permanent raderad, Tråkigt att se dig lämna oss :´(");
                                             Console.WriteLine("\n\t\tDu blir automatiskt tagen till huvudmenyn.");
                                             Console.ReadKey();
                                             Console.Clear();
@@ -1123,6 +1154,42 @@ bool insidemenu2running = true;
                                         }
                                         break;
                                     }
+                                    else if (Choice == "4")
+                                    {
+                                        Console.WriteLine("\n\t\tÄr du säker på att du vill radera kontot permanent? JA/NEJ");
+                                        Console.Write("\t\t");
+                                        var deletechoice = Console.ReadLine()!.ToUpper();
+                                        if (deletechoice == "JA")
+                                        {
+                                            User.DeleteUser(existingUsername!);
+                                            Console.WriteLine("\n\t\tAnvändaren är permanent raderad, Tråkigt att se dig lämna oss :´(");
+                                            Console.WriteLine("\n\t\tDu blir nu tagen till huvudmenyn.");
+                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                            Console.WriteLine("\n\t\tTryck på valfri tangent för att fortsätta...");
+                                            Console.ResetColor();
+                                            Console.ReadKey();
+                                            Console.Clear();
+                                            editProfile = false;
+                                            insidemenu2running = false;
+                                            insidemenurunning = false;
+                                            break;
+                                        }
+                                        else if (deletechoice == "NEJ")
+                                        {
+                                            Console.WriteLine("Vad glada vi blir att du valt att stanna hos oss <3");
+                                            Console.ReadKey();
+                                        }
+                                        else
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                            Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
+                                            Console.ResetColor();
+                                            Console.ReadKey();
+                                            Console.Clear();
+                                            break;
+                                        }
+                                        break;
+                                    }
                                     else if (Choice == "9")
                                     {
                                         editProfile = false;
@@ -1199,7 +1266,7 @@ bool insidemenu2running = true;
             break;
         default:
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("\n\t\t\tFelaktigt val, Försök igen.");
+            Console.WriteLine("\n\t\t\tFelaktigt val, tryck på valfri knapp för att fortsätta.");
             Console.ResetColor();
             Console.ReadKey();
             Console.Clear();

@@ -5,16 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IndividuelltProjekt.Models
 {
     public class Loan
     {
         public int Id { get; set; }
-
+        [ForeignKey("User")] //tillägg för att ange foreign key relation då User_Id refererar till User tabellen
         public int User_Id { get; set; }
         public User? User { get; set; }
-
+        [ForeignKey("Book")] //tillägg för att ange foreign key relation då Book_Id refererar till Book tabellen
         public long Book_Id { get; set; }
         public Book? Book { get; set; }
 
@@ -242,7 +243,6 @@ namespace IndividuelltProjekt.Models
                     Loan.ReturnBook(parsedISBN);
                     Loan.ReturnQuestion();
                 }
-                
             }
             else
             {
@@ -253,8 +253,6 @@ namespace IndividuelltProjekt.Models
                 Console.Clear();
                 Console.WriteLine("\x1b[3J");
             }
-            
         }
     }
-    
 }

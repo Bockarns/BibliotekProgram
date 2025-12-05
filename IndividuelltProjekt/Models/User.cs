@@ -116,15 +116,16 @@ namespace IndividuelltProjekt.Models
                 context.SaveChanges();
             }
         }
-        //public static void DeleteUser(string username)
-        //{
-        //    using (var context = new UserContext())
-        //    {
-        //        var user = context.Users.FirstOrDefault(u => u.Username == username);
-        //        context.Users.Remove(user);
-        //        context.SaveChanges();
-        //    }
-        //}
+        public static void DeleteUser(string username)
+        {
+            using (var context = new UserContext())
+            {
+                var user = context.Users.Include(u=> u.Loans).FirstOrDefault(u => u.Username == username);
+                context.RemoveRange(user!.Loans); //Manuellt borttagning av relaterade lån
+                context.Users.Remove(user!);
+                context.SaveChanges();
+            }
+        }
     }
     
 }

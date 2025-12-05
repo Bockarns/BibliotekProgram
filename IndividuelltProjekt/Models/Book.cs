@@ -486,7 +486,8 @@ namespace IndividuelltProjekt.Models
         {
             using (var context = new BookContext())
             {
-                var book = context.Books.FirstOrDefault(b => b.Id == isbn);
+                var book = context.Books.Include(b => b.Loans).FirstOrDefault(b => b.Id == isbn);
+                context.RemoveRange(book!.Loans); //Manuellt borttagning av relaterade lån
                 context.Books.Remove(book!);
                 context.SaveChanges();
             }
