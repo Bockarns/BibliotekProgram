@@ -52,7 +52,7 @@ namespace IndividuelltProjekt.Models
                 LoanDate = DateTime.Now,
                 ReturnDate = null
             };
-            book.Available = false; // Markera som utlånad
+            book.OnLoan = true; // Markera som utlånad
             context.Loans.Add(loan);
             context.SaveChanges();
             Console.WriteLine("\n\t\tBoken är nu utlånad!");
@@ -78,7 +78,7 @@ namespace IndividuelltProjekt.Models
             }
                 
             loan.ReturnDate = DateTime.Now;  // Registrera retur
-            book.Available = true;           // Markera som ledig igen
+            book.OnLoan = false;           // Markera som ledig igen
 
             context.SaveChanges();
 

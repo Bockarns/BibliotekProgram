@@ -466,6 +466,113 @@ bool insidemenu2running = true;
                                             Console.Clear();
                                         }
                                         break;
+                                    case "4":
+                                        #region Radera bok
+                                        /// <summary>
+                                        /// Här får admin möjlighet att radera böcker i biblioteket
+                                        /// </summary>
+
+                                        //radera en bok
+                                        Console.WriteLine("\n\t\tVill du söka up boken via ISBN eller via författare och titel?");
+                                        Console.Write("\t\t1 = ISBN eller 2 = Författare och titel ");
+                                        var deleteSearchChoice = Console.ReadLine();
+                                        if (deleteSearchChoice == "1")
+                                        {
+                                            Console.WriteLine("\n\t\tSkriv in ISBN nummer (13 siffror):");
+                                            long returnedISBN = Book.AskForISBN();
+                                            if (returnedISBN != 0)
+                                            {
+                                                var book = Book.GetBookByISBN(returnedISBN);
+                                                var onLoan = Book.CheckBookOnLoan(false);
+                                                if (onLoan == true)
+                                                {
+                                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                    Console.WriteLine("\n\t\tBoken är utlånad och kan inte raderas förrän den är återlämnad.");
+                                                    Console.ResetColor();
+                                                    Console.ReadKey();
+                                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                                    Console.ResetColor();
+                                                    Console.Clear();
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    Console.ForegroundColor = ConsoleColor.Red;
+                                                    Console.WriteLine("\n\t\tStämmer det att du vill radera denna bok?");
+                                                    Menus.DisplayBooksWithoutAvailability(book);
+                                                    Console.ResetColor();
+                                                    Console.Write("\nJA/NEJ: ");
+                                                    var confirm = Console.ReadLine()!.ToUpper();
+                                                    if (confirm == "JA")
+                                                    {
+                                                        Book.DeleteBook(returnedISBN);
+                                                        Console.ForegroundColor = ConsoleColor.Red;
+                                                        Console.WriteLine("\n\t\tBoken är raderad från biblioteket.");
+                                                        Console.ResetColor();
+                                                        Console.ReadKey();
+                                                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                        Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                                        Console.ResetColor();
+                                                        Console.Clear();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else if (deleteSearchChoice == "2")
+                                        {
+                                            Console.WriteLine("\n\t\tSkriv in författarens förnamn och efternamn: ");
+                                            var author = Console.ReadLine();
+                                            Console.Write("\t\tSkriv in titel på boken: ");
+                                            var title = Console.ReadLine();
+                                            var book = Book.GetBookByAuthorAndTitle(author!, title!);
+                                            if (book == null)
+                                            {
+                                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                Console.WriteLine("\n\t\tBoken hittades inte, kontrollera stavning och försök igen.");
+                                                Console.ResetColor();
+                                                Console.ReadKey();
+                                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                                Console.ResetColor();
+                                                Console.Clear();
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                Console.ForegroundColor = ConsoleColor.Red;
+                                                Console.WriteLine("\t\tStämmer det att du vill radera denna bok?");
+                                                Console.ResetColor();
+                                                Menus.DisplayBooksWithoutAvailability(book);
+                                                Console.Write("\nJA/NEJ: ");
+                                                var confirm = Console.ReadLine()!.ToUpper();
+                                                if (confirm == "JA")
+                                                {
+                                                    Book.DeleteBook(book.Id);
+                                                    Console.ForegroundColor = ConsoleColor.Red;
+                                                    Console.WriteLine("\t\tBoken är raderad från biblioteket.");
+                                                    Console.ResetColor();
+                                                    Console.ReadKey();
+                                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                                    Console.ResetColor();
+                                                    Console.Clear();
+                                                }
+                                            }
+                                        }
+                                        else if (deleteSearchChoice != "1" || deleteSearchChoice != "2")
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                            Console.WriteLine("\n\t\tFelaktigt val, försök igen!");
+                                            Console.ResetColor();
+                                            Console.ReadKey();
+                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                            Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
+                                            Console.ResetColor();
+                                            Console.Clear();
+                                        }
+                                        #endregion
+                                        break;
                                     case "9":
                                         insidemenu2running = false;
                                         Console.Clear();
@@ -494,98 +601,8 @@ bool insidemenu2running = true;
                                 }
                                 #endregion
                                 break;
+                            
                             case "3":
-                                #region Radera bok
-                                /// <summary>
-                                /// Här får admin möjlighet att radera böcker i biblioteket
-                                /// </summary>
-                                
-                                //radera en bok
-                                Console.WriteLine("\n\t\tVill du söka up boken via ISBN eller via författare och titel?");
-                                Console.Write("\t\t1 = ISBN eller 2 = Författare och titel ");
-                                var deleteSearchChoice = Console.ReadLine();
-                                if (deleteSearchChoice == "1")
-                                {
-                                    Console.WriteLine("\n\t\tSkriv in ISBN nummer (13 siffror):");
-                                    long returnedISBN = Book.AskForISBN();
-                                    if (returnedISBN != 0)
-                                    {
-                                        var book = Book.GetBookByISBN(returnedISBN);
-                                        Console.ForegroundColor = ConsoleColor.Red;
-                                        Console.WriteLine("\n\t\tStämmer det att du vill radera denna bok?");
-                                        Menus.DisplayBooksWithoutAvailability(book);
-                                        Console.ResetColor();
-                                        Console.Write("\nJA/NEJ: ");
-                                        var confirm = Console.ReadLine()!.ToUpper();
-                                        if (confirm == "JA")
-                                        {
-                                            Book.DeleteBook(returnedISBN);
-                                            Console.ForegroundColor = ConsoleColor.Red;
-                                            Console.WriteLine("\n\t\tBoken är raderad från biblioteket.");
-                                            Console.ResetColor();
-                                            Console.ReadKey();
-                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                            Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
-                                            Console.ResetColor();
-                                            Console.Clear();
-                                        }
-                                    }
-                                }
-                                else if (deleteSearchChoice == "2")
-                                {
-                                    Console.WriteLine("\n\t\tSkriv in författarens förnamn och efternamn: ");
-                                    var author = Console.ReadLine();
-                                    Console.Write("\t\tSkriv in titel på boken: ");
-                                    var title = Console.ReadLine();
-                                    var book = Book.GetBookByAuthorAndTitle(author!, title!);
-                                    if (book == null)
-                                    {
-                                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                        Console.WriteLine("\n\t\tBoken hittades inte, kontrollera stavning och försök igen.");
-                                        Console.ResetColor();
-                                        Console.ReadKey();
-                                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                        Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
-                                        Console.ResetColor();
-                                        Console.Clear();
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        Console.ForegroundColor = ConsoleColor.Red;
-                                        Console.WriteLine("\t\tStämmer det att du vill radera denna bok?");
-                                        Console.ResetColor();
-                                        Menus.DisplayBooksWithoutAvailability(book);
-                                        Console.Write("\nJA/NEJ: ");
-                                        var confirm = Console.ReadLine()!.ToUpper();
-                                        if (confirm == "JA")
-                                        {
-                                            Book.DeleteBook(book.Id);
-                                            Console.ForegroundColor = ConsoleColor.Red;
-                                            Console.WriteLine("\t\tBoken är raderad från biblioteket.");
-                                            Console.ResetColor();
-                                            Console.ReadKey();
-                                            Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                            Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
-                                            Console.ResetColor();
-                                            Console.Clear();
-                                        }
-                                    }
-                                }
-                                else if (deleteSearchChoice != "1" || deleteSearchChoice != "2")
-                                {
-                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                    Console.WriteLine("\n\t\tFelaktigt val, försök igen!");
-                                    Console.ResetColor();
-                                    Console.ReadKey();
-                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                                    Console.WriteLine("\n\t\tTryck på valfri tangent för att återgå till menyn...");
-                                    Console.ResetColor();
-                                    Console.Clear();
-                                }
-                                #endregion
-                                break;
-                            case "4":
                                 //Listar alla böcker och visar om de är lånade eller ej
                                 Console.WriteLine("Lista böcker");
                                 Book.ListAllBooksAdmin();
@@ -596,7 +613,7 @@ bool insidemenu2running = true;
                                 Console.Clear();
                                 Console.WriteLine("\x1b[3J");
                                 break;
-                            case "5":
+                            case "4":
                                 Console.Clear();
                                 Menus.AdminLoanMenu();
                                 Choice = Console.ReadLine();
@@ -611,7 +628,7 @@ bool insidemenu2running = true;
                                     Loan.LoanedBooksReport();
                                 }
                                 break;
-                            case "6":
+                            case "5":
                                 #region Redigera profil
                                 /// <summary>
                                 /// Här får admin möjlighet att redigera sin profil eller radera sitt konto helt
@@ -765,7 +782,7 @@ bool insidemenu2running = true;
                                 }
                                 #endregion
                                 break;
-                            case "7":
+                            case "6":
                                 Console.WriteLine("\n\t\tVill du spärra eller återaktivera ett användarkonto?");
                                 Console.Write("\t\tSpärra/aktivera: ");
                                 var lockChoice = Console.ReadLine()!.ToUpper();

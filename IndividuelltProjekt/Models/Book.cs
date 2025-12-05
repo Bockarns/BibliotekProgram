@@ -14,6 +14,7 @@ namespace IndividuelltProjekt.Models
         public string? Author { get; set; }
         public string? Title { get; set; }
         public bool Available { get; set; }
+        public bool OnLoan { get; set; }
         public List<Loan> Loans { get; set; } = new();
         public Book()
         {
@@ -41,7 +42,7 @@ namespace IndividuelltProjekt.Models
             using (var context = new BookContext())
             {
                 //skapa en lista och lägg böckerna för att sedan läsa ut dom en efter en..
-                var availableBooks = context.Books.Where(b => b.Available).ToList();
+                var availableBooks = context.Books.Where(b => b.Available && b.OnLoan == false).ToList();
                 foreach (var book in availableBooks)
                     Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
             }
@@ -55,13 +56,17 @@ namespace IndividuelltProjekt.Models
                 var allBooks = context.Books.ToList();
                 foreach (var book in allBooks)
                 {
-                    if (book.Available == true)
+                    if (book.Available == true && book.OnLoan == false)
                     {
                         Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
                     }
-                    else
+                    else if (book.Available == false)
                     {
-                        Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
+                        Menus.DisplayUnavailableBookInfo(book);
+                    }
+                    else if (book.OnLoan == true)
+                    {
+                        Menus.DisplayOnLoanBookInfo(book); //Hämtar printout från Menus.cs
                     }
                 }
             }
@@ -88,13 +93,17 @@ namespace IndividuelltProjekt.Models
                 {
                     foreach (var book in allBooks)
                     {
-                        if (book.Available == true)
+                        if (book.Available == true && book.OnLoan == false)
                         {
                             Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
                         }
-                        else
+                        else if (book.Available == false)
                         {
-                            Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
+                            Menus.DisplayUnavailableBookInfo(book);
+                        }
+                        else if (book.OnLoan == true)
+                        {
+                            Menus.DisplayOnLoanBookInfo(book); //Hämtar printout från Menus.cs
                         }
                     }
                     Loan.LoanQuestion(userid);
@@ -109,6 +118,14 @@ namespace IndividuelltProjekt.Models
             using (var context = new BookContext())
             {
                 return context.Books.Any(b => b.Available == available);
+            }
+        }
+        //Kontrollera om bok är på lån
+        public static bool CheckBookOnLoan(bool onloan)
+        {
+            using (var context = new BookContext())
+            {
+                return context.Books.Any(b => b.OnLoan == onloan);
             }
         }
         //Ska bygga om dessa nedan så dom visar böckerna här ifrån som void metoder för att städa program.cs
@@ -143,13 +160,17 @@ namespace IndividuelltProjekt.Models
                 { 
                     foreach (var book in allBooksByAuthor)
                     {
-                        if (book.Available == true)
+                        if (book.Available == true && book.OnLoan == false)
                         {
                             Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
                         }
-                        else
+                        else if (book.Available == false)
                         {
-                            Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
+                            Menus.DisplayUnavailableBookInfo(book);
+                        }
+                        else if (book.OnLoan == true)
+                        {
+                            Menus.DisplayOnLoanBookInfo(book); //Hämtar printout från Menus.cs
                         }
                     }
                     Loan.LoanQuestion(userid);
@@ -178,13 +199,17 @@ namespace IndividuelltProjekt.Models
                 {
                     foreach (var book in allBooks)
                     {
-                        if (book.Available == true)
+                        if (book.Available == true && book.OnLoan == false)
                         {
                             Menus.DisplayAvailableBookInfo(book);
                         }
-                        else
+                        else if (book.Available == false)
                         {
                             Menus.DisplayUnavailableBookInfo(book);
+                        }
+                        else if (book.OnLoan == true)
+                        {
+                            Menus.DisplayOnLoanBookInfo(book); //Hämtar printout från Menus.cs
                         }
                     }
                     Loan.LoanQuestion(userid);
@@ -221,18 +246,21 @@ namespace IndividuelltProjekt.Models
                 {
                     foreach (var book in books)
                     {
-                        if (book.Available == true)
+                        if (book.Available == true && book.OnLoan == false)
                         {
                             Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
                         }
-                        else
+                        else if (book.Available == false)
                         {
                             Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
                         }
+                        else if (book.OnLoan == true)
+                        {
+                            Menus.DisplayOnLoanBookInfo(book); //Hämtar printout från Menus.cs
+                        }
+                        Loan.LoanQuestion(userid);
                     }
-                    Loan.LoanQuestion(userid);
                 }
-                    
             }
         }
         //Lista alla böcker sorterat på titel
@@ -257,13 +285,17 @@ namespace IndividuelltProjekt.Models
                 {
                     foreach (var book in allBooks)
                     {
-                        if (book.Available == true)
+                        if (book.Available == true && book.OnLoan == false)
                         {
                             Menus.DisplayAvailableBookInfo(book);
                         }
-                        else
+                        else if (book.Available == false)
                         {
                             Menus.DisplayUnavailableBookInfo(book);
+                        }
+                        else if (book.OnLoan == true)
+                        {
+                            Menus.DisplayOnLoanBookInfo(book); //Hämtar printout från Menus.cs
                         }
                     }
                     Loan.LoanQuestion(userid);
@@ -303,13 +335,17 @@ namespace IndividuelltProjekt.Models
                 {
                     foreach (var book in booksWithKeyword)
                     {
-                        if (book.Available == true)
+                        if (book.Available == true && book.OnLoan == false)
                         {
                             Menus.DisplayAvailableBookInfo(book); //Hämtar printout från Menus.cs
                         }
-                        else
+                        else if (book.Available == false)
                         {
-                            Menus.DisplayUnavailableBookInfo(book); //Hämtar printout från Menus.cs
+                            Menus.DisplayUnavailableBookInfo(book);
+                        }
+                        else if (book.OnLoan == true)
+                        {
+                            Menus.DisplayOnLoanBookInfo(book); //Hämtar printout från Menus.cs
                         }
                     }
                     Loan.LoanQuestion(userid);
@@ -339,13 +375,17 @@ namespace IndividuelltProjekt.Models
                 {
                     foreach (var book in booksWithKeyword)
                     {
-                        if (book.Available == true)
+                        if (book.Available == true && book.OnLoan == false)
                         {
                             Menus.DisplayAvailableBookInfo(book);
                         }
-                        else
+                        else if (book.Available == false)
                         {
                             Menus.DisplayUnavailableBookInfo(book);
+                        }
+                        else if (book.OnLoan == true)
+                        {
+                            Menus.DisplayOnLoanBookInfo(book); //Hämtar printout från Menus.cs
                         }
                     }
                     Loan.LoanQuestion(userid);
@@ -375,13 +415,17 @@ namespace IndividuelltProjekt.Models
                 {
                     foreach (var book in booksWithKeyword)
                     {
-                        if (book.Available == true)
+                        if (book.Available == true && book.OnLoan == false)
                         {
                             Menus.DisplayAvailableBookInfo(book);
                         }
-                        else
+                        else if (book.Available == false)
                         {
                             Menus.DisplayUnavailableBookInfo(book);
+                        }
+                        else if (book.OnLoan == true)
+                        {
+                            Menus.DisplayOnLoanBookInfo(book); //Hämtar printout från Menus.cs
                         }
                     }
                     Loan.LoanQuestion(userid);

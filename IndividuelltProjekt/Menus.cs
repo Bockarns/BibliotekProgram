@@ -110,11 +110,10 @@ namespace IndividuelltProjekt
             Console.ResetColor();
             Console.WriteLine("\n\t\t1.Lägg till ny bok");
             Console.WriteLine("\t\t2.Redigera befintlig bok");
-            Console.WriteLine("\t\t3.Ta bort bok");
-            Console.WriteLine("\t\t4.Lista alla böcker");
-            Console.WriteLine("\t\t5.Lån");
-            Console.WriteLine("\t\t6.Redigera profil");
-            Console.WriteLine("\t\t7.Spärra-/aktivera användarkonto");
+            Console.WriteLine("\t\t3.Lista alla böcker");
+            Console.WriteLine("\t\t4.Lån");
+            Console.WriteLine("\t\t5.Redigera profil");
+            Console.WriteLine("\t\t6.Spärra-/aktivera användarkonto");
             Console.WriteLine("\t\t9.Logga ut och återgå till huvudmenyn");
             Console.WriteLine("\t\t0.Avsluta");
             Console.Write("\t\tSkriv in ditt val här: ");
@@ -354,6 +353,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("\t\t1. Författare ");
             Console.WriteLine("\t\t2. Titel ");
             Console.WriteLine("\t\t3. Tillgänglighet ");
+            Console.WriteLine("\t\t4. Radera bok");
             Console.WriteLine("\t\t9. Återgå till föregående sida ");
             Console.WriteLine("\t\t0. Avsluta programmet "); ;
             Console.Write("\t\tSkriv in ditt val här: ");
@@ -380,6 +380,25 @@ namespace IndividuelltProjekt
         }
         //Visar bokinfo för otillgängliga böcker
         public static void DisplayUnavailableBookInfo(Book book)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"\n***|");
+            Console.ResetColor();
+            Console.WriteLine($" Titel: {book.Title}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"***|");
+            Console.ResetColor();
+            Console.WriteLine($" Författare: {book.Author}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"***|");
+            Console.ResetColor();
+            Console.WriteLine($" ISBN: {book.Id}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"***|");
+            Console.ResetColor();
+            Console.WriteLine($" Finns inte längre tillgänglig för lån! ");
+        }
+        public static void DisplayOnLoanBookInfo(Book book)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write($"\n***|");
