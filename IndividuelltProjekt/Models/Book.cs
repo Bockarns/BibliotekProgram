@@ -108,10 +108,10 @@ namespace IndividuelltProjekt.Models
                     }
                     Loan.LoanQuestion(userid);
                 }
-                    
+
             }
         }
-        
+
         //Kontrollera tillgänglighet på en bock
         public static bool CheckBookAvaliable(bool available)
         {
@@ -157,7 +157,7 @@ namespace IndividuelltProjekt.Models
                     return;
                 }
                 else
-                { 
+                {
                     foreach (var book in allBooksByAuthor)
                     {
                         if (book.Available == true && book.OnLoan == false)
@@ -536,5 +536,5 @@ namespace IndividuelltProjekt.Models
                 context.SaveChanges();
             }
         }
-    }
+    }             
 }
