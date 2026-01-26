@@ -4,17 +4,7 @@ using IndividuelltProjekt.Data;
 using IndividuelltProjekt.Models;
 using System;
 
-//Jag har valt att lägga menyerna i en egen klass som void, för annars blev koden så plottrig med alla extra rader.
-
 Console.Title = "JGB Bibliotek";
-
-////Rensa konsolen och scrollback buffern ska klistras in där det behövs
-//Console.Clear();
-//Console.WriteLine("\x1b[3J");
-
-
-//Jag har kvitterar null varningar med ? eller ! för att lättare få överblick
-//när jag stöter på ett en varning som kan vara problimatisk.
 
 //Mainloops bool för att programmet ska vara igång tills användaren stänger av.
 bool running = true;
