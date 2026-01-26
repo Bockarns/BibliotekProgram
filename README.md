@@ -1,5 +1,5 @@
 # Individuellet Projekt 
-Detta program är ett biblioteksprogram med följande funktioner<br>
+Detta program är ett biblioteksprogram gjort som ett individuellt projekt i kursen "Grundläggande programmering" med följande funktioner<br>
 *Struktur*<br>
 -C#<br>
 -SQL<br>
