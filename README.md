@@ -1,4 +1,4 @@
-# Individuellet Projekt 
+# JGB Bibliotek
 Detta program är ett biblioteksprogram gjort som ett individuellt projekt i kursen "Grundläggande programmering" med följande funktioner:<br><br>
 *Struktur*<br>
 -C#<br>
